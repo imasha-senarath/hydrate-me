@@ -16,6 +16,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.Material3.Dark.NoActionBar">
+        <!-- Default colors for dark mode -->
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -62,5 +63,23 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+        <!-- Font -->
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <!-- Status bar customization -->
+        <item name="android:statusBarColor">@color/md_theme_background</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
+
+    <!-- App Primary Button -->
+    <style name="AppPrimaryButton" parent="Widget.Material3.Button">
+        <item name="android:layout_height">60dp</item>
+        <item name="rippleColor">@color/md_theme_secondary</item>
+        <item name="cornerRadius">@dimen/corner_radius</item>
+    </style>
+
+    <!-- App Primary EdiText -->
+    <style name="AppPrimaryEdiText" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:background">@drawable/edittext_primary_bg</item>
+    </style>
+
 </resources>

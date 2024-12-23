@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_large"
+    android:padding="@dimen/spacing_large"
     tools:context=".ui.login.LoginActivity">
 
     <LinearLayout
@@ -13,37 +13,66 @@
         android:orientation="vertical">
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.Material3.HeadlineLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login"
-            style="@style/TextStyleHeadline" />
+            android:text="@string/login" />
 
         <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/get_started"
-            style="@style/TextStyleBody"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:text="@string/get_started" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress"
+            android:id="@+id/editTextTextPersonName"
+            style="@style/AppPrimaryEdiText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_small"
             android:ems="10"
-            android:inputType="textEmailAddress"
-            style="@style/CustomEditTextStyle"
-            android:hint="Email"
-            android:layout_marginBottom="10dp"/>
+            android:hint="@string/enter_email"
+            android:inputType="text" />
 
         <EditText
             android:id="@+id/editTextTextPassword"
+            style="@style/AppPrimaryEdiText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/spacing_medium"
             android:ems="10"
-            android:inputType="textPassword"
-            style="@style/CustomEditTextStyle"
-            android:hint="Password"
-            android:layout_marginBottom="10dp"/>
+            android:hint="@string/enter_password"
+            android:inputType="textPassword" />
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/AppPrimaryButton"
+            android:layout_width="match_parent"
+            android:text="@string/login" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/spacing_small"
+            android:text="@string/do_not_have_account" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/sign_up"
+            style="@style/TextAppearance.Material3.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:textColor="@color/md_theme_primary"/>
+    </LinearLayout>
+
 </RelativeLayout>
