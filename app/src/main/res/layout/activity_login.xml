@@ -26,17 +26,17 @@
             android:text="@string/get_started" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/editTextEmail"
             style="@style/AppPrimaryEdiText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/spacing_small"
             android:ems="10"
             android:hint="@string/enter_email"
-            android:inputType="text" />
+            android:inputType="textEmailAddress" />
 
         <EditText
-            android:id="@+id/editTextTextPassword"
+            android:id="@+id/editTextPassword"
             style="@style/AppPrimaryEdiText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,6 +46,7 @@
             android:inputType="textPassword" />
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
             style="@style/AppPrimaryButton"
             android:layout_width="match_parent"
             android:text="@string/login" />
