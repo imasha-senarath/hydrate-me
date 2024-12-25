@@ -82,6 +82,12 @@
         <item name="android:background">@drawable/edittext_primary_bg</item>
     </style>
 
+    <style name="TransparentDialog" parent="ThemeOverlay.Material3.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+
+    </style>
+
     <!-- App Headline -->
     <style name="TextStyleHeadline" parent="TextAppearance.Material3.HeadlineLarge">
         <item name="android:textSize">28sp</item>

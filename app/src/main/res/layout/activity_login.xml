@@ -16,7 +16,8 @@
             style="@style/TextAppearance.Material3.HeadlineLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
+            android:text="@string/login"
+            android:layout_marginTop="@dimen/spacing_large"/>
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextAppearance.Material3.BodyLarge"
@@ -33,7 +34,8 @@
             android:layout_marginBottom="@dimen/spacing_small"
             android:ems="10"
             android:hint="@string/enter_email"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:autofillHints="emailAddress" />
 
         <EditText
             android:id="@+id/editTextPassword"
@@ -43,13 +45,22 @@
             android:layout_marginBottom="@dimen/spacing_medium"
             android:ems="10"
             android:hint="@string/enter_password"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:autofillHints="password" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             style="@style/AppPrimaryButton"
             android:layout_width="match_parent"
             android:text="@string/login" />
+
+        <!-- Progress Indicator -->
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            app:indicatorColor="@color/md_theme_primary"/>
 
     </LinearLayout>
 
@@ -64,7 +75,7 @@
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/spacing_small"
+            android:layout_marginEnd="@dimen/spacing_small"
             android:text="@string/do_not_have_account" />
 
         <com.google.android.material.textview.MaterialTextView

@@ -3,28 +3,27 @@ package com.imasha.hydrateme.ui.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
+import androidx.lifecycle.viewModelScope
+import com.imasha.hydrateme.data.repository.AppRepository
+import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel(){
+class LoginViewModel(private val appRepository: AppRepository) : ViewModel() {
 
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private val _loginStatus = MutableLiveData<Result<Boolean>>()
     val loginStatus: LiveData<Result<Boolean>> get() = _loginStatus
 
     fun login(email: String, password: String) {
-        if (email.isBlank() || password.isBlank()) {
-            _loginStatus.value = Result.failure(Exception("Fields cannot be empty"))
-            return
+        viewModelScope.launch {
+            try {
+                val result = appRepository.login(email, password)
+                _loginStatus.value = Result.success(result)
+            } catch (exception: Exception) {
+                _loginStatus.value = Result.failure(exception)
+            }
         }
 
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    _loginStatus.value = Result.success(true)
-                } else {
-                    _loginStatus.value = Result.failure(task.exception ?: Exception("Login failed"))
-                }
-            }
+        /*appRepository.login(email, password) { result ->
+            _loginStatus.value = result
+        }*/
     }
-
 }

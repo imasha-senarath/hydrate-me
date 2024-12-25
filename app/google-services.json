@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "668133972732",
+    "project_id": "hydrate-me-59ef3",
+    "storage_bucket": "hydrate-me-59ef3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:668133972732:android:051a3a1c5801d64b085579",
+        "android_client_info": {
+          "package_name": "com.imasha.hydrateme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcx51nSkMYnnqDvXT6K2HRb3H_5FM8_0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
