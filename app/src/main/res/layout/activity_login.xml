@@ -23,8 +23,9 @@
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_small"
             android:layout_marginBottom="@dimen/spacing_large"
-            android:text="@string/get_started" />
+            android:text="@string/welcome" />
 
         <EditText
             android:id="@+id/editTextEmail"
@@ -53,14 +54,6 @@
             style="@style/AppPrimaryButton"
             android:layout_width="match_parent"
             android:text="@string/login" />
-
-        <!-- Progress Indicator -->
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progressIndicator"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="center"
-            app:indicatorColor="@color/md_theme_primary"/>
 
     </LinearLayout>
 

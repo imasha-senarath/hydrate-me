@@ -4,21 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imasha.hydrateme.data.repository.AppRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashViewModel : ViewModel() {
-    private val _navigateToLogin = MutableLiveData<Boolean>()
-    val navigateToLogin: LiveData<Boolean> get() = _navigateToLogin
+class SplashViewModel(private val appRepository: AppRepository) : ViewModel() {
 
-    init {
-        startSplashTimer()
-    }
+    private val _splashState = MutableLiveData<Result<Boolean>>()
+    val splashState: LiveData<Result<Boolean>> get() = _splashState
 
-    private fun startSplashTimer() {
+    fun userAuthentication(duration: Long) {
         viewModelScope.launch {
-            delay(3000)
-            _navigateToLogin.postValue(true)
+            try {
+                delay(duration)
+                val isAuthenticated = appRepository.userAuthentication()
+                _splashState.value = Result.success(isAuthenticated)
+            } catch (exception: Exception) {
+                _splashState.value = Result.failure(exception)
+            }
         }
     }
 }

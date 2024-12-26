@@ -33,29 +33,16 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
+        initViewModels();
+
         appDialog = AppDialog(this);
 
         binding.signUp.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            navigateToSignUpActivity()
         }
 
         binding.btnLogin.setOnClickListener {
             validation()
-        }
-
-        initViewModels();
-    }
-
-    private fun validation() {
-        val email = binding.editTextEmail.text.toString()
-        val password = binding.editTextPassword.text.toString()
-
-        if (email.isBlank() || password.isBlank()) {
-            Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
-        } else {
-            //appDialog.showLoadingDialog()
-            loginViewModel.login(email, password)
         }
     }
 
@@ -70,6 +57,23 @@ class LoginActivity : AppCompatActivity() {
                 appDialog.showErrorDialog(exception.message.toString());
             }
         }
+    }
+
+    private fun validation() {
+        val email = binding.editTextEmail.text.toString()
+        val password = binding.editTextPassword.text.toString()
+
+        if (email.isBlank() || password.isBlank()) {
+            Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
+        } else {
+            //appDialog.showLoadingDialog()
+            loginViewModel.login(email, password)
+        }
+    }
+
+    private fun navigateToSignUpActivity() {
+        val intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent)
     }
 
     private fun navigateToMainActivity() {

@@ -21,9 +21,5 @@ class LoginViewModel(private val appRepository: AppRepository) : ViewModel() {
                 _loginStatus.value = Result.failure(exception)
             }
         }
-
-        /*appRepository.login(email, password) { result ->
-            _loginStatus.value = result
-        }*/
     }
 }

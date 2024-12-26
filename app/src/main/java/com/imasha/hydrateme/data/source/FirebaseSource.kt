@@ -7,6 +7,11 @@ import kotlin.coroutines.suspendCoroutine
 
 class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
 
+    suspend fun userAuthentication(): Boolean = suspendCoroutine { continuation ->
+        val user = firebaseAuth.currentUser
+        continuation.resume(user != null)
+    }
+
     suspend fun login(email: String, password: String): Boolean = suspendCoroutine { continuation ->
         firebaseAuth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -17,15 +22,4 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
                 }
             }
     }
-
-    /*fun login(email: String, password: String, callback: (Result<Unit>) -> Unit) {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    callback(Result.success(Unit))
-                } else {
-                    callback(Result.failure(task.exception ?: Exception("Login failed")))
-                }
-            }
-    }*/
 }
