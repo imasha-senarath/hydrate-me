@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.MainActivity
+import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityLoginBinding
@@ -67,7 +68,8 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
         } else {
             //appDialog.showLoadingDialog()
-            loginViewModel.login(email, password)
+            val user = User("", "", email, password)
+            loginViewModel.login(user)
         }
     }
 

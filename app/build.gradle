@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -35,6 +37,10 @@ android {
     viewBinding {
         enabled = true
     }
+
+    kapt {
+        correctErrorTypes true
+    }
 }
 
 dependencies {
@@ -43,11 +49,13 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
+    implementation 'com.google.firebase:firebase-firestore:25.1.1'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 
+    // ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
     implementation "androidx.activity:activity-ktx:1.5.0"
     implementation "androidx.fragment:fragment-ktx:1.5.0"
@@ -58,4 +66,8 @@ dependencies {
     // Kotlin coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0'
+
+    // Hilt dependencies
+    implementation 'com.google.dagger:hilt-android:2.45'
+    kapt 'com.google.dagger:hilt-compiler:2.45'
 }

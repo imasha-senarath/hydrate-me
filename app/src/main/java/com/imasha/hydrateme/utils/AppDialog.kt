@@ -5,8 +5,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.imasha.hydrateme.R
+import javax.inject.Inject
 
-class AppDialog(private val context: Context) {
+class AppDialog @Inject constructor(val context: Context) {
 
     private var dialog: AlertDialog? = null
 

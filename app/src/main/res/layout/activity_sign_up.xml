@@ -61,7 +61,7 @@
             android:autofillHints="password" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btn_signup"
             style="@style/AppPrimaryButton"
             android:layout_width="match_parent"
             android:text="@string/sign_up" />
@@ -80,14 +80,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/spacing_small"
-            android:text="@string/do_not_have_account" />
+            android:text="@string/have_account" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/sign_up"
+            android:id="@+id/login"
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
+            android:text="@string/login"
             android:textColor="@color/md_theme_primary"/>
     </LinearLayout>
 
