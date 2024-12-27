@@ -2,7 +2,7 @@
 
 <h3 align="center" style="color:red; border:none">🚧 This project is currently under development. 🚧 </h3> <br>
 
-<p>A Water Reminder app that helps you stay hydrated throughout the day. Built with Kotlin, MVVM architecture, and Firebase to track and meet your hydration goals.</p>
+<p>A <strong> Water Reminder </strong> app that helps you stay hydrated throughout the day. Built with Kotlin, MVVM architecture, and Firebase to track and meet your hydration goals.</p>
 
 <h2> ⚙️ Technologies </h2>
 <ul>

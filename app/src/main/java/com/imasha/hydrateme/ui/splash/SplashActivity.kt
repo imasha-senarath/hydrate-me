@@ -3,20 +3,13 @@ package com.imasha.hydrateme.ui.splash
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.imasha.hydrateme.R
-import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.imasha.hydrateme.MainActivity
+import com.imasha.hydrateme.ui.home.HomeActivity
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
-import com.imasha.hydrateme.databinding.ActivityLoginBinding
 import com.imasha.hydrateme.databinding.ActivitySplashBinding
 import com.imasha.hydrateme.ui.login.LoginActivity
-import com.imasha.hydrateme.ui.login.LoginViewModel
-import com.imasha.hydrateme.ui.login.LoginViewModelFactory
-import com.imasha.hydrateme.ui.signup.SignUpActivity
 import com.imasha.hydrateme.utils.AppLogger
 
 class SplashActivity : AppCompatActivity() {
@@ -65,7 +58,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun navigateToMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, HomeActivity::class.java)
         startActivity(intent)
         finish()
     }
