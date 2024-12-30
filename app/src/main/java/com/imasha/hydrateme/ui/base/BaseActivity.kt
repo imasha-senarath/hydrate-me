@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.ui.base
 
+import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.google.android.material.appbar.MaterialToolbar
@@ -8,13 +9,17 @@ import com.imasha.hydrateme.R
 open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
-    protected fun setUpToolbar(toolbar: MaterialToolbar, title: String, isBackButtonEnabled: Boolean) {
+    protected fun setUpToolbar(toolbar: MaterialToolbar, title: Int, isBackButtonEnabled: Boolean) {
         setSupportActionBar(toolbar)
 
         supportActionBar?.apply {
-            this.title = title
+            this.title = getString(title)
+
+            setDisplayShowTitleEnabled(false)
 
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)

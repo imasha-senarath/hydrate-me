@@ -16,4 +16,8 @@ class AppRepository(private val firebaseSource: FirebaseSource) {
     suspend fun signUp(user: User): Boolean {
         return firebaseSource.signUp(user)
     }
+
+    fun logout(): Boolean {
+        return firebaseSource.logout()
+    }
 }

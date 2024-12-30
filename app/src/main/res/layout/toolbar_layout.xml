@@ -7,6 +7,24 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/TextAppearance.Material3.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:layout_gravity="center" />
+
+        <ImageView
+            android:id="@+id/notification_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="20dp"
+            android:src="@drawable/ic_notifications" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
 
 </RelativeLayout>

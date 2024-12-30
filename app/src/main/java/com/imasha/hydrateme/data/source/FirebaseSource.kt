@@ -51,7 +51,12 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
             }
     }
 
-    fun logout() {
-        firebaseAuth.signOut()
+    fun logout(): Boolean {
+        return try {
+            firebaseAuth.signOut()
+            true
+        } catch (exception: Exception) {
+            false
+        }
     }
 }
