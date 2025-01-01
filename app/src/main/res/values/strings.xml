@@ -9,4 +9,10 @@
     <string name="get_started">Let\'s Get Started.</string>
     <string name="enter_name">Enter Your Name</string>
     <string name="have_account">Already have an account?</string>
+    <string name="owner">from Imasha Senarath</string>
+    <string name="profile">Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="settings">Settings</string>
+    <string name="about">About</string>
+    <string name="logout">Logout</string>
 </resources>

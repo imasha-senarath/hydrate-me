@@ -40,7 +40,7 @@
 
                         <ProgressBar
                             android:id="@+id/drinking_progress"
-                            style="?android:attr/progressBarStyleHorizontal"
+                            style="@style/Widget.Material3.CircularProgressIndicator"
                             android:layout_width="300dp"
                             android:layout_height="300dp"
                             android:layout_centerInParent="true"
@@ -75,11 +75,25 @@
                     </RelativeLayout>
 
                     <TextView
+                        style="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="&quot;Water keeps your body hydrated, which is necessary for all your body functions&quot;"
+                        android:textAlignment="center"/>
+
+                    <TextView
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Drink Water"
                         android:layout_marginTop="@dimen/spacing_large"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/cupList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:clipToPadding="false" />
 
                     <TextView
                         style="@style/TextAppearance.Material3.TitleMedium"
@@ -87,6 +101,13 @@
                         android:layout_height="wrap_content"
                         android:text="Today's Record"
                         android:layout_marginTop="@dimen/spacing_large"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recordList"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:clipToPadding="false" />
                 </LinearLayout>
             </ScrollView>
 

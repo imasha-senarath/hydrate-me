@@ -5,9 +5,12 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
+import com.imasha.hydrateme.adapters.CupAdapter
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
@@ -48,12 +51,20 @@ class HomeActivity : BaseActivity() {
 
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
+                R.id.nav_profile -> {
+                    Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                R.id.nav_notifications -> {
+                    Toast.makeText(this, "Notifications Clicked", Toast.LENGTH_SHORT).show()
+                    true
+                }
                 R.id.nav_settings -> {
                     Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_about -> {
-                    Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "About Clicked", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_logout -> {
@@ -65,9 +76,20 @@ class HomeActivity : BaseActivity() {
                 else -> false
             }
         }
+
+        homeViewModel.initCupSizes()
+
+        binding.cupList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+
     }
 
     private fun initViewModels() {
+        homeViewModel.items.observe(this) { itemList ->
+            binding.cupList.adapter = CupAdapter(itemList) { clickedCup ->
+                Toast.makeText(this, "Clicked: ${clickedCup.size}ml", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         homeViewModel.logoutStatus.observe(this) { result ->
             result.onSuccess {
                 navigateToLoginActivity()
