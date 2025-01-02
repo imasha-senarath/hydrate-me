@@ -14,6 +14,10 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
         continuation.resume(user != null)
     }
 
+    fun getCurrentUserId(): String? {
+        return firebaseAuth.currentUser?.uid
+    }
+
     suspend fun login(user: User): Boolean = suspendCoroutine { continuation ->
         firebaseAuth.signInWithEmailAndPassword(user.email, user.password)
             .addOnCompleteListener { task ->
@@ -34,6 +38,32 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
                     continuation.resumeWithException(task.exception ?: Exception("Sign up failed"))
                 }
             }
+    }
+
+    suspend fun saveData(
+        collection: String,
+        document: String,
+        dataMap: Map<String, Any>,
+    ): Boolean = suspendCoroutine { continuation ->
+
+        if (document.isEmpty()) {
+            FirebaseFirestore.getInstance().collection(collection).add(dataMap)
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+        } else {
+            FirebaseFirestore.getInstance().collection(collection).document(document).set(dataMap)
+                .addOnSuccessListener {
+                    continuation.resume(true)
+                }
+                .addOnFailureListener { exception ->
+                    continuation.resumeWithException(exception)
+                }
+
+        }
     }
 
     suspend fun saveUserData(user: User): Boolean = suspendCoroutine { continuation ->

@@ -9,12 +9,24 @@ class AppRepository(private val firebaseSource: FirebaseSource) {
         return firebaseSource.userAuthentication()
     }
 
+    fun getCurrentUserId(): String? {
+        return firebaseSource.getCurrentUserId()
+    }
+
     suspend fun login(user: User): Boolean {
         return firebaseSource.login(user)
     }
 
     suspend fun signUp(user: User): Boolean {
         return firebaseSource.signUp(user)
+    }
+
+    suspend fun saveData(
+        collection: String,
+        document: String,
+        dataMap: Map<String, Any>,
+    ): Boolean {
+        return firebaseSource.saveData(collection, document, dataMap)
     }
 
     fun logout(): Boolean {

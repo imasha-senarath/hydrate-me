@@ -3,6 +3,7 @@ package com.imasha.hydrateme.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.Observer
@@ -24,7 +25,9 @@ class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeViewModel: HomeViewModel
 
-    private lateinit var appDialog: AppDialog;
+    private lateinit var appDialog: AppDialog
+
+    private lateinit var currentUserId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +41,8 @@ class HomeActivity : BaseActivity() {
         val factory = HomeViewModelFactory(appRepository)
 
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
+        homeViewModel.getUserId();
 
         initViewModels();
 
@@ -84,8 +89,22 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun initViewModels() {
-        homeViewModel.items.observe(this) { itemList ->
+        homeViewModel.userId.observe(this) { userId  ->
+            if(userId != null) {
+                currentUserId = userId
+                //Toast.makeText(this, currentUserId, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        homeViewModel.cupSize.observe(this) { itemList ->
             binding.cupList.adapter = CupAdapter(itemList) { clickedCup ->
+
+                val drinkMap = mapOf(
+                    "user" to currentUserId,
+                    "size" to clickedCup.size,
+                )
+
+                homeViewModel.saveData("Drinks", currentUserId, drinkMap)
                 Toast.makeText(this, "Clicked: ${clickedCup.size}ml", Toast.LENGTH_SHORT).show()
             }
         }
