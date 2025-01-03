@@ -50,7 +50,7 @@
             android:autofillHints="password" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_login"
+            android:id="@+id/btnLogin"
             style="@style/AppPrimaryButton"
             android:layout_width="match_parent"
             android:text="@string/login" />

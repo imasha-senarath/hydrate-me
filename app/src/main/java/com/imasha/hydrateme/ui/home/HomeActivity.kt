@@ -18,7 +18,11 @@ import com.imasha.hydrateme.databinding.ActivityHomeBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
 import com.imasha.hydrateme.ui.login.LoginViewModel
+import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.DateUtils
+import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
+import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 
 class HomeActivity : BaseActivity() {
 
@@ -42,13 +46,13 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
-        homeViewModel.getUserId();
-
         initViewModels();
+
+        homeViewModel.getUserId();
 
         appDialog = AppDialog(this);
 
-        setUpToolbar(binding.toolbar.appbar, R.string.app_name, false)
+        setUpToolbar(binding.toolbar, R.string.app_name, false)
 
         binding.toolbar.appbar.setNavigationOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -57,7 +61,7 @@ class HomeActivity : BaseActivity() {
         binding.navView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_profile -> {
-                    Toast.makeText(this, "Profile Clicked", Toast.LENGTH_SHORT).show()
+                    navigateToProfileActivity()
                     true
                 }
                 R.id.nav_notifications -> {
@@ -92,20 +96,26 @@ class HomeActivity : BaseActivity() {
         homeViewModel.userId.observe(this) { userId  ->
             if(userId != null) {
                 currentUserId = userId
-                //Toast.makeText(this, currentUserId, Toast.LENGTH_SHORT).show()
             }
         }
 
         homeViewModel.cupSize.observe(this) { itemList ->
             binding.cupList.adapter = CupAdapter(itemList) { clickedCup ->
-
                 val drinkMap = mapOf(
                     "user" to currentUserId,
                     "size" to clickedCup.size,
+                    "date" to getCurrentDate(DD_MM_YYYY),
                 )
 
-                homeViewModel.saveData("Drinks", currentUserId, drinkMap)
-                Toast.makeText(this, "Clicked: ${clickedCup.size}ml", Toast.LENGTH_SHORT).show()
+                homeViewModel.saveData("Drinks", "", drinkMap)
+            }
+        }
+
+        homeViewModel.saveDataStatus.observe(this) { result ->
+            result.onSuccess {
+                showToast("Drink Added.")
+            }.onFailure { exception ->
+                appDialog.showErrorDialog(exception.message.toString());
             }
         }
 
@@ -122,6 +132,11 @@ class HomeActivity : BaseActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun navigateToProfileActivity() {
+        val intent = Intent(this, ProfileActivity::class.java)
+        startActivity(intent)
     }
 
 }

@@ -66,21 +66,6 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
         }
     }
 
-    suspend fun saveUserData(user: User): Boolean = suspendCoroutine { continuation ->
-        val userMap = mapOf(
-            "name" to user.name,
-            "email" to user.email,
-        )
-
-        FirebaseFirestore.getInstance().collection("Users").document(user.id).set(userMap)
-            .addOnSuccessListener {
-                continuation.resume(true)
-            }
-            .addOnFailureListener { exception ->
-                continuation.resumeWithException(exception)
-            }
-    }
-
     fun logout(): Boolean {
         return try {
             firebaseAuth.signOut()
