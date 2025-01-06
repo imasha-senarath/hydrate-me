@@ -6,16 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.imasha.hydrateme.data.model.Cup
-import com.imasha.hydrateme.databinding.CupLayoutBinding
+import com.imasha.hydrateme.databinding.RowCupBinding
 
 class CupAdapter(
     private val items: List<Cup>,
     private val onItemClick: (Cup) -> Unit
 ) : RecyclerView.Adapter<CupAdapter.CupViewHolder>() {
 
-    inner class CupViewHolder(val binding: CupLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class CupViewHolder(val binding: RowCupBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Cup) {
-            binding.cupSize.text = "${item.size}ml"
+            binding.cupSize.text = "${item.size}    ml"
             binding.root.setOnClickListener {
                 onItemClick(item) // Trigger the click callback
             }
@@ -24,7 +24,7 @@ class CupAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CupViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = CupLayoutBinding.inflate(inflater, parent, false)
+        val binding = RowCupBinding.inflate(inflater, parent, false)
         return CupViewHolder(binding)
     }
 

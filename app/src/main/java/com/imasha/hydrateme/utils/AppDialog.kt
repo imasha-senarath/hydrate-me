@@ -1,50 +1,31 @@
 package com.imasha.hydrateme.utils
 
 import android.content.Context
+import android.content.res.Resources
+import android.view.LayoutInflater
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
-import com.google.android.material.progressindicator.CircularProgressIndicator
+import androidx.appcompat.app.AppCompatDelegate
 import com.imasha.hydrateme.R
-import javax.inject.Inject
+import com.imasha.hydrateme.databinding.DialogSelectThemeBinding
+import com.imasha.hydrateme.utils.AppConstants.DARK_THEME_MODE
+import com.imasha.hydrateme.utils.AppConstants.DEFAULT_THEME_MODE
+import com.imasha.hydrateme.utils.AppConstants.LIGHT_THEME_MODE
+import com.imasha.hydrateme.utils.AppConstants.THEME_MODE
+import com.imasha.hydrateme.utils.SharedPrefManager.saveInt
+import com.imasha.hydrateme.utils.SharedPrefManager.saveString
+import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
 
-class AppDialog @Inject constructor(val context: Context) {
+object AppDialog {
 
     private var dialog: AlertDialog? = null
 
-    // Show Loading Dialog
-    fun showLoadingDialog(): AlertDialog {
-        if (dialog == null) {
-            val progressIndicator = CircularProgressIndicator(context).apply {
-                isIndeterminate = true
-                setIndicatorColor(
-                    ContextCompat.getColor(context, R.color.md_theme_primary)
-                )
-            }
-
-            val builder = AlertDialog.Builder(context)
-            builder.setView(progressIndicator)
-            builder.setCancelable(false)
-
-            dialog = builder.create()
-        }
-
-        dialog?.show()
-        return dialog!!
-    }
-
-    // Hide Loading Dialog
-    fun hideLoadingDialog() {
-        dialog?.dismiss()
-        dialog = null
-    }
-
     // Error Dialog
-    fun showErrorDialog(message: String): AlertDialog {
+    fun showErrorDialog(message: String, context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Error")
-        builder.setMessage(message)
-        builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-        builder.setCancelable(false)
+            .setTitle("Error")
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
 
         dialog = builder.create()
         dialog?.show()
@@ -53,12 +34,12 @@ class AppDialog @Inject constructor(val context: Context) {
     }
 
     // Information Dialog
-    fun showInfoDialog(message: String): AlertDialog {
+    fun showInfoDialog(message: String, context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Information")
-        builder.setMessage(message)
-        builder.setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
-        builder.setCancelable(false)
+            .setTitle("Information")
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
 
         dialog = builder.create()
         dialog?.show()
@@ -67,20 +48,56 @@ class AppDialog @Inject constructor(val context: Context) {
     }
 
     // Confirmation Dialog
-    fun showConfirmationDialog(message: String, onConfirm: () -> Unit): AlertDialog {
+    fun showConfirmationDialog(
+        message: String,
+        context: Context,
+        onConfirm: () -> Unit
+    ): AlertDialog {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("Confirm")
-        builder.setMessage(message)
-        builder.setPositiveButton("Yes") { dialog, _ ->
-            onConfirm()
-            dialog.dismiss()
-        }
-        builder.setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
-        builder.setCancelable(false)
+            .setTitle("Confirm")
+            .setMessage(message)
+            .setPositiveButton("Yes") { dialog, _ ->
+                onConfirm()
+                dialog.dismiss()
+            }
+            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
 
         dialog = builder.create()
         dialog?.show()
 
         return dialog!!
+    }
+
+    // Theme Dialog
+    fun showThemeSelectionDialog(
+        context: Context
+    ): AlertDialog {
+        val binding = DialogSelectThemeBinding.inflate(LayoutInflater.from(context))
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(binding.root)
+            .create()
+
+        binding.lightTheme.setOnClickListener {
+            applyTheme(LIGHT_THEME_MODE, context)
+            saveInt(THEME_MODE, LIGHT_THEME_MODE)
+            dialog.dismiss()
+        }
+
+        binding.darkTheme.setOnClickListener {
+            applyTheme(DARK_THEME_MODE, context)
+            saveInt(THEME_MODE, DARK_THEME_MODE)
+            dialog.dismiss()
+        }
+
+        binding.systemTheme.setOnClickListener {
+            applyTheme(DEFAULT_THEME_MODE, context)
+            saveInt(THEME_MODE, DEFAULT_THEME_MODE)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        return dialog
     }
 }

@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.databinding.ToolbarLayoutBinding
+import com.imasha.hydrateme.utils.SharedPrefManager
 
 open class BaseActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

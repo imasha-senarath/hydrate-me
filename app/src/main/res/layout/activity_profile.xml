@@ -21,6 +21,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/md_theme_outlineVariant" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -28,20 +34,14 @@
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:layout_marginBottom="@dimen/spacing_medium">
 
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_settings"
-                    android:layout_marginRight="@dimen/spacing_small"/>
-
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Name"
-                    style="@style/TextAppearance.Material3.BodyLarge"/>
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/name"
@@ -68,18 +68,13 @@
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:layout_marginBottom="@dimen/spacing_medium">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_settings"
-                    android:layout_marginRight="@dimen/spacing_small"/>
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Gender"
-                    style="@style/TextAppearance.Material3.BodyLarge"/>
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/gender"
@@ -106,18 +101,13 @@
                 android:layout_marginTop="@dimen/spacing_medium"
                 android:layout_marginBottom="@dimen/spacing_medium">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_settings"
-                    android:layout_marginRight="@dimen/spacing_small"/>
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Weight"
-                    style="@style/TextAppearance.Material3.BodyLarge"/>
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/weight"
@@ -155,7 +145,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Water Goal"
-                        style="@style/TextAppearance.Material3.BodyLarge"/>
+                        style="@style/TextAppearance.Material3.BodyLarge"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/goal"
@@ -201,7 +192,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Wake Up Time"
-                        style="@style/TextAppearance.Material3.BodyLarge"/>
+                        style="@style/TextAppearance.Material3.BodyLarge"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/wake_up_time"
@@ -247,7 +239,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Bed Time"
-                        style="@style/TextAppearance.Material3.BodyLarge"/>
+                        style="@style/TextAppearance.Material3.BodyLarge"
+                        android:textStyle="bold"/>
 
                     <TextView
                         android:id="@+id/bed_time"
@@ -268,6 +261,12 @@
                     android:text="Set bed time to stop notification from this time."
                     style="@style/TextAppearance.Material3.BodyMedium"/>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:background="@color/md_theme_outlineVariant" />
 
         </LinearLayout>
     </ScrollView>

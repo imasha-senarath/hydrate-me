@@ -13,13 +13,12 @@ import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityLoginBinding
 import com.imasha.hydrateme.ui.signup.SignUpActivity
 import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginViewModel: LoginViewModel
-
-    private lateinit var appDialog: AppDialog;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +35,6 @@ class LoginActivity : AppCompatActivity() {
 
         initViewModels();
 
-        appDialog = AppDialog(this);
-
         binding.signUp.setOnClickListener {
             navigateToSignUpActivity()
         }
@@ -50,12 +47,10 @@ class LoginActivity : AppCompatActivity() {
     private fun initViewModels() {
         loginViewModel.loginStatus.observe(this) { result ->
 
-            //appDialog.hideLoadingDialog()
-
             result.onSuccess {
                 navigateToMainActivity()
             }.onFailure { exception ->
-                appDialog.showErrorDialog(exception.message.toString());
+                showErrorDialog(exception.message.toString(), this);
             }
         }
     }

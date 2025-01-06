@@ -3,10 +3,7 @@ package com.imasha.hydrateme.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
@@ -17,10 +14,11 @@ import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
-import com.imasha.hydrateme.ui.login.LoginViewModel
 import com.imasha.hydrateme.ui.profile.ProfileActivity
+import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppDialog
-import com.imasha.hydrateme.utils.DateUtils
+import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
+import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 
@@ -28,8 +26,6 @@ class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeViewModel: HomeViewModel
-
-    private lateinit var appDialog: AppDialog
 
     private lateinit var currentUserId: String
 
@@ -50,8 +46,6 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.getUserId();
 
-        appDialog = AppDialog(this);
-
         setUpToolbar(binding.toolbar, R.string.app_name, false)
 
         binding.toolbar.appbar.setNavigationOnClickListener {
@@ -69,7 +63,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_settings -> {
-                    Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show()
+                    navigateToSettingsActivity()
                     true
                 }
                 R.id.nav_about -> {
@@ -77,12 +71,14 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_logout -> {
-                    appDialog.showConfirmationDialog("Logout") {
+                    showConfirmationDialog("Logout", this) {
                         homeViewModel.logout();
                     }
                     true
                 }
                 else -> false
+            }.also {
+                binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
         }
 
@@ -115,7 +111,7 @@ class HomeActivity : BaseActivity() {
             result.onSuccess {
                 showToast("Drink Added.")
             }.onFailure { exception ->
-                appDialog.showErrorDialog(exception.message.toString());
+                showErrorDialog(exception.message.toString(), this);
             }
         }
 
@@ -123,7 +119,7 @@ class HomeActivity : BaseActivity() {
             result.onSuccess {
                 navigateToLoginActivity()
             }.onFailure { exception ->
-                appDialog.showErrorDialog(exception.message.toString());
+                showErrorDialog(exception.message.toString(), this);
             }
         }
     }
@@ -139,4 +135,17 @@ class HomeActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    private fun navigateToSettingsActivity() {
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+    }
+
+    /*fun calculateWaterIntake(weight: Double, isMale: Boolean, exerciseMinutes: Double): Double {
+        var baseWater = weight * 0.033
+        if (isMale) {
+            baseWater += 0.5 // Add slight increase for male users
+        }
+        baseWater += exerciseMinutes / 30 * 0.35
+        return baseWater
+    }*/
 }

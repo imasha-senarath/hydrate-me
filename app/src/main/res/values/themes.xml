@@ -63,6 +63,10 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+
+
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowBackground">@color/md_theme_background</item>
         <!-- Font -->
         <item name="android:fontFamily">@font/poppins_regular</item>
         <!-- Status bar customization -->
@@ -91,64 +95,5 @@
     <!-- App Outlined Card -->
     <style name="AppOutlinedCard" parent="Widget.Material3.CardView.Outlined">
         <item name="android:background">@drawable/edittext_primary_bg</item>
-    </style>
-
-
-
-
-
-    <!-- App Headline -->
-    <style name="TextStyleHeadline" parent="TextAppearance.Material3.HeadlineLarge">
-        <item name="android:textSize">28sp</item>
-        <item name="android:textColor">@color/md_theme_primary</item>
-    </style>
-
-    <!-- App Title -->
-    <style name="TextStyleTitle">
-        <item name="android:textSize">22sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/md_theme_onSurface</item>
-    </style>
-
-    <!-- Body Text -->
-    <style name="TextStyleBody">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/md_theme_onSurface</item>
-    </style>
-
-    <!-- Subtitle -->
-    <style name="TextStyleSubtitle">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/md_theme_secondary</item>
-    </style>
-
-    <!-- Caption -->
-    <style name="TextStyleCaption">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/md_theme_outline</item>
-    </style>
-
-    <!-- Button Text -->
-    <style name="TextStyleButton">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/md_theme_onPrimary</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
-    <!-- Overline -->
-    <style name="TextStyleOverline">
-        <item name="android:textSize">10sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/md_theme_secondary</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
-    <!-- Custom EditText Style -->
-    <style name="CustomEditTextStyle" parent="Widget.Material3.TextInputEditText.OutlinedBox">
-        <item name="android:background">@drawable/edittext_primary_bg</item>
-        <item name="android:textColor">?attr/colorOnSurface</item>
-        <item name="android:textSize">16sp</item>
-        <item name="android:padding">12dp</item>
     </style>
 </resources>

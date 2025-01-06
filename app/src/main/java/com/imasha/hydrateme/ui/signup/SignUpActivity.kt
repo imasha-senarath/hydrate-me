@@ -14,13 +14,13 @@ import com.imasha.hydrateme.databinding.ActivitySignUpBinding
 import com.imasha.hydrateme.ui.login.LoginViewModel
 import com.imasha.hydrateme.ui.login.LoginViewModelFactory
 import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
+import com.imasha.hydrateme.utils.AppDialog.showInfoDialog
 
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private lateinit var signUpViewModel: SignUpViewModel
-
-    private lateinit var appDialog: AppDialog;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +36,6 @@ class SignUpActivity : AppCompatActivity() {
         signUpViewModel = ViewModelProvider(this, factory)[SignUpViewModel::class.java]
 
         initViewModels();
-
-        appDialog = AppDialog(this);
 
         binding.login.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -55,9 +53,9 @@ class SignUpActivity : AppCompatActivity() {
 
             result.onSuccess {
                 //navigateToMainActivity()
-                appDialog.showInfoDialog("Success");
+                showInfoDialog("Success", this);
             }.onFailure { exception ->
-                appDialog.showErrorDialog(exception.message.toString());
+                showErrorDialog(exception.message.toString(), this);
             }
         }
     }

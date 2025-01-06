@@ -17,9 +17,8 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            app:srcCompat="@drawable/ic_water"
-            android:layout_marginEnd="@dimen/spacing_small"
-            app:tint="@color/md_theme_primary" />
+            app:srcCompat="@drawable/app_logo"
+            android:layout_marginEnd="@dimen/spacing_small" />
 
         <TextView
             style="@style/TextAppearance.Material3.TitleSmall"
