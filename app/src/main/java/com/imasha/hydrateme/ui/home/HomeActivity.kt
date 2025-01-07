@@ -2,13 +2,16 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.CupAdapter
+import com.imasha.hydrateme.adapters.RecordAdapter
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
@@ -20,7 +23,11 @@ import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
+import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
+import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 class HomeActivity : BaseActivity() {
 
@@ -59,7 +66,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_notifications -> {
-                    Toast.makeText(this, "Notifications Clicked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_settings -> {
@@ -67,7 +74,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_about -> {
-                    Toast.makeText(this, "About Clicked", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_logout -> {
@@ -83,9 +90,10 @@ class HomeActivity : BaseActivity() {
         }
 
         homeViewModel.initCupSizes()
-
         binding.cupList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+        homeViewModel.getRecord("Drinks")
+        binding.recordList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initViewModels() {
@@ -96,18 +104,31 @@ class HomeActivity : BaseActivity() {
         }
 
         homeViewModel.cupSize.observe(this) { itemList ->
-            binding.cupList.adapter = CupAdapter(itemList) { clickedCup ->
+            binding.cupList.adapter = CupAdapter(itemList, this) { clickedCup ->
                 val drinkMap = mapOf(
                     "user" to currentUserId,
                     "size" to clickedCup.size,
+                    "time" to getCurrentTime(HH_MM_AA),
                     "date" to getCurrentDate(DD_MM_YYYY),
                 )
 
-                homeViewModel.saveData("Drinks", "", drinkMap)
+                homeViewModel.addRecord("Drinks", "", drinkMap)
+                homeViewModel.getRecord("Drinks")
             }
         }
 
-        homeViewModel.saveDataStatus.observe(this) { result ->
+        homeViewModel.getRecordStatus.observe(this) { result ->
+            result.onSuccess { records ->
+                binding.recordList.adapter = RecordAdapter(records) { record ->
+                    //deleteRecord(record)
+                }
+
+            }.onFailure { exception ->
+                showErrorDialog(exception.message.orEmpty(), this)
+            }
+        }
+
+        homeViewModel.addDrinkStatus.observe(this) { result ->
             result.onSuccess {
                 showToast("Drink Added.")
             }.onFailure { exception ->

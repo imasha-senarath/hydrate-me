@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.data.source
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.imasha.hydrateme.data.model.User
@@ -64,6 +65,29 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
                 }
 
         }
+    }
+
+    suspend fun <T> getDataList(
+        collection: String,
+        clazz: Class<T>
+    ): List<T> = suspendCoroutine { continuation ->
+        val firestore = FirebaseFirestore.getInstance()
+        val collectionRef = firestore.collection(collection)
+
+        collectionRef.get()
+            .addOnSuccessListener { querySnapshot ->
+                try {
+                    val dataList = querySnapshot.documents.mapNotNull { document ->
+                        document.toObject(clazz)
+                    }
+                    continuation.resume(dataList)
+                } catch (exception: Exception) {
+                    continuation.resumeWithException(exception)
+                }
+            }
+            .addOnFailureListener { exception ->
+                continuation.resumeWithException(exception)
+            }
     }
 
     fun logout(): Boolean {

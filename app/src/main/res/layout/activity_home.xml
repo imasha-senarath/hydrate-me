@@ -25,7 +25,7 @@
             android:paddingLeft="@dimen/spacing_large"
             android:paddingRight="@dimen/spacing_large">
 
-            <ScrollView
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -109,7 +109,7 @@
                         android:layout_marginTop="@dimen/spacing_medium"
                         android:clipToPadding="false" />
                 </LinearLayout>
-            </ScrollView>
+            </androidx.core.widget.NestedScrollView>
 
         </FrameLayout>
 

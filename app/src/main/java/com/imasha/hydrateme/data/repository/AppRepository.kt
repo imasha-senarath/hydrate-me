@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.data.repository
 
+import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.source.FirebaseSource
 
@@ -27,6 +28,13 @@ class AppRepository(private val firebaseSource: FirebaseSource) {
         dataMap: Map<String, Any>,
     ): Boolean {
         return firebaseSource.saveData(collection, document, dataMap)
+    }
+
+    suspend fun <T> getDataList(
+        collection: String,
+        clazz: Class<T>
+    ): List<T> {
+        return firebaseSource.getDataList(collection, clazz)
     }
 
     fun logout(): Boolean {

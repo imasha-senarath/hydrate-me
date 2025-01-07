@@ -5,23 +5,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imasha.hydrateme.data.model.Cup
+import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
 
+    private val _userId = MutableLiveData<String>()
+    val userId: LiveData<String> get() = _userId
+
     private val _cupSize = MutableLiveData<List<Cup>>()
     val cupSize: LiveData<List<Cup>> get() = _cupSize
 
-    private val _saveDataStatus = MutableLiveData<Result<Boolean>>()
-    val saveDataStatus: LiveData<Result<Boolean>> get() = _saveDataStatus
+    private val _addDrinkStatus = MutableLiveData<Result<Boolean>>()
+    val addDrinkStatus: LiveData<Result<Boolean>> get() = _addDrinkStatus
+
+    private val _getRecordStatus = MutableLiveData<Result<List<Record>>>()
+    val getRecordStatus: LiveData<Result<List<Record>>> = _getRecordStatus
 
     private val _logoutStatus = MutableLiveData<Result<Boolean>>()
     val logoutStatus: LiveData<Result<Boolean>> get() = _logoutStatus
-
-    private val _userId = MutableLiveData<String>()
-    val userId: LiveData<String> get() = _userId
 
     fun getUserId() {
         _userId.value = appRepository.getCurrentUserId()
@@ -37,7 +41,7 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
         )
     }
 
-    fun saveData(
+    fun addRecord(
         collection: String,
         document: String,
         dataMap: Map<String, Any>,
@@ -45,9 +49,22 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val result = appRepository.saveData(collection, document, dataMap)
-                _saveDataStatus.value = Result.success(result)
+                _addDrinkStatus.value = Result.success(result)
             } catch (exception: Exception) {
-                _saveDataStatus.value = Result.failure(exception)
+                _addDrinkStatus.value = Result.failure(exception)
+            }
+        }
+    }
+
+    fun getRecord(
+        collection: String,
+    ) {
+        viewModelScope.launch {
+            try {
+                val result = appRepository.getDataList(collection, Record::class.java)
+                _getRecordStatus.value = Result.success(result)
+            } catch (exception: Exception) {
+                _getRecordStatus.value = Result.failure(exception)
             }
         }
     }
