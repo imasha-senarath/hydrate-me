@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
-import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
 import kotlinx.coroutines.launch
 
@@ -41,14 +40,10 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
         )
     }
 
-    fun addRecord(
-        collection: String,
-        document: String,
-        dataMap: Map<String, Any>,
-    ) {
+    fun addRecord(dataMap: Map<String, Any>) {
         viewModelScope.launch {
             try {
-                val result = appRepository.saveData(collection, document, dataMap)
+                val result = appRepository.saveDrink(dataMap)
                 _addDrinkStatus.value = Result.success(result)
             } catch (exception: Exception) {
                 _addDrinkStatus.value = Result.failure(exception)
@@ -56,12 +51,10 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
         }
     }
 
-    fun getRecord(
-        collection: String,
-    ) {
+    fun getTodayRecords() {
         viewModelScope.launch {
             try {
-                val result = appRepository.getDataList(collection, Record::class.java)
+                val result = appRepository.getTodayRecords()
                 _getRecordStatus.value = Result.success(result)
             } catch (exception: Exception) {
                 _getRecordStatus.value = Result.failure(exception)

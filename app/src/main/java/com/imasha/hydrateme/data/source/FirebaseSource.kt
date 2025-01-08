@@ -3,6 +3,7 @@ package com.imasha.hydrateme.data.source
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.imasha.hydrateme.data.model.User
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -46,46 +47,71 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
         document: String,
         dataMap: Map<String, Any>,
     ): Boolean = suspendCoroutine { continuation ->
+        val collectionReference = FirebaseFirestore.getInstance().collection(collection)
 
-        if (document.isEmpty()) {
-            FirebaseFirestore.getInstance().collection(collection).add(dataMap)
-                .addOnSuccessListener {
-                    continuation.resume(true)
-                }
-                .addOnFailureListener { exception ->
-                    continuation.resumeWithException(exception)
-                }
+        val task = if (document.isEmpty()) {
+            collectionReference.add(dataMap)
         } else {
-            FirebaseFirestore.getInstance().collection(collection).document(document).set(dataMap)
-                .addOnSuccessListener {
-                    continuation.resume(true)
-                }
-                .addOnFailureListener { exception ->
-                    continuation.resumeWithException(exception)
-                }
+            collectionReference.document(document).set(dataMap)
+        }
 
+        task.addOnSuccessListener {
+            continuation.resume(true)
+        }.addOnFailureListener { exception ->
+            continuation.resumeWithException(exception)
         }
     }
 
+    suspend fun <T> geData(
+        collection: String,
+        documentId: String,
+        clazz: Class<T>
+    ): T = suspendCoroutine { continuation ->
+        val documentRef = FirebaseFirestore.getInstance().collection(collection).document(documentId)
+
+        documentRef.get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    try {
+                        val data = documentSnapshot.toObject(clazz)
+                        if (data != null) {
+                            continuation.resume(data)
+                        } else {
+                            continuation.resumeWithException(Exception("Failed to parse document data"))
+                        }
+                    } catch (exception: Exception) {
+                        continuation.resumeWithException(exception)
+                    }
+                } else {
+                    continuation.resumeWithException(Exception("Data does not exist"))
+                }
+            }
+            .addOnFailureListener { exception ->
+                continuation.resumeWithException(exception)
+            }
+    }
+
+
     suspend fun <T> getDataList(
         collection: String,
-        clazz: Class<T>
+        clazz: Class<T>,
+        filters: Map<String, Any>
     ): List<T> = suspendCoroutine { continuation ->
-        val firestore = FirebaseFirestore.getInstance()
-        val collectionRef = firestore.collection(collection)
+        var query: Query = FirebaseFirestore.getInstance().collection(collection)
 
-        collectionRef.get()
+        for ((field, value) in filters) {
+            query = query.whereEqualTo(field, value)
+        }
+
+        query.get()
             .addOnSuccessListener { querySnapshot ->
                 try {
-                    val dataList = querySnapshot.documents.mapNotNull { document ->
-                        document.toObject(clazz)
-                    }
+                    val dataList = querySnapshot.documents.mapNotNull { it.toObject(clazz) }
                     continuation.resume(dataList)
                 } catch (exception: Exception) {
                     continuation.resumeWithException(exception)
                 }
-            }
-            .addOnFailureListener { exception ->
+            }.addOnFailureListener { exception ->
                 continuation.resumeWithException(exception)
             }
     }

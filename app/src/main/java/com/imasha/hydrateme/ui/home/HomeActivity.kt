@@ -2,13 +2,11 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.CupAdapter
 import com.imasha.hydrateme.adapters.RecordAdapter
@@ -19,15 +17,13 @@ import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
 import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
-import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.AppConstants.DRINKS
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 class HomeActivity : BaseActivity() {
 
@@ -65,6 +61,10 @@ class HomeActivity : BaseActivity() {
                     navigateToProfileActivity()
                     true
                 }
+                R.id.nav_history -> {
+                    Toast.makeText(this, "History", Toast.LENGTH_SHORT).show()
+                    true
+                }
                 R.id.nav_notifications -> {
                     Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
                     true
@@ -92,7 +92,7 @@ class HomeActivity : BaseActivity() {
         homeViewModel.initCupSizes()
         binding.cupList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        homeViewModel.getRecord("Drinks")
+        homeViewModel.getTodayRecords()
         binding.recordList.layoutManager = LinearLayoutManager(this)
     }
 
@@ -112,15 +112,15 @@ class HomeActivity : BaseActivity() {
                     "date" to getCurrentDate(DD_MM_YYYY),
                 )
 
-                homeViewModel.addRecord("Drinks", "", drinkMap)
-                homeViewModel.getRecord("Drinks")
+                homeViewModel.addRecord(drinkMap)
+                homeViewModel.getTodayRecords()
             }
         }
 
         homeViewModel.getRecordStatus.observe(this) { result ->
             result.onSuccess { records ->
-                binding.recordList.adapter = RecordAdapter(records) { record ->
-                    //deleteRecord(record)
+                binding.recordList.adapter = RecordAdapter(records, this) { record ->
+                    showToast("Deleted ${record.size} ml")
                 }
 
             }.onFailure { exception ->

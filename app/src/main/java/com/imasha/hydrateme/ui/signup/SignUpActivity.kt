@@ -49,8 +49,6 @@ class SignUpActivity : AppCompatActivity() {
     private fun initViewModels() {
         signUpViewModel.signUpStatus.observe(this) { result ->
 
-            //appDialog.hideLoadingDialog()
-
             result.onSuccess {
                 //navigateToMainActivity()
                 showInfoDialog("Success", this);
@@ -68,7 +66,6 @@ class SignUpActivity : AppCompatActivity() {
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
         } else {
-            //appDialog.showLoadingDialog()
             val user = User("", name, email, password)
             signUpViewModel.signUp(user)
         }
