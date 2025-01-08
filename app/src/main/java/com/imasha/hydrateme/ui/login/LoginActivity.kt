@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
         } else {
             //appDialog.showLoadingDialog()
-            val user = User("", "", email, password)
+            val user = User(email, password)
             loginViewModel.login(user)
         }
     }

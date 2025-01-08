@@ -26,6 +26,10 @@ class AppRepository(private val firebaseSource: FirebaseSource) {
         return firebaseSource.signUp(user)
     }
 
+    suspend fun getProfile(): User {
+        return firebaseSource.getData(USERS, getCurrentUserId().toString(), User::class.java)
+    }
+
     suspend fun saveProfile(dataMap: Map<String, Any>): Boolean {
         return firebaseSource.saveData(USERS, getCurrentUserId().toString(), dataMap)
     }

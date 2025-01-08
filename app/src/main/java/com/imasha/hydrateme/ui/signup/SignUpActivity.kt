@@ -66,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
         } else {
-            val user = User("", name, email, password)
+            val user = User(email, password)
             signUpViewModel.signUp(user)
         }
     }

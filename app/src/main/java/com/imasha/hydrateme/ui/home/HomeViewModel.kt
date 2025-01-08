@@ -6,13 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
+import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
+import com.imasha.hydrateme.utils.Calculations.waterIntake
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId
+
+    private val _getProfileStatus = MutableLiveData<Result<User>>()
+    val getProfileStatus: LiveData<Result<User>> = _getProfileStatus
 
     private val _cupSize = MutableLiveData<List<Cup>>()
     val cupSize: LiveData<List<Cup>> get() = _cupSize
@@ -28,6 +33,28 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
 
     fun getUserId() {
         _userId.value = appRepository.getCurrentUserId()
+    }
+
+    fun getProfile() {
+        viewModelScope.launch {
+            try {
+                val user = appRepository.getProfile()
+                _getProfileStatus.value = Result.success(user)
+            } catch (exception: Exception) {
+                _getProfileStatus.value = Result.failure(exception)
+            }
+        }
+    }
+
+    fun calculateWaterIntake(user: User) : Int{
+        val weight = user.weight
+        val gender = user.gender
+
+        if(weight > 0 && gender.isNotEmpty()) {
+            return waterIntake(weight, gender == "Male", 0.0)
+        }
+
+        return 0
     }
 
     fun initCupSizes() {

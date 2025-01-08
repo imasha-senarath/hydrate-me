@@ -62,7 +62,7 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
         }
     }
 
-    suspend fun <T> geData(
+    suspend fun <T> getData(
         collection: String,
         documentId: String,
         clazz: Class<T>

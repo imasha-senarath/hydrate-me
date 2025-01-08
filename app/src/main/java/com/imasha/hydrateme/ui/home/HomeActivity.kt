@@ -2,6 +2,7 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.CupAdapter
 import com.imasha.hydrateme.adapters.RecordAdapter
+import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
@@ -31,6 +33,10 @@ class HomeActivity : BaseActivity() {
     private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var currentUserId: String
+    private lateinit var currentUser: User
+
+    private var intake: Int = 3200 // default value
+    private var waterUsage: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +50,10 @@ class HomeActivity : BaseActivity() {
         val factory = HomeViewModelFactory(appRepository)
 
         homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
-
-        initViewModels();
+        initViewModels()
 
         homeViewModel.getUserId();
+        homeViewModel.getProfile();
 
         setUpToolbar(binding.toolbar, R.string.app_name, false)
 
@@ -101,6 +107,17 @@ class HomeActivity : BaseActivity() {
             if(userId != null) {
                 currentUserId = userId
             }
+        }
+
+        homeViewModel.getProfileStatus.observe(this) { result ->
+            result.onSuccess { user ->
+                currentUser = user
+                intake = homeViewModel.calculateWaterIntake(currentUser)
+            }.onFailure { exception ->
+                showErrorDialog(exception.message.orEmpty(), this)
+            }
+
+            binding.drinkTarget.text = getString(R.string.drink_target, waterUsage, intake)
         }
 
         homeViewModel.cupSize.observe(this) { itemList ->
@@ -160,13 +177,4 @@ class HomeActivity : BaseActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
         startActivity(intent)
     }
-
-    /*fun calculateWaterIntake(weight: Double, isMale: Boolean, exerciseMinutes: Double): Double {
-        var baseWater = weight * 0.033
-        if (isMale) {
-            baseWater += 0.5 // Add slight increase for male users
-        }
-        baseWater += exerciseMinutes / 30 * 0.35
-        return baseWater
-    }*/
 }

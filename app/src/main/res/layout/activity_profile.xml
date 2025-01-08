@@ -28,11 +28,12 @@
                 android:background="@color/md_theme_outlineVariant" />
 
             <LinearLayout
+                android:id="@+id/btn_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <TextView
                     android:id="@+id/textView4"

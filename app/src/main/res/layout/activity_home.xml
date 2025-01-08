@@ -53,21 +53,22 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:layout_centerInParent="true">
+                            android:layout_centerInParent="true"
+                            android:gravity="center">
 
                             <TextView
                                 style="@style/TextAppearance.Material3.LabelMedium"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Drink Target"
                                 android:textAlignment="center"/>
 
                             <TextView
                                 style="@style/TextAppearance.Material3.HeadlineSmall"
-                                android:id="@+id/progress_text"
+                                android:id="@+id/drinkTarget"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1200/2500ml"
+                                android:text="--/--"
                                 android:textColor="@color/md_theme_primary"/>
 
                         </LinearLayout>
