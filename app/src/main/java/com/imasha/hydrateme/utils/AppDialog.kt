@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -49,12 +50,13 @@ object AppDialog {
 
     // Confirmation Dialog
     fun showConfirmationDialog(
+        title: String,
         message: String,
         context: Context,
         onConfirm: () -> Unit
     ): AlertDialog {
         val builder = AlertDialog.Builder(context)
-            .setTitle("Confirm")
+            .setTitle(title)
             .setMessage(message)
             .setPositiveButton("Yes") { dialog, _ ->
                 onConfirm()
@@ -99,5 +101,9 @@ object AppDialog {
 
         dialog.show()
         return dialog
+    }
+
+    fun isValidContext(context: Context): Boolean {
+        return context !is Activity || context.isFinishing || context.isDestroyed
     }
 }

@@ -52,6 +52,10 @@ class AppRepository(private val firebaseSource: FirebaseSource) {
         )
     }
 
+    suspend fun deleteRecord(id: String): Boolean {
+        return firebaseSource.deleteData(DRINKS, id)
+    }
+
     fun logout(): Boolean {
         return firebaseSource.logout()
     }

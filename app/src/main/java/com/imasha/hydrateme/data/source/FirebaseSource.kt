@@ -1,6 +1,5 @@
 package com.imasha.hydrateme.data.source
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -91,7 +90,6 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
             }
     }
 
-
     suspend fun <T> getDataList(
         collection: String,
         clazz: Class<T>,
@@ -106,12 +104,36 @@ class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
         query.get()
             .addOnSuccessListener { querySnapshot ->
                 try {
-                    val dataList = querySnapshot.documents.mapNotNull { it.toObject(clazz) }
+                    val dataList = querySnapshot.documents.mapNotNull { document ->
+                        val dataObject = document.toObject(clazz)
+                        dataObject?.apply {
+                            this::class.java.getDeclaredField("id").apply {
+                                isAccessible = true
+                                set(dataObject, document.id)
+                            }
+                        }
+                    }
+                    //val dataList = querySnapshot.documents.mapNotNull { it.toObject(clazz) }
                     continuation.resume(dataList)
                 } catch (exception: Exception) {
                     continuation.resumeWithException(exception)
                 }
             }.addOnFailureListener { exception ->
+                continuation.resumeWithException(exception)
+            }
+    }
+
+    suspend fun deleteData(
+        collection: String,
+        documentId: String
+    ): Boolean = suspendCoroutine { continuation ->
+        val documentRef = FirebaseFirestore.getInstance().collection(collection).document(documentId)
+
+        documentRef.delete()
+            .addOnSuccessListener {
+                continuation.resume(true)
+            }
+            .addOnFailureListener { exception ->
                 continuation.resumeWithException(exception)
             }
     }

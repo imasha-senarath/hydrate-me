@@ -85,7 +85,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_logout -> {
-                    showConfirmationDialog("Logout", this) {
+                    showConfirmationDialog("Logout","Are you sure you want to log out?",this) {
                         homeViewModel.logout();
                     }
                     true
@@ -141,7 +141,9 @@ class HomeActivity : BaseActivity() {
                 setupDrinkProgress()
 
                 binding.recordList.adapter = RecordAdapter(records, this) { record ->
-                    showToast("Deleted ${record.size} ml")
+                    showConfirmationDialog("Delete","Are you sure you want to delete this record?",this) {
+                        homeViewModel.deleteRecord(record.id)
+                    }
                 }
 
             }.onFailure { exception ->
@@ -152,6 +154,16 @@ class HomeActivity : BaseActivity() {
         homeViewModel.addDrinkStatus.observe(this) { result ->
             result.onSuccess {
                 showToast("Drink Added.")
+            }.onFailure { exception ->
+                showErrorDialog(exception.message.toString(), this);
+            }
+        }
+
+        homeViewModel.deleteRecordStatus.observe(this) { result ->
+            result.onSuccess {
+                //showToast("Deleted ${record.size} ml")
+                showToast("Deleted")
+                homeViewModel.getTodayRecords()
             }.onFailure { exception ->
                 showErrorDialog(exception.message.toString(), this);
             }

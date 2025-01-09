@@ -13,9 +13,9 @@ object ThemeUtils {
     fun applyTheme(theme: Int,context: Context) {
         AppCompatDelegate.setDefaultNightMode(theme)
 
-        if (context is Activity) {
+        /*if (context is Activity) {
             context.recreate()
-        }
+        }*/
     }
 
     fun getCurrentTheme(): String {

@@ -28,6 +28,9 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
     private val _getRecordStatus = MutableLiveData<Result<List<Record>>>()
     val getRecordStatus: LiveData<Result<List<Record>>> = _getRecordStatus
 
+    private val _deleteRecordStatus = MutableLiveData<Result<Boolean>>()
+    val deleteRecordStatus: LiveData<Result<Boolean>> get() = _deleteRecordStatus
+
     private val _logoutStatus = MutableLiveData<Result<Boolean>>()
     val logoutStatus: LiveData<Result<Boolean>> get() = _logoutStatus
 
@@ -85,6 +88,17 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
                 _getRecordStatus.value = Result.success(result)
             } catch (exception: Exception) {
                 _getRecordStatus.value = Result.failure(exception)
+            }
+        }
+    }
+
+    fun deleteRecord(id: String) {
+        viewModelScope.launch {
+            try {
+                val result = appRepository.deleteRecord(id)
+                _deleteRecordStatus.value = Result.success(result)
+            } catch (exception: Exception) {
+                _deleteRecordStatus.value = Result.failure(exception)
             }
         }
     }
