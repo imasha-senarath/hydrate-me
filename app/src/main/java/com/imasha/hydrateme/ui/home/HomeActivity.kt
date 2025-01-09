@@ -121,11 +121,11 @@ class HomeActivity : BaseActivity() {
                 intake = homeViewModel.calculateWaterIntake(currentUser)
             }.onFailure { exception ->
                 AppLogger.d(className, exception.toString())
-                showInfoDialog(
+                /*showInfoDialog(
                     "Profile",
                     "Setting up your profile to calculate personalized water intake goal.",
                     this
-                )
+                )*/
             }
         }
 

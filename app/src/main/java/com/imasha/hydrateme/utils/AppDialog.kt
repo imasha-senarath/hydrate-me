@@ -4,10 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDelegate
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.databinding.DialogSelectThemeBinding
+import com.imasha.hydrateme.databinding.DialogUpdateBinding
 import com.imasha.hydrateme.utils.AppConstants.DARK_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.DEFAULT_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.LIGHT_THEME_MODE
@@ -100,6 +102,40 @@ object AppDialog {
         binding.systemTheme.setOnClickListener {
             applyTheme(DEFAULT_THEME_MODE, context)
             saveInt(THEME_MODE, DEFAULT_THEME_MODE)
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        return dialog
+    }
+
+    fun showUpdateDialog(
+        title: String,
+        currentValue: String,
+        context: Context,
+        onUpdate: (String) -> Unit
+    ): AlertDialog {
+        val binding = DialogUpdateBinding.inflate(LayoutInflater.from(context))
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(binding.root)
+            .create()
+
+        binding.tvTitle.text = title
+        binding.editTextValue.setText(currentValue)
+
+        binding.btnUpdate.setOnClickListener {
+            val newValue =  binding.editTextValue.text.toString()
+            if(newValue.isEmpty()) {
+                Toast.makeText(context, title + "cannot be empty", Toast.LENGTH_SHORT).show()
+            } else {
+                onUpdate(newValue)
+                dialog.dismiss()
+            }
+        }
+
+        binding.btnCancel.setOnClickListener {
+
             dialog.dismiss()
         }
 

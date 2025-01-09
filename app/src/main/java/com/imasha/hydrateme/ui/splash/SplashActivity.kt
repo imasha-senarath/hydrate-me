@@ -34,7 +34,7 @@ class SplashActivity : AppCompatActivity() {
 
         initViewModels();
 
-        splashViewModel.userAuthentication(1000);
+        splashViewModel.userAuthentication(500);
     }
 
     private fun initViewModels() {

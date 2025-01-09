@@ -10,8 +10,8 @@ import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityProfileBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
-import com.imasha.hydrateme.ui.home.HomeViewModelFactory
 import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
 
 class ProfileActivity : BaseActivity() {
@@ -42,6 +42,12 @@ class ProfileActivity : BaseActivity() {
         profileViewModel.getProfile();
 
         setUpToolbar(binding.toolbar, R.string.profile, true)
+
+        binding.btnName.setOnClickListener {
+            showUpdateDialog("Name", "Imasha", this) { newValue ->
+                showToast(newValue)
+            }
+        }
     }
 
     private fun initViewModels() {
