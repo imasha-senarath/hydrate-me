@@ -22,6 +22,7 @@ import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppConstants.DRINKS
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
+import com.imasha.hydrateme.utils.Calculations.totalWaterUsage
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
@@ -96,15 +97,16 @@ class HomeActivity : BaseActivity() {
         }
 
         homeViewModel.initCupSizes()
-        binding.cupList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.cupList.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         homeViewModel.getTodayRecords()
         binding.recordList.layoutManager = LinearLayoutManager(this)
     }
 
     private fun initViewModels() {
-        homeViewModel.userId.observe(this) { userId  ->
-            if(userId != null) {
+        homeViewModel.userId.observe(this) { userId ->
+            if (userId != null) {
                 currentUserId = userId
             }
         }
@@ -116,8 +118,6 @@ class HomeActivity : BaseActivity() {
             }.onFailure { exception ->
                 showErrorDialog(exception.message.orEmpty(), this)
             }
-
-            binding.drinkTarget.text = getString(R.string.drink_target, waterUsage, intake)
         }
 
         homeViewModel.cupSize.observe(this) { itemList ->
@@ -136,6 +136,10 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.getRecordStatus.observe(this) { result ->
             result.onSuccess { records ->
+
+                waterUsage = totalWaterUsage(records)
+                setupDrinkProgress()
+
                 binding.recordList.adapter = RecordAdapter(records, this) { record ->
                     showToast("Deleted ${record.size} ml")
                 }
@@ -160,6 +164,12 @@ class HomeActivity : BaseActivity() {
                 showErrorDialog(exception.message.toString(), this);
             }
         }
+    }
+
+    private fun setupDrinkProgress() {
+        binding.drinkTarget.text = getString(R.string.drink_target, waterUsage, intake)
+        binding.drinkingProgress.max = intake
+        binding.drinkingProgress.progress = waterUsage
     }
 
     private fun navigateToLoginActivity() {
