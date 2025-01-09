@@ -35,9 +35,13 @@ object AppDialog {
     }
 
     // Information Dialog
-    fun showInfoDialog(message: String, context: Context): AlertDialog {
+    fun showInfoDialog(
+        title: String,
+        message: String,
+        context: Context
+    ): AlertDialog {
         val builder = AlertDialog.Builder(context)
-            .setTitle("Information")
+            .setTitle(title)
             .setMessage(message)
             .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)

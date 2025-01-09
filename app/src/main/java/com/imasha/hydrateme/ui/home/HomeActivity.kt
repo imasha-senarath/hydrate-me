@@ -22,6 +22,8 @@ import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppConstants.DRINKS
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
+import com.imasha.hydrateme.utils.AppDialog.showInfoDialog
+import com.imasha.hydrateme.utils.AppLogger
 import com.imasha.hydrateme.utils.Calculations.totalWaterUsage
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
@@ -29,6 +31,8 @@ import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
 
 class HomeActivity : BaseActivity() {
+
+    private val className = this::class.java.simpleName
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var homeViewModel: HomeViewModel
@@ -116,7 +120,12 @@ class HomeActivity : BaseActivity() {
                 currentUser = user
                 intake = homeViewModel.calculateWaterIntake(currentUser)
             }.onFailure { exception ->
-                showErrorDialog(exception.message.orEmpty(), this)
+                AppLogger.d(className, exception.toString())
+                showInfoDialog(
+                    "Profile",
+                    "Setting up your profile to calculate personalized water intake goal.",
+                    this
+                )
             }
         }
 

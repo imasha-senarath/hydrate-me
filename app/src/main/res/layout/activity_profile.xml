@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Imasha"
+                    android:text="--"
                     android:textAlignment="textEnd"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:textColor="@color/md_theme_primary"/>
@@ -63,11 +63,12 @@
                 android:background="@color/md_theme_outlineVariant" />
 
             <LinearLayout
+                android:id="@+id/btn_gender"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -82,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Male"
+                    android:text="--"
                     android:textAlignment="textEnd"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:textColor="@color/md_theme_primary"/>
@@ -96,11 +97,12 @@
                 android:background="@color/md_theme_outlineVariant" />
 
             <LinearLayout
+                android:id="@+id/btn_weight"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -115,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="65KG"
+                    android:text="--"
                     android:textAlignment="textEnd"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:textColor="@color/md_theme_primary"/>
@@ -132,8 +134,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -154,7 +156,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="3500ml"
+                        android:text="3200ml"
                         android:textAlignment="textEnd"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/md_theme_primary"/>
@@ -179,8 +181,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -201,7 +203,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="7:30 am"
+                        android:text="--:--"
                         android:textAlignment="textEnd"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/md_theme_primary"/>
@@ -226,8 +228,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -248,7 +250,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="11:30 pm"
+                        android:text="--:--"
                         android:textAlignment="textEnd"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/md_theme_primary"/>

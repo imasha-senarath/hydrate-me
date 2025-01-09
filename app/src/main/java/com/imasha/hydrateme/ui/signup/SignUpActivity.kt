@@ -51,7 +51,7 @@ class SignUpActivity : AppCompatActivity() {
 
             result.onSuccess {
                 //navigateToMainActivity()
-                showInfoDialog("Success", this);
+                showInfoDialog("Success","", this)
             }.onFailure { exception ->
                 showErrorDialog(exception.message.toString(), this);
             }
