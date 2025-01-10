@@ -16,8 +16,8 @@ class ProfileViewModel(private val appRepository: AppRepository) : ViewModel() {
     private val _getProfileStatus = MutableLiveData<Result<User>>()
     val getProfileStatus: LiveData<Result<User>> = _getProfileStatus
 
-    private val _addDrinkStatus = MutableLiveData<Result<Boolean>>()
-    val addDrinkStatus: LiveData<Result<Boolean>> get() = _addDrinkStatus
+    private val _saveProfileStatus = MutableLiveData<Result<Boolean>>()
+    val saveProfileStatus: LiveData<Result<Boolean>> get() = _saveProfileStatus
 
     fun getUserId() {
         _userId.value = appRepository.getCurrentUserId()
@@ -37,10 +37,10 @@ class ProfileViewModel(private val appRepository: AppRepository) : ViewModel() {
     fun saveProfile(dataMap: Map<String, Any>) {
         viewModelScope.launch {
             try {
-                val result = appRepository.saveDrink(dataMap)
-                _addDrinkStatus.value = Result.success(result)
+                val result = appRepository.saveProfile(dataMap)
+                _saveProfileStatus.value = Result.success(result)
             } catch (exception: Exception) {
-                _addDrinkStatus.value = Result.failure(exception)
+                _saveProfileStatus.value = Result.failure(exception)
             }
         }
     }

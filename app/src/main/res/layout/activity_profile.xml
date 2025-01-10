@@ -178,6 +178,7 @@
                 android:background="@color/md_theme_outlineVariant" />
 
             <LinearLayout
+                android:id="@+id/btn_wake_up_time"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -225,6 +226,7 @@
                 android:background="@color/md_theme_outlineVariant" />
 
             <LinearLayout
+                android:id="@+id/btn_bed_time"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"

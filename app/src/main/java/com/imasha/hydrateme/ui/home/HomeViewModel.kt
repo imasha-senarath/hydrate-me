@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.imasha.hydrateme.data.enums.getName
 import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
@@ -53,8 +54,8 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
         val weight = user.weight
         val gender = user.gender
 
-        if(weight > 0 && gender.isNotEmpty()) {
-            return waterIntake(weight, gender == "Male", 0.0)
+        if(weight > 0 && gender.getName().isNotEmpty()) {
+            return waterIntake(weight, gender.getName() == "Male", 0.0)
         }
 
         return 0

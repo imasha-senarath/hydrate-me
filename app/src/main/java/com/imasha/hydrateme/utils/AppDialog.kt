@@ -2,12 +2,12 @@ package com.imasha.hydrateme.utils
 
 import android.app.Activity
 import android.content.Context
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatDelegate
-import com.imasha.hydrateme.R
+import com.imasha.hydrateme.data.enums.Gender
+import com.imasha.hydrateme.data.enums.Theme
+import com.imasha.hydrateme.data.enums.getName
 import com.imasha.hydrateme.databinding.DialogSelectThemeBinding
 import com.imasha.hydrateme.databinding.DialogUpdateBinding
 import com.imasha.hydrateme.utils.AppConstants.DARK_THEME_MODE
@@ -15,7 +15,6 @@ import com.imasha.hydrateme.utils.AppConstants.DEFAULT_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.LIGHT_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.THEME_MODE
 import com.imasha.hydrateme.utils.SharedPrefManager.saveInt
-import com.imasha.hydrateme.utils.SharedPrefManager.saveString
 import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
 
 object AppDialog {
@@ -109,6 +108,50 @@ object AppDialog {
         return dialog
     }
 
+    // Theme Dialog
+ /*   fun showThemeDialog(
+        context: Context,
+    ): AlertDialog {
+
+        val currentTheme =
+        val themeOptions = Gender.values().map { it.getName() }.toTypedArray()
+        val currentIndex = Gender.values().indexOf(currentTheme)
+
+        val builder = AlertDialog.Builder(context)
+            .setSingleChoiceItems(themeOptions, currentIndex) { dialog, which ->
+                //onGenderSelected(Gender.values()[which])
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+
+        val dialog = builder.create()
+        dialog.show()
+
+        return dialog
+    }*/
+
+    // Gender Dialog
+    fun showGenderSelectionDialog(
+        context: Context,
+        currentGender: Gender,
+        onGenderSelected: (selectedGender: Gender) -> Unit
+    ): AlertDialog {
+        val genderOptions = Gender.values().map { it.getName() }.toTypedArray()
+        val currentIndex = Gender.values().indexOf(currentGender)
+
+        val builder = AlertDialog.Builder(context)
+            .setSingleChoiceItems(genderOptions, currentIndex) { dialog, which ->
+                onGenderSelected(Gender.values()[which])
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+
+        val dialog = builder.create()
+        dialog.show()
+
+        return dialog
+    }
+
     fun showUpdateDialog(
         title: String,
         currentValue: String,
@@ -127,7 +170,7 @@ object AppDialog {
         binding.btnUpdate.setOnClickListener {
             val newValue =  binding.editTextValue.text.toString()
             if(newValue.isEmpty()) {
-                Toast.makeText(context, title + "cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "$title can't be empty", Toast.LENGTH_SHORT).show()
             } else {
                 onUpdate(newValue)
                 dialog.dismiss()
@@ -135,7 +178,6 @@ object AppDialog {
         }
 
         binding.btnCancel.setOnClickListener {
-
             dialog.dismiss()
         }
 

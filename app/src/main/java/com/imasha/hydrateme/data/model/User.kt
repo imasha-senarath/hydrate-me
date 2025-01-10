@@ -1,14 +1,14 @@
 package com.imasha.hydrateme.data.model
 
+import com.imasha.hydrateme.data.enums.Gender
+
 data class User(
-    val id: String,
-    val name: String,
-    val email: String,
-    val weight: Double,
-    val gender: String,
-    val wakeUpTime: String,
-    val bedTime: String,
-    val password: String
-) {
-    constructor(email: String, password: String) : this ("", "", email, 0.0, "", "", "", password)
-}
+    var id: String = "",
+    var name: String = "",
+    var email: String = "",
+    var weight: Double = 0.0,
+    var gender: Gender = Gender.UNSPECIFIED,
+    var wakeUpTime: String = "",
+    var bedTime: String = "",
+    val password: String = ""
+)

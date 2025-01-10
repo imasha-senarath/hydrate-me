@@ -1,16 +1,18 @@
 package com.imasha.hydrateme.ui.profile
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
+import com.imasha.hydrateme.data.enums.getName
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityProfileBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.AppDialog.showGenderSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
 
@@ -22,7 +24,7 @@ class ProfileActivity : BaseActivity() {
     private lateinit var profileViewModel: ProfileViewModel
 
     private lateinit var currentUserId: String
-    private lateinit var currentUser: User
+    private var currentUser: User = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +46,36 @@ class ProfileActivity : BaseActivity() {
         setUpToolbar(binding.toolbar, R.string.profile, true)
 
         binding.btnName.setOnClickListener {
-            showUpdateDialog("Name", "Imasha", this) { newValue ->
+            showUpdateDialog("Name", currentUser.name, this) { newValue ->
+                binding.name.text = newValue
                 showToast(newValue)
+            }
+        }
+
+        binding.btnWeight.setOnClickListener {
+            showUpdateDialog("Weight", currentUser.weight.toString(), this) { newValue ->
+                binding.weight.text = newValue
+            }
+        }
+
+        binding.btnGender.setOnClickListener {
+            showGenderSelectionDialog(this, currentUser.gender) { selectedGender ->
+                currentUser.gender = selectedGender
+                binding.gender.text = selectedGender.getName()
+            }
+        }
+
+        binding.btnWakeUpTime.setOnClickListener {
+            showTimePicker() { selectedTime ->
+                currentUser.wakeUpTime = selectedTime
+                binding.wakeUpTime.text = selectedTime
+            }
+        }
+
+        binding.btnBedTime.setOnClickListener {
+            showTimePicker() { selectedTime ->
+                currentUser.bedTime = selectedTime
+                binding.bedTime.text = selectedTime
             }
         }
     }
@@ -66,7 +96,7 @@ class ProfileActivity : BaseActivity() {
             }
         }
 
-        profileViewModel.addDrinkStatus.observe(this) { result ->
+        profileViewModel.saveProfileStatus.observe(this) { result ->
             result.onSuccess {
                 showToast("Drink Added.")
             }.onFailure { exception ->
@@ -82,24 +112,34 @@ class ProfileActivity : BaseActivity() {
         val wakeUpTime = currentUser.wakeUpTime
         val bedTime = currentUser.bedTime
 
-        if(name.isNotEmpty()) {
+        if (name.isNotEmpty()) {
             binding.name.text = name
         }
 
-        if(gender.isNotEmpty()) {
+        if (gender.getName().isNotEmpty()) {
             binding.gender.text = name
         }
 
-        if(!weight.equals(0.0)) {
+        if (!weight.equals(0.0)) {
             binding.weight.text = getString(R.string.weight, weight)
         }
 
-        if(wakeUpTime.isNotEmpty()) {
+        if (wakeUpTime.isNotEmpty()) {
             binding.wakeUpTime.text = wakeUpTime
         }
 
-        if(bedTime.isNotEmpty()) {
+        if (bedTime.isNotEmpty()) {
             binding.bedTime.text = bedTime
         }
+    }
+
+    private fun showTimePicker(onTimeSet: (String) -> Unit) {
+        val is24HourView = false
+        TimePickerDialog(this, { _, hourOfDay, minute ->
+            val amPm = if (hourOfDay >= 12) "PM" else "AM"
+            val hour = if (hourOfDay > 12) hourOfDay - 12 else if (hourOfDay == 0) 12 else hourOfDay
+            val time = String.format("%02d:%02d %s", hour, minute, amPm)
+            onTimeSet(time)
+        }, 0, 0, is24HourView).show()
     }
 }
