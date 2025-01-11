@@ -26,6 +26,7 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 
 class HomeActivity : BaseActivity() {
 
@@ -188,8 +189,15 @@ class HomeActivity : BaseActivity() {
 
     private fun setupDrinkProgress() {
         binding.drinkTarget.text = getString(R.string.drink_target, waterUsage, intake)
-        binding.drinkingProgress.max = intake
-        binding.drinkingProgress.progress = waterUsage
+        //binding.drinkingProgress.max = intake
+        //binding.drinkingProgress.progress = waterUsage
+
+        binding.drinkingProgress.apply {
+            progress = waterUsage.toFloat()
+            setProgressWithAnimation(waterUsage.toFloat(), 1000) // =1s
+
+            progressMax = intake.toFloat()
+        }
     }
 
     private fun navigateToLoginActivity() {

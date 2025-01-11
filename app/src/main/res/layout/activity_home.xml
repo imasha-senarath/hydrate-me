@@ -36,16 +36,30 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_large">
 
                         <ProgressBar
-                            android:id="@+id/drinking_progress"
                             style="@style/Widget.Material3.CircularProgressIndicator"
                             android:layout_width="300dp"
                             android:layout_height="300dp"
                             android:layout_centerInParent="true"
                             android:indeterminate="false"
-                            android:progressDrawable="@drawable/circular_progress" />
+                            android:progressDrawable="@drawable/circular_progress"
+                            android:visibility="gone"/>
+
+                        <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                            android:id="@+id/drinking_progress"
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
+                            android:layout_centerInParent="true"
+                            app:cpb_background_progressbar_color="@color/md_theme_outlineVariant"
+                            app:cpb_background_progressbar_width="15dp"
+                            app:cpb_progress_direction="to_right"
+                            app:cpb_progressbar_color="@color/md_theme_primary"
+                            app:cpb_progressbar_width="10dp"
+                            app:cpb_round_border="true"
+                            app:cpb_start_angle="0" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -78,7 +92,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="&quot;Water keeps your body hydrated, which is necessary for all your body functions&quot;"
-                        android:textAlignment="center"/>
+                        android:textAlignment="center"
+                        android:layout_marginTop="@dimen/spacing_large"/>
 
                     <TextView
                         style="@style/TextAppearance.Material3.TitleMedium"
