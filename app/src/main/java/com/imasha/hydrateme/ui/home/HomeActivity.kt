@@ -2,7 +2,6 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
@@ -19,10 +18,8 @@ import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
 import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
-import com.imasha.hydrateme.utils.AppConstants.DRINKS
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
-import com.imasha.hydrateme.utils.AppDialog.showInfoDialog
 import com.imasha.hydrateme.utils.AppLogger
 import com.imasha.hydrateme.utils.Calculations.totalWaterUsage
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
@@ -38,9 +35,9 @@ class HomeActivity : BaseActivity() {
     private lateinit var homeViewModel: HomeViewModel
 
     private lateinit var currentUserId: String
-    private lateinit var currentUser: User
+    private var currentUser: User = User()
 
-    private var intake: Int = 3200 // default value
+    private var intake: Int = 0
     private var waterUsage: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +55,6 @@ class HomeActivity : BaseActivity() {
         initViewModels()
 
         homeViewModel.getUserId();
-        homeViewModel.getProfile();
 
         setUpToolbar(binding.toolbar, R.string.app_name, false)
 
@@ -104,7 +100,6 @@ class HomeActivity : BaseActivity() {
         binding.cupList.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        homeViewModel.getTodayRecords()
         binding.recordList.layoutManager = LinearLayoutManager(this)
     }
 
@@ -113,20 +108,19 @@ class HomeActivity : BaseActivity() {
             if (userId != null) {
                 currentUserId = userId
             }
+
+            homeViewModel.getProfile();
         }
 
         homeViewModel.getProfileStatus.observe(this) { result ->
             result.onSuccess { user ->
                 currentUser = user
-                intake = homeViewModel.calculateWaterIntake(currentUser)
             }.onFailure { exception ->
                 AppLogger.d(className, exception.toString())
-                /*showInfoDialog(
-                    "Profile",
-                    "Setting up your profile to calculate personalized water intake goal.",
-                    this
-                )*/
             }
+
+            intake = calculateWaterIntake(currentUser)
+            homeViewModel.getTodayRecords()
         }
 
         homeViewModel.cupSize.observe(this) { itemList ->
@@ -185,6 +179,11 @@ class HomeActivity : BaseActivity() {
                 showErrorDialog(exception.message.toString(), this);
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getProfile();
     }
 
     private fun setupDrinkProgress() {

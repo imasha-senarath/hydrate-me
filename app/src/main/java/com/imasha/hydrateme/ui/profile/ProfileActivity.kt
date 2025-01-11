@@ -11,6 +11,8 @@ import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityProfileBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
+import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
+import com.imasha.hydrateme.utils.AppConstants.WEIGHT_DIALOG
 import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.AppDialog.showGenderSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
@@ -41,41 +43,46 @@ class ProfileActivity : BaseActivity() {
         initViewModels()
 
         profileViewModel.getUserId();
-        profileViewModel.getProfile();
 
         setUpToolbar(binding.toolbar, R.string.profile, true)
 
         binding.btnName.setOnClickListener {
-            showUpdateDialog("Name", currentUser.name, this) { newValue ->
-                binding.name.text = newValue
-                showToast(newValue)
+            showUpdateDialog(NAME_DIALOG, currentUser.name, this) { newValue ->
+                currentUser.name = newValue.toString()
+                binding.name.text = currentUser.name
+                profileViewModel.saveProfile(currentUser)
             }
         }
 
         binding.btnWeight.setOnClickListener {
-            showUpdateDialog("Weight", currentUser.weight.toString(), this) { newValue ->
-                binding.weight.text = newValue
+            showUpdateDialog(WEIGHT_DIALOG, currentUser.weight, this) { newValue ->
+                currentUser.weight = newValue.toString().toDouble()
+                binding.weight.text = getString(R.string.weight, currentUser.weight)
+                profileViewModel.saveProfile(currentUser)
             }
         }
 
         binding.btnGender.setOnClickListener {
             showGenderSelectionDialog(this, currentUser.gender) { selectedGender ->
                 currentUser.gender = selectedGender
-                binding.gender.text = selectedGender.getName()
+                binding.gender.text = currentUser.gender.getName()
+                profileViewModel.saveProfile(currentUser)
             }
         }
 
         binding.btnWakeUpTime.setOnClickListener {
             showTimePicker() { selectedTime ->
                 currentUser.wakeUpTime = selectedTime
-                binding.wakeUpTime.text = selectedTime
+                binding.wakeUpTime.text = currentUser.wakeUpTime
+                profileViewModel.saveProfile(currentUser)
             }
         }
 
         binding.btnBedTime.setOnClickListener {
             showTimePicker() { selectedTime ->
                 currentUser.bedTime = selectedTime
-                binding.bedTime.text = selectedTime
+                binding.bedTime.text = currentUser.bedTime
+                profileViewModel.saveProfile(currentUser)
             }
         }
     }
@@ -85,39 +92,46 @@ class ProfileActivity : BaseActivity() {
             if (userId != null) {
                 currentUserId = userId
             }
+
+            profileViewModel.getProfile();
         }
 
         profileViewModel.getProfileStatus.observe(this) { result ->
             result.onSuccess { user ->
                 currentUser = user
-                setupProfile()
             }.onFailure { exception ->
                 AppLogger.d(className, exception.toString())
             }
+
+            setupProfile()
         }
 
         profileViewModel.saveProfileStatus.observe(this) { result ->
             result.onSuccess {
-                showToast("Drink Added.")
+                showToast("Profile updated.")
             }.onFailure { exception ->
                 AppDialog.showErrorDialog(exception.message.toString(), this);
             }
+
+            profileViewModel.getProfile();
         }
     }
 
     private fun setupProfile() {
         val name = currentUser.name
-        val gender = currentUser.gender
+        val gender = currentUser.gender.getName()
         val weight = currentUser.weight
         val wakeUpTime = currentUser.wakeUpTime
         val bedTime = currentUser.bedTime
+
+        binding.goal.text = getString(R.string.size_ml, calculateWaterIntake(currentUser))
 
         if (name.isNotEmpty()) {
             binding.name.text = name
         }
 
-        if (gender.getName().isNotEmpty()) {
-            binding.gender.text = name
+        if (gender.isNotEmpty()) {
+            binding.gender.text = gender
         }
 
         if (!weight.equals(0.0)) {

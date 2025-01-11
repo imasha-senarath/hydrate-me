@@ -3,8 +3,8 @@ package com.imasha.hydrateme.data.repository
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.source.FirebaseSource
-import com.imasha.hydrateme.utils.AppConstants.DRINKS
-import com.imasha.hydrateme.utils.AppConstants.USERS
+import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
+import com.imasha.hydrateme.utils.AppConstants.USERS_DOC
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 
@@ -27,33 +27,41 @@ class AppRepository(private val firebaseSource: FirebaseSource) {
     }
 
     suspend fun getProfile(): User {
-        return firebaseSource.getData(USERS, getCurrentUserId().toString(), User::class.java)
+        return firebaseSource.getData(USERS_DOC, getCurrentUserId().toString(), User::class.java)
     }
 
-    suspend fun saveProfile(dataMap: Map<String, Any>): Boolean {
-        return firebaseSource.saveData(USERS, getCurrentUserId().toString(), dataMap)
+    suspend fun saveProfile(user: User): Boolean {
+        val userMap = mapOf(
+            "name" to user.name,
+            "weight" to user.weight,
+            "gender" to user.gender,
+            "wakeUpTime" to user.wakeUpTime,
+            "bedTime" to user.bedTime,
+        )
+
+        return firebaseSource.saveData(USERS_DOC, getCurrentUserId().toString(), userMap)
     }
 
     suspend fun saveDrink(dataMap: Map<String, Any>): Boolean {
-        return firebaseSource.saveData(DRINKS, "", dataMap)
+        return firebaseSource.saveData(DRINKS_DOC, "", dataMap)
     }
 
     suspend fun getRecords(): List<Record> {
         return firebaseSource.getDataList(
-            DRINKS, Record::class.java, mapOf("user" to getCurrentUserId().toString())
+            DRINKS_DOC, Record::class.java, mapOf("user" to getCurrentUserId().toString())
         )
     }
 
     suspend fun getTodayRecords(): List<Record> {
         return firebaseSource.getDataList(
-            DRINKS,
+            DRINKS_DOC,
             Record::class.java,
             mapOf("user" to getCurrentUserId().toString(), "date" to getCurrentDate(DD_MM_YYYY))
         )
     }
 
     suspend fun deleteRecord(id: String): Boolean {
-        return firebaseSource.deleteData(DRINKS, id)
+        return firebaseSource.deleteData(DRINKS_DOC, id)
     }
 
     fun logout(): Boolean {

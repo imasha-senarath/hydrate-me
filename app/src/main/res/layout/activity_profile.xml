@@ -156,7 +156,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="3200ml"
+                        android:text="--"
                         android:textAlignment="textEnd"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/md_theme_primary"/>

@@ -7,7 +7,7 @@
     <string name="sign_up">Sign Up</string>
     <string name="welcome">Welcome Back</string>
     <string name="get_started">Let\'s Get Started.</string>
-    <string name="enter_name">Enter Your Name</string>
+    <string name="enter_name">Enter your name</string>
     <string name="have_account">Already have an account?</string>
     <string name="owner">from Imasha Senarath</string>
     <string name="profile">Profile</string>
@@ -16,9 +16,10 @@
     <string name="settings">Settings</string>
     <string name="about">About</string>
     <string name="logout">Logout</string>
-    <string name="size_ml">%1$d ml</string>
-    <string name="drink_target">%1$d / %2$d</string>
-    <string name="weight">%1$d KG</string>
+    <string name="size_ml">%1$dml</string>
+    <string name="drink_target">%1$d/%2$dml</string>
+    <string name="weight">%1$.1fKG</string>
     <string name="cancel">Cancel</string>
     <string name="update">Update</string>
+    <string name="update_title">Update %1$s</string>
 </resources>

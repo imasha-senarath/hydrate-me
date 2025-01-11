@@ -50,17 +50,6 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
         }
     }
 
-    fun calculateWaterIntake(user: User) : Int{
-        val weight = user.weight
-        val gender = user.gender
-
-        if(weight > 0 && gender.getName().isNotEmpty()) {
-            return waterIntake(weight, gender.getName() == "Male", 0.0)
-        }
-
-        return 0
-    }
-
     fun initCupSizes() {
         _cupSize.value = listOf(
             Cup(50),

@@ -7,7 +7,7 @@
 <h2> ⚙️ Technologies </h2>
 <ul>
   <li>Kotlin with MVVM Architecture.</li>
-  <li>Firebase with Firestore and Authentication.</li>
+  <li>Firebase Authentication and Firestore.</li>
   <li>Material 3 Design.</li>
 </ul>
 

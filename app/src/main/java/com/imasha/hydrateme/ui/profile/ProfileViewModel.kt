@@ -34,10 +34,10 @@ class ProfileViewModel(private val appRepository: AppRepository) : ViewModel() {
         }
     }
 
-    fun saveProfile(dataMap: Map<String, Any>) {
+    fun saveProfile(user: User) {
         viewModelScope.launch {
             try {
-                val result = appRepository.saveProfile(dataMap)
+                val result = appRepository.saveProfile(user)
                 _saveProfileStatus.value = Result.success(result)
             } catch (exception: Exception) {
                 _saveProfileStatus.value = Result.failure(exception)

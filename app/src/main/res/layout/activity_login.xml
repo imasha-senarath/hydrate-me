@@ -58,11 +58,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/sign_up"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/spacing_medium">
 
         <com.google.android.material.textview.MaterialTextView
             style="@style/TextAppearance.Material3.BodyLarge"
@@ -72,12 +74,11 @@
             android:text="@string/do_not_have_account" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/sign_up"
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_up"
-            android:textColor="@color/md_theme_primary"/>
+            android:textColor="@color/md_theme_primary" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -2,20 +2,24 @@ package com.imasha.hydrateme.utils
 
 import android.app.Activity
 import android.content.Context
+import android.text.InputType
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.enums.Gender
-import com.imasha.hydrateme.data.enums.Theme
 import com.imasha.hydrateme.data.enums.getName
 import com.imasha.hydrateme.databinding.DialogSelectThemeBinding
 import com.imasha.hydrateme.databinding.DialogUpdateBinding
 import com.imasha.hydrateme.utils.AppConstants.DARK_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.DEFAULT_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.LIGHT_THEME_MODE
+import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
 import com.imasha.hydrateme.utils.AppConstants.THEME_MODE
+import com.imasha.hydrateme.utils.AppConstants.WEIGHT_DIALOG
 import com.imasha.hydrateme.utils.SharedPrefManager.saveInt
 import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
+import com.imasha.hydrateme.utils.Validations.isAnyNotEmpty
 
 object AppDialog {
 
@@ -141,7 +145,9 @@ object AppDialog {
 
         val builder = AlertDialog.Builder(context)
             .setSingleChoiceItems(genderOptions, currentIndex) { dialog, which ->
-                onGenderSelected(Gender.values()[which])
+                if(currentGender != Gender.values()[which]) {
+                    onGenderSelected(Gender.values()[which])
+                }
                 dialog.dismiss()
             }
             .setCancelable(true)
@@ -154,9 +160,9 @@ object AppDialog {
 
     fun showUpdateDialog(
         title: String,
-        currentValue: String,
+        currentValue: (Any),
         context: Context,
-        onUpdate: (String) -> Unit
+        onUpdate: (Any) -> Unit
     ): AlertDialog {
         val binding = DialogUpdateBinding.inflate(LayoutInflater.from(context))
 
@@ -164,15 +170,31 @@ object AppDialog {
             .setView(binding.root)
             .create()
 
-        binding.tvTitle.text = title
-        binding.editTextValue.setText(currentValue)
+        binding.tvTitle.text = context.getString(R.string.update_title, title)
+        binding.editTextValue.hint = "Enter your $title"
+
+
+        if(currentValue.isAnyNotEmpty()) {
+            binding.editTextValue.setText(currentValue.toString())
+        }
+
+        when (title) {
+            NAME_DIALOG -> {
+                binding.editTextValue.inputType = InputType.TYPE_CLASS_TEXT
+            }
+            WEIGHT_DIALOG -> {
+                binding.editTextValue.inputType = InputType.TYPE_CLASS_NUMBER
+            }
+        }
 
         binding.btnUpdate.setOnClickListener {
             val newValue =  binding.editTextValue.text.toString()
             if(newValue.isEmpty()) {
-                Toast.makeText(context, "$title can't be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Field can't be empty", Toast.LENGTH_SHORT).show()
             } else {
-                onUpdate(newValue)
+                if(currentValue != newValue) {
+                    onUpdate(newValue)
+                }
                 dialog.dismiss()
             }
         }

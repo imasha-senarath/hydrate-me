@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.imasha.hydrateme.R
+import com.imasha.hydrateme.data.enums.Gender
+import com.imasha.hydrateme.data.enums.getName
+import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.databinding.ToolbarLayoutBinding
+import com.imasha.hydrateme.utils.Calculations
 import com.imasha.hydrateme.utils.SharedPrefManager
 
 open class BaseActivity : AppCompatActivity() {
@@ -46,5 +50,12 @@ open class BaseActivity : AppCompatActivity() {
 
     fun showToast(message: String){
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    fun calculateWaterIntake(user: User) : Int{
+        val weight = user.weight
+        val gender = user.gender
+
+        return Calculations.waterIntake(weight, gender == Gender.MALE, 0.0)
     }
 }

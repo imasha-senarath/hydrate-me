@@ -5,12 +5,19 @@ import com.imasha.hydrateme.data.model.Record
 object Calculations {
 
     fun waterIntake(weight: Double, isMale: Boolean, exerciseMinutes: Double): Int {
-        var baseWater = weight * 0.033
-        if (isMale) {
-            baseWater += 0.5
+        var baseWaterLiters = 3.2
+
+        if (weight > 0) {
+            baseWaterLiters = weight * 0.033
+
+            if (isMale) {
+                baseWaterLiters += 0.5
+            }
+
+            baseWaterLiters += exerciseMinutes / 30 * 0.35
         }
-        baseWater += exerciseMinutes / 30 * 0.35
-        return baseWater.toInt()
+
+        return (baseWaterLiters * 1000).toInt()
     }
 
     fun totalWaterUsage(items: List<Record>): Int {
