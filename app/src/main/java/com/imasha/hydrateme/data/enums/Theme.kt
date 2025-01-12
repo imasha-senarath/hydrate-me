@@ -1,9 +1,11 @@
 package com.imasha.hydrateme.data.enums
 
-enum class Theme {
-    LIGHT, DARK, SYSTEM
-}
+enum class Theme(private val displayName: String) {
+    LIGHT("Light Theme"),
+    DARK("Dark Theme"),
+    SYSTEM("System Theme");
 
-fun Theme.getName(): String {
-    return name.lowercase().replaceFirstChar { it.uppercase() }
+    override fun toString(): String {
+        return displayName
+    }
 }

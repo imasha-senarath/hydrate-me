@@ -1,9 +1,11 @@
 package com.imasha.hydrateme.data.enums
 
-enum class Gender {
-    MALE, FEMALE, UNSPECIFIED
-}
+enum class Gender(private val displayName: String) {
+    MALE("Male"),
+    FEMALE("Female"),
+    UNSPECIFIED("Unspecified");
 
-fun Gender.getName(): String {
-    return name.lowercase().replaceFirstChar { it.uppercase() }
+    override fun toString(): String {
+        return displayName
+    }
 }

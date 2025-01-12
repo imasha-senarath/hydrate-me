@@ -3,6 +3,7 @@ package com.imasha.hydrateme.ui.base
 import android.content.pm.ActivityInfo
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.imasha.hydrateme.R

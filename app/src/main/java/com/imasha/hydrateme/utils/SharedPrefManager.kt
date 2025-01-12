@@ -15,7 +15,7 @@ object SharedPrefManager {
         preferences.edit().putString(key, value).apply()
     }
 
-    fun getString(key: String, defaultValue: String = ""): String {
+    fun getPrefString(key: String, defaultValue: String = ""): String {
         return preferences.getString(key, defaultValue) ?: defaultValue
     }
 

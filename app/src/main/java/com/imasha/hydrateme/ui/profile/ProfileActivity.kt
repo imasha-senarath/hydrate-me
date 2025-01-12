@@ -2,10 +2,11 @@ package com.imasha.hydrateme.ui.profile
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
-import com.imasha.hydrateme.data.enums.getName
+import com.imasha.hydrateme.data.enums.Gender
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
@@ -14,7 +15,7 @@ import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
 import com.imasha.hydrateme.utils.AppConstants.WEIGHT_DIALOG
 import com.imasha.hydrateme.utils.AppDialog
-import com.imasha.hydrateme.utils.AppDialog.showGenderSelectionDialog
+import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
 
@@ -47,25 +48,25 @@ class ProfileActivity : BaseActivity() {
         setUpToolbar(binding.toolbar, R.string.profile, true)
 
         binding.btnName.setOnClickListener {
-            showUpdateDialog(NAME_DIALOG, currentUser.name, this) { newValue ->
-                currentUser.name = newValue.toString()
+            showUpdateDialog(NAME_DIALOG, currentUser.name, this) { newName ->
+                currentUser.name = newName.toString()
                 binding.name.text = currentUser.name
                 profileViewModel.saveProfile(currentUser)
             }
         }
 
         binding.btnWeight.setOnClickListener {
-            showUpdateDialog(WEIGHT_DIALOG, currentUser.weight, this) { newValue ->
-                currentUser.weight = newValue.toString().toDouble()
+            showUpdateDialog(WEIGHT_DIALOG, currentUser.weight, this) { newWeight ->
+                currentUser.weight = newWeight.toString().toDouble()
                 binding.weight.text = getString(R.string.weight, currentUser.weight)
                 profileViewModel.saveProfile(currentUser)
             }
         }
 
         binding.btnGender.setOnClickListener {
-            showGenderSelectionDialog(this, currentUser.gender) { selectedGender ->
+            showSelectionDialog(this, currentUser.gender, Gender::class.java) { selectedGender ->
                 currentUser.gender = selectedGender
-                binding.gender.text = currentUser.gender.getName()
+                binding.gender.text = currentUser.gender.toString()
                 profileViewModel.saveProfile(currentUser)
             }
         }
@@ -119,7 +120,7 @@ class ProfileActivity : BaseActivity() {
 
     private fun setupProfile() {
         val name = currentUser.name
-        val gender = currentUser.gender.getName()
+        val gender = currentUser.gender.toString()
         val weight = currentUser.weight
         val wakeUpTime = currentUser.wakeUpTime
         val bedTime = currentUser.bedTime

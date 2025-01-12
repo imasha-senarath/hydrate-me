@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatDelegate
 object AppConstants {
 
     // Shared Pref Keys
-    const val THEME_MODE = "theme_mode"
+    const val SELECTED_THEME = "selected_theme"
+    const val SELECTED_LANGUAGE = "selected_language"
 
     // Theme Values
     const val DEFAULT_THEME_MODE = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
     const val LIGHT_THEME_MODE = AppCompatDelegate.MODE_NIGHT_NO
     const val DARK_THEME_MODE = AppCompatDelegate.MODE_NIGHT_YES
+
+    // Languages Values
+    const val ENGLISH_LANGUAGE = "en"
+    const val SINHALA_LANGUAGE = "si"
 
     // Firebase Keys
     const val DRINKS_DOC = "Drinks"

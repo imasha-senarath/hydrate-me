@@ -3,6 +3,7 @@ package com.imasha.hydrateme.ui.home
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
@@ -146,9 +147,9 @@ class HomeActivity : BaseActivity() {
                 waterUsage = getTotalWaterUsage(records)
                 setupDrinkProgress()
 
-                val sortedList = sortRecords(records)
+                //val sortedList = sortRecords(records)
 
-                binding.recordList.adapter = RecordAdapter(sortedList, this) { record ->
+                binding.recordList.adapter = RecordAdapter(records, this) { record ->
                     showConfirmationDialog("Delete","Are you sure you want to delete this record?",this) {
                         homeViewModel.deleteRecord(record.id)
                     }
