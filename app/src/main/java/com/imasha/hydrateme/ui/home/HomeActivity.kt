@@ -1,8 +1,10 @@
 package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,18 +17,18 @@ import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.data.source.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
+import com.imasha.hydrateme.ui.history.HistoryActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
 import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.AppLogger
-import com.imasha.hydrateme.utils.Calculations.totalWaterUsage
+import com.imasha.hydrateme.utils.Calculations.getTotalWaterUsage
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 
 class HomeActivity : BaseActivity() {
 
@@ -70,7 +72,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_history -> {
-                    Toast.makeText(this, "History", Toast.LENGTH_SHORT).show()
+                    navigateToHistoryActivity()
                     true
                 }
                 R.id.nav_notifications -> {
@@ -141,10 +143,12 @@ class HomeActivity : BaseActivity() {
         homeViewModel.getRecordStatus.observe(this) { result ->
             result.onSuccess { records ->
 
-                waterUsage = totalWaterUsage(records)
+                waterUsage = getTotalWaterUsage(records)
                 setupDrinkProgress()
 
-                binding.recordList.adapter = RecordAdapter(records, this) { record ->
+                val sortedList = sortRecords(records)
+
+                binding.recordList.adapter = RecordAdapter(sortedList, this) { record ->
                     showConfirmationDialog("Delete","Are you sure you want to delete this record?",this) {
                         homeViewModel.deleteRecord(record.id)
                     }
@@ -213,6 +217,11 @@ class HomeActivity : BaseActivity() {
 
     private fun navigateToSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToHistoryActivity() {
+        val intent = Intent(this, HistoryActivity::class.java)
         startActivity(intent)
     }
 }

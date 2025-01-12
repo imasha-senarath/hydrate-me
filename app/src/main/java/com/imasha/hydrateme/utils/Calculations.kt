@@ -4,7 +4,7 @@ import com.imasha.hydrateme.data.model.Record
 
 object Calculations {
 
-    fun waterIntake(weight: Double, isMale: Boolean, exerciseMinutes: Double): Int {
+    fun getWaterIntake(weight: Double, isMale: Boolean, exerciseMinutes: Double): Int {
         var baseWaterLiters = 3.2
 
         if (weight > 0) {
@@ -20,7 +20,21 @@ object Calculations {
         return (baseWaterLiters * 1000).toInt()
     }
 
-    fun totalWaterUsage(items: List<Record>): Int {
+    fun getTotalWaterUsage(items: List<Record>): Int {
         return items.sumOf { it.size }
+    }
+
+    fun getTotalByDate(records: List<Record>): List<Record> {
+        return records
+            .groupBy { it.date }
+            .map { (date, recordsForDate) ->
+                Record(
+                    id = "",
+                    user = "",
+                    size = recordsForDate.sumOf { it.size },
+                    time = "",
+                    date = date
+                )
+            }
     }
 }
