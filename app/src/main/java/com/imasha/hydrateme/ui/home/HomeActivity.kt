@@ -1,11 +1,8 @@
 package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +27,7 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
+import com.imasha.hydrateme.utils.NotificationUtils
 
 class HomeActivity : BaseActivity() {
 
@@ -98,6 +96,16 @@ class HomeActivity : BaseActivity() {
             }.also {
                 binding.drawerLayout.closeDrawer(GravityCompat.START)
             }
+        }
+
+        binding.toolbar.btnNotification.setOnClickListener {
+            NotificationUtils.showNotification(this, "Time to Hydrate", "It's time to refresh! Grab a glass of water.") {
+                /*val intent = Intent(this, SplashActivity::class.java)
+                startActivity(intent)
+                finish()*/
+            }
+
+            //homeViewModel.sendReminder(this)
         }
 
         homeViewModel.initCupSizes()

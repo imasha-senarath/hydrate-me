@@ -40,7 +40,7 @@ open class BaseActivity : AppCompatActivity() {
             if(isBackButtonEnabled) {
                 setHomeAsUpIndicator(R.drawable.ic_back)
             } else {
-                toolbar.icNotification.visibility = View.VISIBLE
+                toolbar.btnNotification.visibility = View.VISIBLE
                 setHomeAsUpIndicator(R.drawable.ic_menu)
             }
         }

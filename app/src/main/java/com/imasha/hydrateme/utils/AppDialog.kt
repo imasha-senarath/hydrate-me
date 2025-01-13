@@ -7,17 +7,9 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.imasha.hydrateme.R
-import com.imasha.hydrateme.data.enums.Gender
-import com.imasha.hydrateme.databinding.DialogSelectThemeBinding
 import com.imasha.hydrateme.databinding.DialogUpdateBinding
-import com.imasha.hydrateme.utils.AppConstants.DARK_THEME_MODE
-import com.imasha.hydrateme.utils.AppConstants.DEFAULT_THEME_MODE
-import com.imasha.hydrateme.utils.AppConstants.LIGHT_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
-import com.imasha.hydrateme.utils.AppConstants.SELECTED_THEME
 import com.imasha.hydrateme.utils.AppConstants.WEIGHT_DIALOG
-import com.imasha.hydrateme.utils.SharedPrefManager.saveInt
-import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
 import com.imasha.hydrateme.utils.Validations.isAnyNotEmpty
 
 object AppDialog {

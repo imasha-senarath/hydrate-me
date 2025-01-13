@@ -133,42 +133,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:paddingTop="@dimen/spacing_medium"
                 android:paddingBottom="@dimen/spacing_medium">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="@dimen/spacing_small">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Water Goal"
-                        style="@style/TextAppearance.Material3.BodyLarge"
-                        android:textStyle="bold"/>
-
-                    <TextView
-                        android:id="@+id/goal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="--"
-                        android:textAlignment="textEnd"
-                        style="@style/TextAppearance.Material3.BodyLarge"
-                        android:textColor="@color/md_theme_primary"/>
-
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Set daily water goal."
-                    style="@style/TextAppearance.Material3.BodyMedium"/>
+                    android:text="Water Goal"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/goal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="--"
+                    android:textAlignment="textEnd"
+                    style="@style/TextAppearance.Material3.BodyLarge"
+                    android:textColor="@color/md_theme_primary"/>
+
             </LinearLayout>
 
             <View
@@ -215,7 +201,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Set wake up time to stop notification until this time."
+                    android:text="Set a wake-up time to pause notifications until this time."
                     style="@style/TextAppearance.Material3.BodyMedium"/>
             </LinearLayout>
 
@@ -260,11 +246,11 @@
                 </LinearLayout>
 
                 <TextView
+                    style="@style/TextAppearance.Material3.BodyMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Set bed time to stop notification from this time."
-                    style="@style/TextAppearance.Material3.BodyMedium"/>
+                    android:text="Set a bedtime to pause notifications after this time." />
             </LinearLayout>
 
             <View

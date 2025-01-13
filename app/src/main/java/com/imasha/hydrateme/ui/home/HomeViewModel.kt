@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.ui.home
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +9,7 @@ import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
@@ -88,6 +90,13 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
             } catch (exception: Exception) {
                 _deleteRecordStatus.value = Result.failure(exception)
             }
+        }
+    }
+
+    fun sendReminder(context: Context) {
+        viewModelScope.launch {
+            delay(2000)
+
         }
     }
 

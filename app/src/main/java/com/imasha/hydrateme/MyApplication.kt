@@ -1,15 +1,11 @@
 package com.imasha.hydrateme
 
 import android.app.Application
-import com.imasha.hydrateme.utils.AppConstants
-import com.imasha.hydrateme.utils.AppConstants.SELECTED_LANGUAGE
-import com.imasha.hydrateme.utils.AppConstants.SELECTED_THEME
-import com.imasha.hydrateme.utils.LanguageUtils
 import com.imasha.hydrateme.utils.LanguageUtils.applyLanguage
+import com.imasha.hydrateme.utils.LanguageUtils.getCurrentLanguage
 import com.imasha.hydrateme.utils.SharedPrefManager
-import com.imasha.hydrateme.utils.SharedPrefManager.getInt
-import com.imasha.hydrateme.utils.SharedPrefManager.getPrefString
 import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
+import com.imasha.hydrateme.utils.ThemeUtils.getCurrentTheme
 
 class MyApplication : Application() {
     override fun onCreate() {
@@ -17,7 +13,7 @@ class MyApplication : Application() {
 
         SharedPrefManager.init(this)
 
-        applyTheme(getInt(SELECTED_THEME))
-        applyLanguage(getPrefString(SELECTED_LANGUAGE), this)
+        applyTheme(getCurrentTheme())
+        applyLanguage(getCurrentLanguage(), this)
     }
 }

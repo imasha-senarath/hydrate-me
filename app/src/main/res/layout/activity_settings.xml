@@ -54,7 +54,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Dark"
+                        android:text="Light"
                         android:textAlignment="textEnd"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/md_theme_primary"/>
@@ -65,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Change the theme."
+                    android:text="Select your preferred app theme."
                     style="@style/TextAppearance.Material3.BodyMedium"/>
             </LinearLayout>
 
@@ -113,7 +113,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Change the language."
+                    android:text="Select your preferred language."
                     style="@style/TextAppearance.Material3.BodyMedium"/>
             </LinearLayout>
 
