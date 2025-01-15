@@ -2,7 +2,7 @@ package com.imasha.hydrateme.data.repository
 
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.data.source.FirebaseSource
+import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
 import com.imasha.hydrateme.utils.AppConstants.USERS_DOC
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY

@@ -9,25 +9,30 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.imasha.hydrateme.R
+import com.imasha.hydrateme.ui.splash.SplashActivity
 
 object NotificationUtils {
 
     private const val CHANNEL_ID = "default_channel"
     private const val CHANNEL_NAME = "Default Channel"
     private const val CHANNEL_DESCRIPTION = "Channel for app notifications"
+    private const val NOTIFICATION_ID = 1
 
-    fun showNotification(context: Context, title: String, message: String, onNotificationClicked: () -> Unit ) {
+    fun showNotification(context: Context, title: String, message: String) {
         createNotificationChannel(context)
 
-        val broadcastIntent = Intent(context, NotificationReceiver::class.java).apply {
-            putExtra("callback", true) // Passing callback signal to receiver
-        }
+        /*val broadcastIntent = Intent(context, NotificationReceiver::class.java).apply {
+            putExtra("callback", true)
+        }*/
 
-        val pendingIntent = PendingIntent.getBroadcast(
+        val intent = Intent(context, SplashActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        val pendingIntent = PendingIntent.getActivity(
             context,
             0,
-            broadcastIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            intent,
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
         )
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
@@ -40,9 +45,9 @@ object NotificationUtils {
             .setAutoCancel(true)
             .build()
 
-        NotificationManagerCompat.from(context).notify(1, notification)
+        NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
 
-        NotificationReceiver.onNotificationClicked = onNotificationClicked
+        //NotificationReceiver.onNotificationClicked = onNotificationClicked
     }
 
     private fun createNotificationChannel(context: Context) {

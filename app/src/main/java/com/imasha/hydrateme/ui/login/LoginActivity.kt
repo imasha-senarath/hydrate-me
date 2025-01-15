@@ -9,10 +9,9 @@ import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.ui.home.HomeActivity
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.data.source.FirebaseSource
+import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityLoginBinding
 import com.imasha.hydrateme.ui.signup.SignUpActivity
-import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 
 class LoginActivity : AppCompatActivity() {

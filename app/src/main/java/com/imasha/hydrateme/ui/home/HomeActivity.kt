@@ -6,13 +6,16 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.CupAdapter
 import com.imasha.hydrateme.adapters.RecordAdapter
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.data.source.FirebaseSource
+import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.history.HistoryActivity
@@ -21,6 +24,7 @@ import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
+import com.imasha.hydrateme.utils.AppDialog.showSuccessDialog
 import com.imasha.hydrateme.utils.AppLogger
 import com.imasha.hydrateme.utils.Calculations.getTotalWaterUsage
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
@@ -28,6 +32,9 @@ import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
 import com.imasha.hydrateme.utils.NotificationUtils
+import com.imasha.hydrateme.utils.NotificationWorker
+
+import java.util.concurrent.TimeUnit
 
 class HomeActivity : BaseActivity() {
 
@@ -99,12 +106,6 @@ class HomeActivity : BaseActivity() {
         }
 
         binding.toolbar.btnNotification.setOnClickListener {
-            NotificationUtils.showNotification(this, "Time to Hydrate", "It's time to refresh! Grab a glass of water.") {
-                /*val intent = Intent(this, SplashActivity::class.java)
-                startActivity(intent)
-                finish()*/
-            }
-
             //homeViewModel.sendReminder(this)
         }
 
@@ -113,6 +114,15 @@ class HomeActivity : BaseActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         binding.recordList.layoutManager = LinearLayoutManager(this)
+
+        scheduleNotificationWork()
+    }
+
+    private fun scheduleNotificationWork() {
+        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(10, TimeUnit.MINUTES)
+            .build()
+
+        WorkManager.getInstance(this).enqueue(workRequest)
     }
 
     private fun initViewModels() {
@@ -152,12 +162,18 @@ class HomeActivity : BaseActivity() {
         homeViewModel.getRecordStatus.observe(this) { result ->
             result.onSuccess { records ->
 
-                waterUsage = getTotalWaterUsage(records)
+                val latestUsage: Int = getTotalWaterUsage(records)
+
+                if(isCompletedTarget(latestUsage)) {
+                    showSuccessDialog(this, "You achieved the water goal.") {}
+                }
+
+                waterUsage = latestUsage
                 setupDrinkProgress()
 
-                //val sortedList = sortRecords(records)
+                val sortedList = sortRecords(records)
 
-                binding.recordList.adapter = RecordAdapter(records, this) { record ->
+                binding.recordList.adapter = RecordAdapter(sortedList, this) { record ->
                     showConfirmationDialog("Delete","Are you sure you want to delete this record?",this) {
                         homeViewModel.deleteRecord(record.id)
                     }
@@ -202,15 +218,16 @@ class HomeActivity : BaseActivity() {
 
     private fun setupDrinkProgress() {
         binding.drinkTarget.text = getString(R.string.drink_target, waterUsage, intake)
-        //binding.drinkingProgress.max = intake
-        //binding.drinkingProgress.progress = waterUsage
 
         binding.drinkingProgress.apply {
             progress = waterUsage.toFloat()
             setProgressWithAnimation(waterUsage.toFloat(), 1000) // =1s
-
             progressMax = intake.toFloat()
         }
+    }
+
+    private fun isCompletedTarget(latestUsage: Int): Boolean {
+            return intake in (waterUsage + 1)..latestUsage
     }
 
     private fun navigateToLoginActivity() {

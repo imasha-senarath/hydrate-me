@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.imasha.hydrateme.R
+import com.imasha.hydrateme.databinding.DialogSuccessBinding
 import com.imasha.hydrateme.databinding.DialogUpdateBinding
 import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
 import com.imasha.hydrateme.utils.AppConstants.WEIGHT_DIALOG
@@ -142,6 +143,28 @@ object AppDialog {
 
         binding.btnCancel.setOnClickListener {
             dialog.dismiss()
+        }
+
+        dialog.show()
+        return dialog
+    }
+
+    fun showSuccessDialog(
+        context: Context,
+        message: String,
+        onConfirm: () -> Unit
+    ): AlertDialog {
+        val binding = DialogSuccessBinding.inflate(LayoutInflater.from(context))
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(binding.root)
+            .create()
+
+        binding.tvMsg.text = message
+
+        binding.btnOk.setOnClickListener {
+            dialog.dismiss()
+            onConfirm()
         }
 
         dialog.show()

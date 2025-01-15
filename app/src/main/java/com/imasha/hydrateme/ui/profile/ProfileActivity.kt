@@ -2,14 +2,13 @@ package com.imasha.hydrateme.ui.profile
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.enums.Gender
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.data.source.FirebaseSource
+import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityProfileBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG

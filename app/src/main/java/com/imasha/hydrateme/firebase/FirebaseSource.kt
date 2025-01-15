@@ -1,4 +1,4 @@
-package com.imasha.hydrateme.data.source
+package com.imasha.hydrateme.firebase
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

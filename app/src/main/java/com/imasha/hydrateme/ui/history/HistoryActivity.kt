@@ -1,15 +1,13 @@
 package com.imasha.hydrateme.ui.history
 
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.HistoryAdapter
 import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.data.source.FirebaseSource
+import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHistoryBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppDialog

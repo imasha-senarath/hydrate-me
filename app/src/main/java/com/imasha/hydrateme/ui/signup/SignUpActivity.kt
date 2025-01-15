@@ -5,15 +5,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.data.source.FirebaseSource
-import com.imasha.hydrateme.databinding.ActivityLoginBinding
+import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivitySignUpBinding
-import com.imasha.hydrateme.ui.login.LoginViewModel
-import com.imasha.hydrateme.ui.login.LoginViewModelFactory
-import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.AppDialog.showInfoDialog
 
