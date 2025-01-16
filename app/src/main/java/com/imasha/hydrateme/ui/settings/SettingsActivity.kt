@@ -11,7 +11,7 @@ import com.imasha.hydrateme.utils.AppConstants.SELECTED_THEME
 import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.LanguageUtils.applyLanguage
 import com.imasha.hydrateme.utils.LanguageUtils.getCurrentLanguage
-import com.imasha.hydrateme.utils.SharedPrefManager.saveString
+import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
 import com.imasha.hydrateme.utils.ThemeUtils.getCurrentTheme
 
@@ -33,7 +33,7 @@ class SettingsActivity : BaseActivity() {
         binding.themeBtn.setOnClickListener {
             showSelectionDialog(this, getCurrentTheme(), Theme::class.java) { selectedTheme ->
                 applyTheme(selectedTheme)
-                saveString(SELECTED_THEME, selectedTheme.toString())
+                savePrefString(SELECTED_THEME, selectedTheme.toString())
                 setThemeName(selectedTheme)
             }
         }
@@ -41,7 +41,7 @@ class SettingsActivity : BaseActivity() {
         binding.languageBtn.setOnClickListener {
             showSelectionDialog(this, getCurrentLanguage(), Language::class.java) { selectedLanguage ->
                 applyLanguage(selectedLanguage, this)
-                saveString(SELECTED_LANGUAGE, selectedLanguage.toString())
+                savePrefString(SELECTED_LANGUAGE, selectedLanguage.toString())
                 setLanguageName(selectedLanguage)
             }
         }

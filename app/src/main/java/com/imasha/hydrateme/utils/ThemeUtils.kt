@@ -7,7 +7,6 @@ import com.imasha.hydrateme.utils.AppConstants.DEFAULT_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.LIGHT_THEME_MODE
 import com.imasha.hydrateme.utils.AppConstants.SELECTED_THEME
 import com.imasha.hydrateme.utils.SharedPrefManager.getPrefString
-import com.imasha.hydrateme.utils.SharedPrefManager.saveString
 
 object ThemeUtils {
 

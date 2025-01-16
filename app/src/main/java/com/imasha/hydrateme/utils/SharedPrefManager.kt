@@ -11,7 +11,7 @@ object SharedPrefManager {
         preferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
 
-    fun saveString(key: String, value: String) {
+    fun savePrefString(key: String, value: String) {
         preferences.edit().putString(key, value).apply()
     }
 
@@ -19,27 +19,27 @@ object SharedPrefManager {
         return preferences.getString(key, defaultValue) ?: defaultValue
     }
 
-    fun saveBoolean(key: String, value: Boolean) {
+    fun savePrefBoolean(key: String, value: Boolean) {
         preferences.edit().putBoolean(key, value).apply()
     }
 
-    fun getBoolean(key: String, defaultValue: Boolean = false): Boolean {
+    fun getPrefBoolean(key: String, defaultValue: Boolean = false): Boolean {
         return preferences.getBoolean(key, defaultValue)
     }
 
-    fun saveInt(key: String, value: Int) {
+    fun savePrefInt(key: String, value: Int) {
         preferences.edit().putInt(key, value).apply()
     }
 
-    fun getInt(key: String, defaultValue: Int = 0): Int {
+    fun getPrefInt(key: String, defaultValue: Int = 0): Int {
         return preferences.getInt(key, defaultValue)
     }
 
-    fun removeKey(key: String) {
+    fun removePref(key: String) {
         preferences.edit().remove(key).apply()
     }
 
-    fun clear() {
+    fun clearPref() {
         preferences.edit().clear().apply()
     }
 }

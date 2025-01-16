@@ -6,8 +6,6 @@ import android.widget.Toast
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.work.PeriodicWorkRequestBuilder
-import androidx.work.WorkManager
 
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
@@ -31,10 +29,6 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
-import com.imasha.hydrateme.utils.NotificationUtils
-import com.imasha.hydrateme.utils.NotificationWorker
-
-import java.util.concurrent.TimeUnit
 
 class HomeActivity : BaseActivity() {
 
@@ -114,15 +108,6 @@ class HomeActivity : BaseActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         binding.recordList.layoutManager = LinearLayoutManager(this)
-
-        scheduleNotificationWork()
-    }
-
-    private fun scheduleNotificationWork() {
-        val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(10, TimeUnit.MINUTES)
-            .build()
-
-        WorkManager.getInstance(this).enqueue(workRequest)
     }
 
     private fun initViewModels() {
@@ -165,6 +150,7 @@ class HomeActivity : BaseActivity() {
                 val latestUsage: Int = getTotalWaterUsage(records)
 
                 if(isCompletedTarget(latestUsage)) {
+                    homeViewModel.cancelNotification(this)
                     showSuccessDialog(this, "You achieved the water goal.") {}
                 }
 
@@ -177,6 +163,10 @@ class HomeActivity : BaseActivity() {
                     showConfirmationDialog("Delete","Are you sure you want to delete this record?",this) {
                         homeViewModel.deleteRecord(record.id)
                     }
+                }
+
+                if(waterUsage < intake) {
+                    homeViewModel.scheduleNotification(this)
                 }
 
             }.onFailure { exception ->
@@ -194,7 +184,6 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.deleteRecordStatus.observe(this) { result ->
             result.onSuccess {
-                //showToast("Deleted ${record.size} ml")
                 showToast("Deleted")
                 homeViewModel.getTodayRecords()
             }.onFailure { exception ->
@@ -221,7 +210,6 @@ class HomeActivity : BaseActivity() {
 
         binding.drinkingProgress.apply {
             progress = waterUsage.toFloat()
-            setProgressWithAnimation(waterUsage.toFloat(), 1000) // =1s
             progressMax = intake.toFloat()
         }
     }

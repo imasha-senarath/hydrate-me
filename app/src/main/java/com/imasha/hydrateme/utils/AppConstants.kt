@@ -7,6 +7,7 @@ object AppConstants {
     // Shared Pref Keys
     const val SELECTED_THEME = "selected_theme"
     const val SELECTED_LANGUAGE = "selected_language"
+    const val IS_INIT_REMINDER = "is_init_reminder"
 
     // Theme Values
     const val DEFAULT_THEME_MODE = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -24,4 +25,7 @@ object AppConstants {
     // Dialog Types
     const val NAME_DIALOG = "Name"
     const val WEIGHT_DIALOG = "Weight"
+
+    // Notify Types
+    const val REMINDER_NOTIFY = "reminder_notification"
 }

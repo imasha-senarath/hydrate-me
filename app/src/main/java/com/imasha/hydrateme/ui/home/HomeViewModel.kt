@@ -1,16 +1,24 @@
 package com.imasha.hydrateme.ui.home
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.repository.AppRepository
-import kotlinx.coroutines.delay
+import com.imasha.hydrateme.notify.NotificationWorker
+import com.imasha.hydrateme.utils.AppConstants.IS_INIT_REMINDER
+import com.imasha.hydrateme.utils.AppConstants.REMINDER_NOTIFY
+import com.imasha.hydrateme.utils.SharedPrefManager.getPrefBoolean
+import com.imasha.hydrateme.utils.SharedPrefManager.savePrefBoolean
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
 
@@ -93,11 +101,23 @@ class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
         }
     }
 
-    fun sendReminder(context: Context) {
-        viewModelScope.launch {
-            delay(2000)
+    fun scheduleNotification(context: Context) {
+        if(!getPrefBoolean(IS_INIT_REMINDER)) {
+            Log.i("test66", "scheduleNotification")
+            val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(10, TimeUnit.MINUTES)
+                .addTag(REMINDER_NOTIFY)
+                .build()
 
+            WorkManager.getInstance(context).enqueue(workRequest)
+
+            savePrefBoolean(IS_INIT_REMINDER, true)
         }
+    }
+
+    fun cancelNotification(context: Context) {
+        Log.i("test66", "cancelNotification")
+        WorkManager.getInstance(context).cancelUniqueWork(REMINDER_NOTIFY)
+        savePrefBoolean(IS_INIT_REMINDER, false)
     }
 
     fun logout() {

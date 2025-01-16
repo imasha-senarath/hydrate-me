@@ -1,4 +1,4 @@
-package com.imasha.hydrateme.utils
+package com.imasha.hydrateme.notify
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -21,10 +21,6 @@ object NotificationUtils {
     fun showNotification(context: Context, title: String, message: String) {
         createNotificationChannel(context)
 
-        /*val broadcastIntent = Intent(context, NotificationReceiver::class.java).apply {
-            putExtra("callback", true)
-        }*/
-
         val intent = Intent(context, SplashActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
@@ -46,8 +42,6 @@ object NotificationUtils {
             .build()
 
         NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
-
-        //NotificationReceiver.onNotificationClicked = onNotificationClicked
     }
 
     private fun createNotificationChannel(context: Context) {
