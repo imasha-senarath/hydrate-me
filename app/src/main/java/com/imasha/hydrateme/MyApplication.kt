@@ -6,7 +6,9 @@ import com.imasha.hydrateme.utils.LanguageUtils.getCurrentLanguage
 import com.imasha.hydrateme.utils.SharedPrefManager
 import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
 import com.imasha.hydrateme.utils.ThemeUtils.getCurrentTheme
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()

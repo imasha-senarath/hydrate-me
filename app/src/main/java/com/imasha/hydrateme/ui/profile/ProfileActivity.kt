@@ -2,6 +2,7 @@ package com.imasha.hydrateme.ui.profile
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
@@ -17,13 +18,16 @@ import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ProfileActivity : BaseActivity() {
 
     private val className = this::class.java.simpleName
 
     private lateinit var binding: ActivityProfileBinding
-    private lateinit var profileViewModel: ProfileViewModel
+    private val profileViewModel: ProfileViewModel by viewModels()
 
     private lateinit var currentUserId: String
     private var currentUser: User = User()
@@ -34,12 +38,12 @@ class ProfileActivity : BaseActivity() {
         setContentView(binding.root)
         //setContentView(R.layout.activity_profile)
 
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseSource = FirebaseSource(firebaseAuth)
-        val appRepository = AppRepository(firebaseSource)
-        val factory = ProfileViewModelFactory(appRepository)
+        //val firebaseAuth = FirebaseAuth.getInstance()
+        //val firebaseSource = FirebaseSource(firebaseAuth)
+        //val appRepository = AppRepository(firebaseSource)
+        //val factory = ProfileViewModelFactory(appRepository)
 
-        profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
+        //profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
         initViewModels()
 
         profileViewModel.getUserId();

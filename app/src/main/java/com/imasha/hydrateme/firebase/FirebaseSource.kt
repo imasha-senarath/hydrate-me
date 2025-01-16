@@ -4,11 +4,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.imasha.hydrateme.data.model.User
+import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class FirebaseSource(private val firebaseAuth: FirebaseAuth) {
+class FirebaseSource @Inject constructor(private val firebaseAuth: FirebaseAuth) {
 
     suspend fun userAuthentication(): Boolean = suspendCoroutine { continuation ->
         val user = firebaseAuth.currentUser

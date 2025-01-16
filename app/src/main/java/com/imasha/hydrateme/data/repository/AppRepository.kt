@@ -7,8 +7,9 @@ import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
 import com.imasha.hydrateme.utils.AppConstants.USERS_DOC
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
+import javax.inject.Inject
 
-class AppRepository(private val firebaseSource: FirebaseSource) {
+class AppRepository @Inject constructor (private val firebaseSource: FirebaseSource) {
 
     suspend fun userAuthentication(): Boolean {
         return firebaseSource.userAuthentication()
