@@ -1,19 +1,18 @@
 package com.imasha.hydrateme.ui.history
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.repository.AppRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.LocalDate
-import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
-class HistoryViewModel(private val appRepository: AppRepository) : ViewModel() {
+import javax.inject.Inject
+
+@HiltViewModel
+class HistoryViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId

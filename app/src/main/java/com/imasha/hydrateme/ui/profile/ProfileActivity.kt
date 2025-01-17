@@ -3,13 +3,9 @@ package com.imasha.hydrateme.ui.profile
 import android.app.TimePickerDialog
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.enums.Gender
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityProfileBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
@@ -19,7 +15,6 @@ import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity() {
@@ -36,14 +31,7 @@ class ProfileActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_profile)
 
-        //val firebaseAuth = FirebaseAuth.getInstance()
-        //val firebaseSource = FirebaseSource(firebaseAuth)
-        //val appRepository = AppRepository(firebaseSource)
-        //val factory = ProfileViewModelFactory(appRepository)
-
-        //profileViewModel = ViewModelProvider(this, factory)[ProfileViewModel::class.java]
         initViewModels()
 
         profileViewModel.getUserId();

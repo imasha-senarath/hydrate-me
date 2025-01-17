@@ -3,32 +3,23 @@ package com.imasha.hydrateme.ui.signup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
+import androidx.activity.viewModels
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivitySignUpBinding
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.AppDialog.showInfoDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
-    private lateinit var signUpViewModel: SignUpViewModel
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_sign_up)
-
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseSource = FirebaseSource(firebaseAuth)
-        val appRepository = AppRepository(firebaseSource)
-        val factory = SignUpViewModelFactory(appRepository)
-
-        signUpViewModel = ViewModelProvider(this, factory)[SignUpViewModel::class.java]
 
         initViewModels();
 

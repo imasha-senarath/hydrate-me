@@ -17,10 +17,13 @@ import com.imasha.hydrateme.utils.AppConstants.IS_INIT_REMINDER
 import com.imasha.hydrateme.utils.AppConstants.REMINDER_NOTIFY
 import com.imasha.hydrateme.utils.SharedPrefManager.getPrefBoolean
 import com.imasha.hydrateme.utils.SharedPrefManager.savePrefBoolean
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class HomeViewModel(private val appRepository: AppRepository) : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId

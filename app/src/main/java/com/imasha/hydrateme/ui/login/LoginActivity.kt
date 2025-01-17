@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.ui.home.HomeActivity
@@ -13,24 +14,18 @@ import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityLoginBinding
 import com.imasha.hydrateme.ui.signup.SignUpActivity
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_login)
-
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseSource = FirebaseSource(firebaseAuth)
-        val appRepository = AppRepository(firebaseSource)
-        val factory = LoginViewModelFactory(appRepository)
-
-        loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
 
         initViewModels();
 

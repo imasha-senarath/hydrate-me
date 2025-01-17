@@ -3,17 +3,14 @@ package com.imasha.hydrateme.ui.home
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 
-import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.CupAdapter
 import com.imasha.hydrateme.adapters.RecordAdapter
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.history.HistoryActivity
@@ -29,13 +26,15 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : BaseActivity() {
 
     private val className = this::class.java.simpleName
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var homeViewModel: HomeViewModel
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private lateinit var currentUserId: String
     private var currentUser: User = User()
@@ -49,12 +48,12 @@ class HomeActivity : BaseActivity() {
         setContentView(binding.root)
         //setContentView(R.layout.activity_main)
 
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseSource = FirebaseSource(firebaseAuth)
-        val appRepository = AppRepository(firebaseSource)
-        val factory = HomeViewModelFactory(appRepository)
+        //val firebaseAuth = FirebaseAuth.getInstance()
+        //val firebaseSource = FirebaseSource(firebaseAuth)
+        //val appRepository = AppRepository(firebaseSource)
+        //val factory = HomeViewModelFactory(appRepository)
 
-        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        //homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
         initViewModels()
 
         homeViewModel.getUserId();

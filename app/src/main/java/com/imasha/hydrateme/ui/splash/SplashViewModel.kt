@@ -5,10 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imasha.hydrateme.data.repository.AppRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SplashViewModel(private val appRepository: AppRepository) : ViewModel() {
+@HiltViewModel
+class SplashViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
 
     private val _splashState = MutableLiveData<Result<Boolean>>()
     val splashState: LiveData<Result<Boolean>> get() = _splashState

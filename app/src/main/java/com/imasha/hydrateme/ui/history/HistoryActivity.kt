@@ -1,22 +1,21 @@
 package com.imasha.hydrateme.ui.history
 
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.HistoryAdapter
-import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityHistoryBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.Calculations.getTotalByDate
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HistoryActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHistoryBinding
-    private lateinit var historyViewModel: HistoryViewModel
+    private val historyViewModel: HistoryViewModel by viewModels()
 
     private lateinit var currentUserId: String
 
@@ -24,14 +23,7 @@ class HistoryActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_history)
 
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseSource = FirebaseSource(firebaseAuth)
-        val appRepository = AppRepository(firebaseSource)
-        val factory = HistoryViewModelFactory(appRepository)
-
-        historyViewModel = ViewModelProvider(this, factory)[HistoryViewModel::class.java]
         initViewModels()
 
         historyViewModel.getUserId();
