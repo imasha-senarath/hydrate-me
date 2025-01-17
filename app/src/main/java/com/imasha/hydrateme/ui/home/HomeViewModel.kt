@@ -82,6 +82,7 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
             Cup(200),
             Cup(250),
             Cup(300),
+            Cup(350),
         )
     }
 
@@ -120,7 +121,7 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
 
     fun scheduleNotification(context: Context) {
         if(!getPrefBoolean(IS_INIT_REMINDER)) {
-            Log.i("test66", "scheduleNotification")
+
             val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(10, TimeUnit.MINUTES)
                 .addTag(REMINDER_NOTIFY)
                 .build()
@@ -132,7 +133,6 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
     }
 
     fun cancelNotification(context: Context) {
-        Log.i("test66", "cancelNotification")
         WorkManager.getInstance(context).cancelUniqueWork(REMINDER_NOTIFY)
         savePrefBoolean(IS_INIT_REMINDER, false)
     }

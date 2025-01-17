@@ -13,7 +13,7 @@ class NotificationWorker(
 ) : Worker(context, workerParams) {
 
     override fun doWork(): Result {
-        Log.i("test66", "doWork")
+
         if(!getPrefBoolean(IS_INIT_REMINDER)) {
             return Result.success()
         }

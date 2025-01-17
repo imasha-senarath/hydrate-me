@@ -34,6 +34,8 @@ class ProfileActivity : BaseActivity() {
 
         initViewModels()
 
+        showLoading()
+
         profileViewModel.getUserId();
 
         setUpToolbar(binding.toolbar, R.string.profile, true)
@@ -89,6 +91,8 @@ class ProfileActivity : BaseActivity() {
         }
 
         profileViewModel.getProfileStatus.observe(this) { result ->
+            hideLoading()
+
             result.onSuccess { user ->
                 currentUser = user
             }.onFailure { exception ->

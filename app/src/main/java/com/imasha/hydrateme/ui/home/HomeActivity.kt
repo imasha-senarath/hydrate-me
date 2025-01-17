@@ -29,6 +29,7 @@ import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
 import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity() {
@@ -56,7 +57,10 @@ class HomeActivity : BaseActivity() {
         //val factory = HomeViewModelFactory(appRepository)
 
         //homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
         initViewModels()
+
+        showLoading()
 
         homeViewModel.getUserId();
         homeViewModel.getFcmToken()
@@ -157,6 +161,8 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.getRecordStatus.observe(this) { result ->
             result.onSuccess { records ->
+
+                hideLoading()
 
                 val latestUsage: Int = getTotalWaterUsage(records)
 

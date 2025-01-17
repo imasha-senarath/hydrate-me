@@ -1,15 +1,22 @@
 package com.imasha.hydrateme.ui.base
 
 import android.content.pm.ActivityInfo
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.enums.Gender
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
+import com.imasha.hydrateme.databinding.DialogLoadingBinding
+import com.imasha.hydrateme.databinding.DialogSuccessBinding
 import com.imasha.hydrateme.databinding.ToolbarLayoutBinding
 import com.imasha.hydrateme.utils.Calculations
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
@@ -18,13 +25,20 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 open class BaseActivity : AppCompatActivity() {
+
+    private lateinit var progressDialog: AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
 
-    protected fun setUpToolbar(toolbar: ToolbarLayoutBinding, title: Int, isBackButtonEnabled: Boolean) {
+    protected fun setUpToolbar(
+        toolbar: ToolbarLayoutBinding,
+        title: Int,
+        isBackButtonEnabled: Boolean
+    ) {
         setSupportActionBar(toolbar.appbar)
 
         supportActionBar?.apply {
@@ -37,7 +51,7 @@ open class BaseActivity : AppCompatActivity() {
 
             toolbar.title.text = getString(title)
 
-            if(isBackButtonEnabled) {
+            if (isBackButtonEnabled) {
                 setHomeAsUpIndicator(R.drawable.ic_back)
             } else {
                 toolbar.btnNotification.visibility = View.VISIBLE
@@ -52,11 +66,35 @@ open class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun showToast(message: String){
+    fun showLoading(): AlertDialog {
+        val binding = DialogLoadingBinding.inflate(LayoutInflater.from(this))
+
+        progressDialog = AlertDialog.Builder(this)
+            .setView(binding.root)
+            .setCancelable(false)
+            .create()
+
+        progressDialog.window?.setLayout(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        progressDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        progressDialog.show()
+        return progressDialog
+    }
+
+    fun hideLoading() {
+        if (::progressDialog.isInitialized) {
+            progressDialog.dismiss()
+        }
+    }
+
+    fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    fun calculateWaterIntake(user: User) : Int{
+    fun calculateWaterIntake(user: User): Int {
         val weight = user.weight
         val gender = user.gender
 
