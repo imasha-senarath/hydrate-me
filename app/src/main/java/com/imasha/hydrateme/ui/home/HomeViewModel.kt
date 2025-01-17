@@ -28,6 +28,9 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId
 
+    private val _getFcmTokenStatus = MutableLiveData<Result<String>>()
+    val getFcmTokenStatus: LiveData<Result<String>> = _getFcmTokenStatus
+
     private val _getProfileStatus = MutableLiveData<Result<User>>()
     val getProfileStatus: LiveData<Result<User>> = _getProfileStatus
 
@@ -48,6 +51,17 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
 
     fun getUserId() {
         _userId.value = appRepository.getCurrentUserId()
+    }
+
+    fun getFcmToken() {
+        viewModelScope.launch {
+            try {
+                val token = appRepository.getFcmToken()
+                _getFcmTokenStatus.value = Result.success(token)
+            } catch (exception: Exception) {
+                _getFcmTokenStatus.value = Result.failure(exception)
+            }
+        }
     }
 
     fun getProfile() {

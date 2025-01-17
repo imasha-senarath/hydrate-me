@@ -19,6 +19,10 @@ class AppRepository @Inject constructor (private val firebaseSource: FirebaseSou
         return firebaseSource.getCurrentUserId()
     }
 
+    suspend fun getFcmToken(): String {
+        return firebaseSource.getFcmToken()
+    }
+
     suspend fun login(user: User): Boolean {
         return firebaseSource.login(user)
     }

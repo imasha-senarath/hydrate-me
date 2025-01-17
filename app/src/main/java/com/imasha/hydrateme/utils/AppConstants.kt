@@ -8,6 +8,7 @@ object AppConstants {
     const val SELECTED_THEME = "selected_theme"
     const val SELECTED_LANGUAGE = "selected_language"
     const val IS_INIT_REMINDER = "is_init_reminder"
+    const val FCM_TOKEN = "fcm_token"
 
     // Theme Values
     const val DEFAULT_THEME_MODE = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM

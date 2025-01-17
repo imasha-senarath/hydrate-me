@@ -17,6 +17,7 @@ import com.imasha.hydrateme.ui.history.HistoryActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
 import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
+import com.imasha.hydrateme.utils.AppConstants
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.AppDialog.showSuccessDialog
@@ -26,6 +27,7 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
+import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -57,6 +59,7 @@ class HomeActivity : BaseActivity() {
         initViewModels()
 
         homeViewModel.getUserId();
+        homeViewModel.getFcmToken()
 
         setUpToolbar(binding.toolbar, R.string.app_name, false)
 
@@ -116,6 +119,15 @@ class HomeActivity : BaseActivity() {
             }
 
             homeViewModel.getProfile();
+        }
+
+        homeViewModel.getFcmTokenStatus.observe(this) { result ->
+            result.onSuccess { token ->
+                savePrefString(AppConstants.FCM_TOKEN, token)
+                AppLogger.d(className, "FCM Token: $token")
+            }.onFailure { exception ->
+                AppLogger.d(className, exception.toString())
+            }
         }
 
         homeViewModel.getProfileStatus.observe(this) { result ->

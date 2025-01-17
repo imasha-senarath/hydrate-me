@@ -1,8 +1,10 @@
 package com.imasha.hydrateme.firebase
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.messaging.FirebaseMessaging
 import com.imasha.hydrateme.data.model.User
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -18,6 +20,16 @@ class FirebaseSource @Inject constructor(private val firebaseAuth: FirebaseAuth)
 
     fun getCurrentUserId(): String? {
         return firebaseAuth.currentUser?.uid
+    }
+
+    suspend fun getFcmToken(): String = suspendCoroutine { continuation ->
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                continuation.resume(task.result)
+            } else {
+                continuation.resumeWithException(task.exception ?: Exception("Getting token failed"))
+            }
+        }
     }
 
     suspend fun login(user: User): Boolean = suspendCoroutine { continuation ->

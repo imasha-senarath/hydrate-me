@@ -7,11 +7,18 @@
 <h2> ⚙️ Technologies </h2>
 <ul>
   <li>Kotlin with MVVM Architecture.</li>
-  <li>Firebase Authentication and Firestore.</li>
+  <li>Firebase Authentication, Firestore and Cloud Messaging.</li>
+  <li>Dependency injection using Hilt.</li>
   <li>Material 3 Design.</li>
 </ul>
 
 <h2> 🔥 Features </h2>
+<ul>
+  <li>Track daily water consumption.</li>
+  <li>Reminds to drink water with notifications.</li>
+  <li>Switch between multiple languages.</li>
+  <li>Select your preferred theme.</li>
+</ul>
   
 <h2> 📸 Screenshots </h2>
 
