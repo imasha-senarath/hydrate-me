@@ -24,10 +24,6 @@
   
 <h2> 📸 Screenshots </h2>
 
-<img src="ss/01.jpg" width="400"/> <img src="ss/02.jpg" width="400"/>
-
-<img src="ss/03.jpg" width="400"/> <img src="ss/04.jpg" width="400"/>
-
 <img src="ss/05.jpg" width="400"/> <img src="ss/06.jpg" width="400"/>
 
 <img src="ss/07.jpg" width="400"/> <img src="ss/08.jpg" width="400"/>
