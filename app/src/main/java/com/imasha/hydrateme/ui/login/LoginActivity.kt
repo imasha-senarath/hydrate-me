@@ -1,23 +1,19 @@
 package com.imasha.hydrateme.ui.login
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.ui.home.HomeActivity
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.databinding.ActivityLoginBinding
+import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.signup.SignUpActivity
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val loginViewModel: LoginViewModel by viewModels()
@@ -40,7 +36,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initViewModels() {
         loginViewModel.loginStatus.observe(this) { result ->
-
+            hideLoading()
             result.onSuccess {
                 navigateToMainActivity()
             }.onFailure { exception ->
@@ -56,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         if (email.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
         } else {
-            //appDialog.showLoadingDialog()
+            showLoading()
             val user = User(email = email, password = password)
             loginViewModel.login(user)
         }

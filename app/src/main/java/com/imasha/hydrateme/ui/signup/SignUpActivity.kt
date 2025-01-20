@@ -1,20 +1,23 @@
 package com.imasha.hydrateme.ui.signup
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.databinding.ActivitySignUpBinding
+import com.imasha.hydrateme.ui.base.BaseActivity
+import com.imasha.hydrateme.ui.home.HomeActivity
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
-import com.imasha.hydrateme.utils.AppDialog.showInfoDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySignUpBinding
     private val signUpViewModel: SignUpViewModel by viewModels()
+
+    private var user: User = User()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,10 +37,18 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun initViewModels() {
         signUpViewModel.signUpStatus.observe(this) { result ->
-
             result.onSuccess {
-                //navigateToMainActivity()
-                showInfoDialog("Success","", this)
+                signUpViewModel.saveProfile(user)
+            }.onFailure { exception ->
+                hideLoading()
+                showErrorDialog(exception.message.toString(), this);
+            }
+        }
+
+        signUpViewModel.saveProfileStatus.observe(this) { result ->
+            hideLoading()
+            result.onSuccess {
+                navigateToMainActivity()
             }.onFailure { exception ->
                 showErrorDialog(exception.message.toString(), this);
             }
@@ -52,8 +63,15 @@ class SignUpActivity : AppCompatActivity() {
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
         } else {
-            val user = User(email, password)
+            showLoading()
+            user = User(name = name, email = email, password = password)
             signUpViewModel.signUp(user)
         }
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

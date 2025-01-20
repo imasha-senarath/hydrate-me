@@ -16,6 +16,9 @@ class SignUpViewModel @Inject constructor(private val appRepository: AppReposito
     private val _signUpStatus = MutableLiveData<Result<Boolean>>()
     val signUpStatus: LiveData<Result<Boolean>> get() = _signUpStatus
 
+    private val _saveProfileStatus = MutableLiveData<Result<Boolean>>()
+    val saveProfileStatus: LiveData<Result<Boolean>> get() = _saveProfileStatus
+
     fun signUp(user: User) {
         viewModelScope.launch {
             try {
@@ -23,6 +26,17 @@ class SignUpViewModel @Inject constructor(private val appRepository: AppReposito
                 _signUpStatus.value = Result.success(result)
             } catch (exception: Exception) {
                 _signUpStatus.value = Result.failure(exception)
+            }
+        }
+    }
+
+    fun saveProfile(user: User) {
+        viewModelScope.launch {
+            try {
+                val result = appRepository.saveProfile(user)
+                _saveProfileStatus.value = Result.success(result)
+            } catch (exception: Exception) {
+                _saveProfileStatus.value = Result.failure(exception)
             }
         }
     }
