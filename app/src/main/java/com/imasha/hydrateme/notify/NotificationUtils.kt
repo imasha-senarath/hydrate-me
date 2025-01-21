@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.imasha.hydrateme.R
-import com.imasha.hydrateme.ui.splash.SplashActivity
+import com.imasha.hydrateme.ui.splash.InitActivity
 
 object NotificationUtils {
 
@@ -21,7 +21,7 @@ object NotificationUtils {
     fun showNotification(context: Context, title: String, message: String) {
         createNotificationChannel(context)
 
-        val intent = Intent(context, SplashActivity::class.java).apply {
+        val intent = Intent(context, InitActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
         val pendingIntent = PendingIntent.getActivity(

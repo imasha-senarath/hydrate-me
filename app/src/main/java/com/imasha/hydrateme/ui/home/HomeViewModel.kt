@@ -122,7 +122,7 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
     fun scheduleNotification(context: Context) {
         if(!getPrefBoolean(IS_INIT_REMINDER)) {
 
-            val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(10, TimeUnit.MINUTES)
+            val workRequest = PeriodicWorkRequestBuilder<NotificationWorker>(30, TimeUnit.MINUTES)
                 .addTag(REMINDER_NOTIFY)
                 .build()
 

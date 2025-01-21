@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/spacing_large"
-    tools:context=".ui.splash.SplashActivity">
+    tools:context=".ui.splash.InitActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -21,7 +21,7 @@
         android:layout_alignParentBottom="true">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/app_version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="V1.0"
@@ -29,7 +29,6 @@
             android:layout_marginBottom="@dimen/spacing_xsmall"/>
 
         <TextView
-            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/owner"

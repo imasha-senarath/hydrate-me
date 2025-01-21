@@ -1,6 +1,7 @@
 package com.imasha.hydrateme.ui.base
 
 import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
@@ -109,5 +110,14 @@ open class BaseActivity : AppCompatActivity() {
             compareByDescending<Record> { dateFormatter.parse(it.date) }
                 .thenByDescending { timeFormatter.parse(it.time) }
         )
+    }
+
+    fun getAppVersion(): String {
+        return try {
+            val packageInfo = packageManager.getPackageInfo(packageName, 0)
+            packageInfo.versionName ?: "Unknown"
+        } catch (e: PackageManager.NameNotFoundException) {
+            "Unknown"
+        }
     }
 }

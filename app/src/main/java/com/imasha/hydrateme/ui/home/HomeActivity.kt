@@ -29,7 +29,6 @@ import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
 import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class HomeActivity : BaseActivity() {
@@ -87,10 +86,6 @@ class HomeActivity : BaseActivity() {
                 }
                 R.id.nav_settings -> {
                     navigateToSettingsActivity()
-                    true
-                }
-                R.id.nav_about -> {
-                    Toast.makeText(this, "About", Toast.LENGTH_SHORT).show()
                     true
                 }
                 R.id.nav_logout -> {

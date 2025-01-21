@@ -21,6 +21,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Preferences"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:textColor="@color/md_theme_primary"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -32,8 +41,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -80,8 +89,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/spacing_medium"
-                android:layout_marginBottom="@dimen/spacing_medium">
+                android:paddingTop="@dimen/spacing_medium"
+                android:paddingBottom="@dimen/spacing_medium">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -122,6 +131,31 @@
                 android:layout_height="1dp"
                 android:layout_gravity="bottom"
                 android:background="@color/md_theme_outlineVariant" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="About"
+                style="@style/TextAppearance.Material3.BodyMedium"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginBottom="@dimen/spacing_medium"
+                android:textColor="@color/md_theme_primary"/>
+
+            <TextView
+                android:id="@+id/app_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Version 1.0"
+                android:layout_marginBottom="@dimen/spacing_xsmall"
+                style="@style/TextAppearance.Material3.BodyMedium"/>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/owner"
+                style="@style/TextAppearance.Material3.BodyMedium"/>
 
         </LinearLayout>
     </ScrollView>

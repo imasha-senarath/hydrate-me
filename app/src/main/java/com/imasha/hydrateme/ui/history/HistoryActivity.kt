@@ -26,6 +26,8 @@ class HistoryActivity : BaseActivity() {
 
         initViewModels()
 
+        showLoading()
+
         historyViewModel.getUserId();
 
         setUpToolbar(binding.toolbar, R.string.history, true)
@@ -43,8 +45,9 @@ class HistoryActivity : BaseActivity() {
         }
 
         historyViewModel.getRecordStatus.observe(this) { result ->
-            result.onSuccess { records ->
+            hideLoading()
 
+            result.onSuccess { records ->
                 val filteredList = getTotalByDate(records)
                 val sortedList = sortRecords(filteredList)
 

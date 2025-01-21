@@ -1,6 +1,5 @@
 package com.imasha.hydrateme.firebase
 
-import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query

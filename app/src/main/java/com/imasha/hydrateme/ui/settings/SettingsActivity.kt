@@ -23,12 +23,13 @@ class SettingsActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //setContentView(R.layout.activity_settings)
 
         setUpToolbar(binding.toolbar, R.string.settings, true)
 
         setThemeName(getCurrentTheme());
         setLanguageName(getCurrentLanguage())
+
+        binding.appVersion.text = getString(R.string.app_version, getAppVersion())
 
         binding.themeBtn.setOnClickListener {
             showSelectionDialog(this, getCurrentTheme(), Theme::class.java) { selectedTheme ->
