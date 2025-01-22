@@ -9,6 +9,9 @@ object AppConstants {
     const val SELECTED_LANGUAGE = "selected_language"
     const val IS_INIT_REMINDER = "is_init_reminder"
     const val FCM_TOKEN = "fcm_token"
+    const val WAKE_UP_TIME = "wake_up_time"
+    const val BED_TIME = "bed_time"
+    const val IS_NOTIFICATION_ON = "is_notification_on"
 
     // Theme Values
     const val DEFAULT_THEME_MODE = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM

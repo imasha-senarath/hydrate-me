@@ -8,13 +8,21 @@ import com.imasha.hydrateme.data.enums.Gender
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.databinding.ActivityProfileBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
+import com.imasha.hydrateme.utils.AppConstants.BED_TIME
 import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
+import com.imasha.hydrateme.utils.AppConstants.WAKE_UP_TIME
 import com.imasha.hydrateme.utils.AppConstants.WEIGHT_DIALOG
 import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
+import com.imasha.hydrateme.utils.DateUtils.HH_MM
+import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
+import com.imasha.hydrateme.utils.DateUtils.convertTo12
+import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class ProfileActivity : BaseActivity() {
@@ -65,18 +73,20 @@ class ProfileActivity : BaseActivity() {
         }
 
         binding.btnWakeUpTime.setOnClickListener {
-            showTimePicker() { selectedTime ->
+            showTimePicker(currentUser.wakeUpTime) { selectedTime ->
                 currentUser.wakeUpTime = selectedTime
-                binding.wakeUpTime.text = currentUser.wakeUpTime
+                binding.wakeUpTime.text = convertTo12(currentUser.wakeUpTime)
                 profileViewModel.saveProfile(currentUser)
+                savePrefString(WAKE_UP_TIME, currentUser.wakeUpTime)
             }
         }
 
         binding.btnBedTime.setOnClickListener {
-            showTimePicker() { selectedTime ->
+            showTimePicker(currentUser.bedTime) { selectedTime ->
                 currentUser.bedTime = selectedTime
-                binding.bedTime.text = currentUser.bedTime
+                binding.bedTime.text = convertTo12(currentUser.bedTime)
                 profileViewModel.saveProfile(currentUser)
+                savePrefString(BED_TIME, currentUser.bedTime)
             }
         }
     }
@@ -91,7 +101,6 @@ class ProfileActivity : BaseActivity() {
         }
 
         profileViewModel.getProfileStatus.observe(this) { result ->
-            hideLoading()
 
             result.onSuccess { user ->
                 currentUser = user
@@ -135,21 +144,43 @@ class ProfileActivity : BaseActivity() {
         }
 
         if (wakeUpTime.isNotEmpty()) {
-            binding.wakeUpTime.text = wakeUpTime
+            binding.wakeUpTime.text = convertTo12(wakeUpTime)
         }
 
         if (bedTime.isNotEmpty()) {
-            binding.bedTime.text = bedTime
+            binding.bedTime.text = convertTo12(bedTime)
         }
+
+        hideLoading()
     }
 
-    private fun showTimePicker(onTimeSet: (String) -> Unit) {
-        val is24HourView = false
-        TimePickerDialog(this, { _, hourOfDay, minute ->
-            val amPm = if (hourOfDay >= 12) "PM" else "AM"
-            val hour = if (hourOfDay > 12) hourOfDay - 12 else if (hourOfDay == 0) 12 else hourOfDay
-            val time = String.format("%02d:%02d %s", hour, minute, amPm)
-            onTimeSet(time)
-        }, 0, 0, is24HourView).show()
+    private fun showTimePicker(currentTime24H: String?, onTimeSet: (String) -> Unit) {
+        val inputFormat = SimpleDateFormat(HH_MM, Locale.getDefault())
+        val outputFormat = SimpleDateFormat(HH_MM_AA, Locale.getDefault())
+
+        val currentTime = if (currentTime24H.isNullOrEmpty()) {
+            Date()
+        } else {
+            inputFormat.parse(currentTime24H) ?: Date()
+        }
+
+        val calendar = Calendar.getInstance().apply {
+            time = currentTime
+        }
+
+        val hour = calendar.get(Calendar.HOUR)
+        val minute = calendar.get(Calendar.MINUTE)
+        val isPM = calendar.get(Calendar.AM_PM) == Calendar.PM
+
+        TimePickerDialog(
+            this,
+            { _, selectedHour, selectedMinute ->
+                val selectedTime24H = String.format("%02d:%02d", selectedHour, selectedMinute)
+                onTimeSet(selectedTime24H)
+            },
+            if (hour == 0) 12 else hour,
+            minute,
+            false // Set to false to show the time picker in 12-hour format
+        ).show()
     }
 }

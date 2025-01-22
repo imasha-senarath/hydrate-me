@@ -8,6 +8,7 @@ import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.databinding.RowRecordBinding
+import com.imasha.hydrateme.utils.DateUtils.convertTo12
 
 class RecordAdapter(
     private val items: List<Record>,
@@ -18,7 +19,7 @@ class RecordAdapter(
     inner class RecordViewHolder(private val binding: RowRecordBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Record) {
             binding.cupSize.text = context.getString(R.string.size_ml, item.size)
-            binding.time.text = item.time
+            binding.time.text = convertTo12(item.time)
             binding.btnDelete.setOnClickListener {
                 onDeleteClick(item)
             }

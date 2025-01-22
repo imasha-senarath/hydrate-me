@@ -2,6 +2,7 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
@@ -18,13 +19,15 @@ import com.imasha.hydrateme.ui.login.LoginActivity
 import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppConstants
+import com.imasha.hydrateme.utils.AppConstants.BED_TIME
+import com.imasha.hydrateme.utils.AppConstants.WAKE_UP_TIME
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
 import com.imasha.hydrateme.utils.AppDialog.showSuccessDialog
 import com.imasha.hydrateme.utils.AppLogger
 import com.imasha.hydrateme.utils.Calculations.getTotalWaterUsage
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
-import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
+import com.imasha.hydrateme.utils.DateUtils.HH_MM
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
 import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
@@ -89,7 +92,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_logout -> {
-                    showConfirmationDialog("Logout","Are you sure you want to log out?",this) {
+                    showConfirmationDialog("Logout", "Are you sure you want to log out?", this) {
                         homeViewModel.logout();
                     }
                     true
@@ -132,6 +135,8 @@ class HomeActivity : BaseActivity() {
         homeViewModel.getProfileStatus.observe(this) { result ->
             result.onSuccess { user ->
                 currentUser = user
+                savePrefString(WAKE_UP_TIME, currentUser.wakeUpTime)
+                savePrefString(BED_TIME, currentUser.bedTime)
             }.onFailure { exception ->
                 AppLogger.d(className, exception.toString())
             }
@@ -145,7 +150,7 @@ class HomeActivity : BaseActivity() {
                 val drinkMap = mapOf(
                     "user" to currentUserId,
                     "size" to clickedCup.size,
-                    "time" to getCurrentTime(HH_MM_AA),
+                    "time" to getCurrentTime(HH_MM),
                     "date" to getCurrentDate(DD_MM_YYYY),
                 )
 
@@ -161,7 +166,7 @@ class HomeActivity : BaseActivity() {
 
                 val latestUsage: Int = getTotalWaterUsage(records)
 
-                if(isCompletedTarget(latestUsage)) {
+                if (isCompletedTarget(latestUsage)) {
                     homeViewModel.cancelNotification(this)
                     showSuccessDialog(this, "You achieved the water goal.") {}
                 }
@@ -172,12 +177,16 @@ class HomeActivity : BaseActivity() {
                 val sortedList = sortRecords(records)
 
                 binding.recordList.adapter = RecordAdapter(sortedList, this) { record ->
-                    showConfirmationDialog("Delete","Are you sure you want to delete this record?",this) {
+                    showConfirmationDialog(
+                        "Delete",
+                        "Are you sure you want to delete this record?",
+                        this
+                    ) {
                         homeViewModel.deleteRecord(record.id)
                     }
                 }
 
-                if(waterUsage < intake) {
+                if (waterUsage < intake) {
                     homeViewModel.scheduleNotification(this)
                 }
 
@@ -227,7 +236,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun isCompletedTarget(latestUsage: Int): Boolean {
-            return intake in (waterUsage + 1)..latestUsage
+        return intake in (waterUsage + 1)..latestUsage
     }
 
     private fun navigateToLoginActivity() {
