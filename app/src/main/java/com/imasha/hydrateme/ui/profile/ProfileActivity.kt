@@ -17,7 +17,6 @@ import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
 import com.imasha.hydrateme.utils.DateUtils.HH_MM
-import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
 import com.imasha.hydrateme.utils.DateUtils.convertTo12
 import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import dagger.hilt.android.AndroidEntryPoint
@@ -156,7 +155,6 @@ class ProfileActivity : BaseActivity() {
 
     private fun showTimePicker(currentTime24H: String?, onTimeSet: (String) -> Unit) {
         val inputFormat = SimpleDateFormat(HH_MM, Locale.getDefault())
-        val outputFormat = SimpleDateFormat(HH_MM_AA, Locale.getDefault())
 
         val currentTime = if (currentTime24H.isNullOrEmpty()) {
             Date()
@@ -170,7 +168,6 @@ class ProfileActivity : BaseActivity() {
 
         val hour = calendar.get(Calendar.HOUR)
         val minute = calendar.get(Calendar.MINUTE)
-        val isPM = calendar.get(Calendar.AM_PM) == Calendar.PM
 
         TimePickerDialog(
             this,
@@ -180,7 +177,7 @@ class ProfileActivity : BaseActivity() {
             },
             if (hour == 0) 12 else hour,
             minute,
-            false // Set to false to show the time picker in 12-hour format
+            false
         ).show()
     }
 }

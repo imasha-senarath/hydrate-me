@@ -2,7 +2,6 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
@@ -16,6 +15,7 @@ import com.imasha.hydrateme.databinding.ActivityHomeBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.history.HistoryActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
+import com.imasha.hydrateme.ui.notification.NotificationActivity
 import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppConstants
@@ -84,7 +84,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_notifications -> {
-                    Toast.makeText(this, "Notifications", Toast.LENGTH_SHORT).show()
+                    navigateToNotificationActivity()
                     true
                 }
                 R.id.nav_settings -> {
@@ -104,7 +104,7 @@ class HomeActivity : BaseActivity() {
         }
 
         binding.toolbar.btnNotification.setOnClickListener {
-            //homeViewModel.sendReminder(this)
+            navigateToNotificationActivity()
         }
 
         homeViewModel.initCupSizes()
@@ -257,6 +257,11 @@ class HomeActivity : BaseActivity() {
 
     private fun navigateToHistoryActivity() {
         val intent = Intent(this, HistoryActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun navigateToNotificationActivity() {
+        val intent = Intent(this, NotificationActivity::class.java)
         startActivity(intent)
     }
 }

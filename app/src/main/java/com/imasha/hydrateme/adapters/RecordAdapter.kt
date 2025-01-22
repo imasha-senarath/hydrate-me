@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.imasha.hydrateme.R
-import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.databinding.RowRecordBinding
 import com.imasha.hydrateme.utils.DateUtils.convertTo12

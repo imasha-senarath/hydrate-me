@@ -6,11 +6,14 @@ import com.imasha.hydrateme.data.enums.Language
 import com.imasha.hydrateme.data.enums.Theme
 import com.imasha.hydrateme.databinding.ActivitySettingsBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
+import com.imasha.hydrateme.utils.AppConstants.IS_NOTIFICATION_ON
 import com.imasha.hydrateme.utils.AppConstants.SELECTED_LANGUAGE
 import com.imasha.hydrateme.utils.AppConstants.SELECTED_THEME
 import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.LanguageUtils.applyLanguage
 import com.imasha.hydrateme.utils.LanguageUtils.getCurrentLanguage
+import com.imasha.hydrateme.utils.SharedPrefManager.getPrefBoolean
+import com.imasha.hydrateme.utils.SharedPrefManager.savePrefBoolean
 import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import com.imasha.hydrateme.utils.ThemeUtils.applyTheme
 import com.imasha.hydrateme.utils.ThemeUtils.getCurrentTheme
@@ -28,6 +31,7 @@ class SettingsActivity : BaseActivity() {
 
         setThemeName(getCurrentTheme());
         setLanguageName(getCurrentLanguage())
+        setNotificationSwitch()
 
         binding.appVersion.text = getString(R.string.app_version, getAppVersion())
 
@@ -46,6 +50,11 @@ class SettingsActivity : BaseActivity() {
                 setLanguageName(selectedLanguage)
             }
         }
+
+        binding.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
+            savePrefBoolean(IS_NOTIFICATION_ON , isChecked)
+            setNotificationSwitch()
+        }
     }
 
     private fun setThemeName(theme: Theme) {
@@ -54,5 +63,9 @@ class SettingsActivity : BaseActivity() {
 
     private fun setLanguageName(language: Language) {
         binding.language.text = language.toString()
+    }
+
+    private fun setNotificationSwitch() {
+        binding.notificationSwitch.isChecked = getPrefBoolean(IS_NOTIFICATION_ON, true)
     }
 }

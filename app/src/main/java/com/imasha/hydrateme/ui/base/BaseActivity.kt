@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
@@ -17,11 +16,10 @@ import com.imasha.hydrateme.data.enums.Gender
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.databinding.DialogLoadingBinding
-import com.imasha.hydrateme.databinding.DialogSuccessBinding
 import com.imasha.hydrateme.databinding.ToolbarLayoutBinding
 import com.imasha.hydrateme.utils.Calculations
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
-import com.imasha.hydrateme.utils.DateUtils.HH_MM_AA
+import com.imasha.hydrateme.utils.DateUtils.HH_MM
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -104,7 +102,7 @@ open class BaseActivity : AppCompatActivity() {
 
     fun sortRecords(records: List<Record>): List<Record> {
         val dateFormatter = SimpleDateFormat(DD_MM_YYYY, Locale.getDefault())
-        val timeFormatter = SimpleDateFormat(HH_MM_AA, Locale.getDefault())
+        val timeFormatter = SimpleDateFormat(HH_MM, Locale.getDefault())
 
         return records.sortedWith(
             compareByDescending<Record> { dateFormatter.parse(it.date) }
