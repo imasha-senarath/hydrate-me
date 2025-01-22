@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.imasha.hydrateme.R
+import com.imasha.hydrateme.databinding.DialogGoalUpdateBinding
 import com.imasha.hydrateme.databinding.DialogSuccessBinding
 import com.imasha.hydrateme.databinding.DialogUpdateBinding
 import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
@@ -99,7 +100,6 @@ object AppDialog {
         return dialog
     }
 
-
     fun showUpdateDialog(
         title: String,
         currentValue: (Any),
@@ -134,9 +134,38 @@ object AppDialog {
             if(newValue.isEmpty()) {
                 Toast.makeText(context, "Field can't be empty", Toast.LENGTH_SHORT).show()
             } else {
-                if(currentValue != newValue) {
-                    onUpdate(newValue)
-                }
+                onUpdate(newValue)
+                dialog.dismiss()
+            }
+        }
+
+        binding.btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+        return dialog
+    }
+
+    fun showGoalUpdateDialog(
+        currentValue: (Any),
+        context: Context,
+        onUpdate: (Int) -> Unit
+    ): AlertDialog {
+        val binding = DialogGoalUpdateBinding.inflate(LayoutInflater.from(context))
+
+        val dialog = AlertDialog.Builder(context)
+            .setView(binding.root)
+            .create()
+
+        binding.editTextValue.setText(currentValue.toString())
+
+        binding.btnUpdate.setOnClickListener {
+            val newValue =  binding.editTextValue.text.toString()
+            if(newValue.isEmpty()) {
+                Toast.makeText(context, "Field can't be empty", Toast.LENGTH_SHORT).show()
+            } else {
+                onUpdate(newValue.toInt())
                 dialog.dismiss()
             }
         }

@@ -8,6 +8,7 @@ data class User(
     var email: String = "",
     var weight: Double = 0.0,
     var gender: Gender = Gender.UNSPECIFIED,
+    var goal: Int = 0,
     var wakeUpTime: String = "",
     var bedTime: String = "",
     val password: String = ""

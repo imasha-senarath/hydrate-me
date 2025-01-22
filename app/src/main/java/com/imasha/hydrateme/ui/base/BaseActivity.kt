@@ -96,8 +96,13 @@ open class BaseActivity : AppCompatActivity() {
     fun calculateWaterIntake(user: User): Int {
         val weight = user.weight
         val gender = user.gender
+        val goal = user.goal
 
-        return Calculations.getWaterIntake(weight, gender == Gender.MALE, 0.0)
+        return if(goal < 1) {
+            Calculations.getWaterIntake(weight, gender == Gender.MALE, 0.0)
+        } else {
+            user.goal
+        }
     }
 
     fun sortRecords(records: List<Record>): List<Record> {

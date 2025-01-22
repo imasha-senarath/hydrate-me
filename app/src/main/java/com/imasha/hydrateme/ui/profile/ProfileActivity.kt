@@ -13,6 +13,7 @@ import com.imasha.hydrateme.utils.AppConstants.NAME_DIALOG
 import com.imasha.hydrateme.utils.AppConstants.WAKE_UP_TIME
 import com.imasha.hydrateme.utils.AppConstants.WEIGHT_DIALOG
 import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.AppDialog.showGoalUpdateDialog
 import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
 import com.imasha.hydrateme.utils.AppDialog.showUpdateDialog
 import com.imasha.hydrateme.utils.AppLogger
@@ -33,6 +34,7 @@ class ProfileActivity : BaseActivity() {
 
     private lateinit var currentUserId: String
     private var currentUser: User = User()
+    private var currentUserGoal: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,14 @@ class ProfileActivity : BaseActivity() {
             }
         }
 
+        binding.btnGoal.setOnClickListener {
+            showGoalUpdateDialog(currentUserGoal, this) { newGoal ->
+                currentUser.goal = newGoal
+                binding.goal.text = getString(R.string.size_ml, currentUser.goal)
+                profileViewModel.saveProfile(currentUser)
+            }
+        }
+
         binding.btnWakeUpTime.setOnClickListener {
             showTimePicker(currentUser.wakeUpTime) { selectedTime ->
                 currentUser.wakeUpTime = selectedTime
@@ -100,7 +110,6 @@ class ProfileActivity : BaseActivity() {
         }
 
         profileViewModel.getProfileStatus.observe(this) { result ->
-
             result.onSuccess { user ->
                 currentUser = user
             }.onFailure { exception ->
@@ -128,7 +137,8 @@ class ProfileActivity : BaseActivity() {
         val wakeUpTime = currentUser.wakeUpTime
         val bedTime = currentUser.bedTime
 
-        binding.goal.text = getString(R.string.size_ml, calculateWaterIntake(currentUser))
+        currentUserGoal = calculateWaterIntake(currentUser)
+        binding.goal.text = getString(R.string.size_ml, currentUserGoal)
 
         if (name.isNotEmpty()) {
             binding.name.text = name

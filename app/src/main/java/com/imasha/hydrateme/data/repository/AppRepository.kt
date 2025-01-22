@@ -42,6 +42,7 @@ class AppRepository @Inject constructor (private val firebaseSource: FirebaseSou
             "gender" to user.gender,
             "wakeUpTime" to user.wakeUpTime,
             "bedTime" to user.bedTime,
+            "goal" to user.goal,
         )
 
         return firebaseSource.saveData(USERS_DOC, getCurrentUserId().toString(), userMap)

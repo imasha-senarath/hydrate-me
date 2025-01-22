@@ -8,20 +8,29 @@
 
     <TextView
         android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:text="Set Goal"
         style="@style/TextAppearance.Material3.TitleLarge"
-        android:layout_marginBottom="@dimen/spacing_medium" />
+        android:layout_weight="1"
+        android:layout_marginBottom="@dimen/spacing_medium"/>
 
     <EditText
         android:id="@+id/editTextValue"
         style="@style/AppPrimaryEdiText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/spacing_large"
         android:ems="10"
-        android:hint="Enter your goal" />
+        android:inputType="number"
+        android:hint="Enter your goal"
+        android:layout_marginBottom="@dimen/spacing_small"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set goal to 0 to calculate intake based on your profile."
+        style="@style/TextAppearance.Material3.BodyMedium"
+        android:layout_marginBottom="@dimen/spacing_large"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,14 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel"
-            style="@style/Widget.Material3.Button.OutlinedButton"
-            android:layout_marginEnd="@dimen/spacing_small"/>
-
-        <Button
-            android:id="@+id/btn_default"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Default"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_marginEnd="@dimen/spacing_small"/>
 
