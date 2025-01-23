@@ -20,6 +20,9 @@ import com.imasha.hydrateme.databinding.ToolbarLayoutBinding
 import com.imasha.hydrateme.utils.Calculations
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM
+import com.imasha.hydrateme.utils.LanguageUtils
+import com.imasha.hydrateme.utils.LanguageUtils.applyLanguage
+import com.imasha.hydrateme.utils.LanguageUtils.getCurrentLanguage
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -31,6 +34,8 @@ open class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        applyLanguage(getCurrentLanguage(), this)
     }
 
     protected fun setUpToolbar(

@@ -2,7 +2,9 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +22,7 @@ import com.imasha.hydrateme.ui.profile.ProfileActivity
 import com.imasha.hydrateme.ui.settings.SettingsActivity
 import com.imasha.hydrateme.utils.AppConstants
 import com.imasha.hydrateme.utils.AppConstants.BED_TIME
+import com.imasha.hydrateme.utils.AppConstants.SETTING_CHANGE_REQUEST
 import com.imasha.hydrateme.utils.AppConstants.WAKE_UP_TIME
 import com.imasha.hydrateme.utils.AppDialog.showConfirmationDialog
 import com.imasha.hydrateme.utils.AppDialog.showErrorDialog
@@ -47,6 +50,8 @@ class HomeActivity : BaseActivity() {
     private var intake: Int = 0
     private var waterUsage: Int = 0
 
+    private lateinit var settingsLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
@@ -59,6 +64,12 @@ class HomeActivity : BaseActivity() {
         //val factory = HomeViewModelFactory(appRepository)
 
         //homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+
+        settingsLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == SETTING_CHANGE_REQUEST) {
+                recreate()
+            }
+        }
 
         initViewModels()
 
@@ -252,7 +263,7 @@ class HomeActivity : BaseActivity() {
 
     private fun navigateToSettingsActivity() {
         val intent = Intent(this, SettingsActivity::class.java)
-        startActivity(intent)
+        settingsLauncher.launch(intent)
     }
 
     private fun navigateToHistoryActivity() {

@@ -1,22 +1,26 @@
 <resources>
     <string name="app_name">Hydrate Me</string>
-    <string name="app_version">V%1$s</string>
+    <string name="app_version">Version %1$s</string>
+    <string name="owner">from Imasha Senarath</string>
+
     <string name="login">Login</string>
+    <string name="welcome">Welcome Back</string>
     <string name="enter_email">Enter your email</string>
     <string name="enter_password">Enter your password</string>
     <string name="do_not_have_account">Don\'t have an Account?</string>
     <string name="sign_up">Sign Up</string>
-    <string name="welcome">Welcome Back</string>
+
     <string name="get_started">Let\'s Get Started.</string>
     <string name="enter_name">Enter your name</string>
     <string name="have_account">Already have an account?</string>
-    <string name="owner">from Imasha Senarath</string>
+
     <string name="profile">පැතිකඩ</string>
     <string name="history">ඉතිහාසය</string>
     <string name="notifications">දැනුම්දීම්</string>
     <string name="settings">සැකසුම්</string>
     <string name="about">About</string>
     <string name="logout">Logout</string>
+
     <string name="size_ml">%1$dml</string>
     <string name="drink_target">%1$d/%2$dml</string>
     <string name="weight">%1$.1fKG</string>

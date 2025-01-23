@@ -37,7 +37,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/spacing_large">
+                        android:layout_marginTop="@dimen/spacing_large">
 
                         <ProgressBar
                             style="@style/Widget.Material3.CircularProgressIndicator"
@@ -88,6 +88,7 @@
                     </RelativeLayout>
 
                     <TextView
+                        android:id="@+id/advice"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

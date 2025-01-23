@@ -33,4 +33,7 @@ object AppConstants {
 
     // Notify Types
     const val REMINDER_NOTIFY = "reminder_notification"
+
+    // Request Codes
+    const val SETTING_CHANGE_REQUEST = 100
 }

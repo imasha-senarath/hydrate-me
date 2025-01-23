@@ -7,6 +7,7 @@ import com.imasha.hydrateme.data.enums.Theme
 import com.imasha.hydrateme.databinding.ActivitySettingsBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppConstants.IS_NOTIFICATION_ON
+import com.imasha.hydrateme.utils.AppConstants.SETTING_CHANGE_REQUEST
 import com.imasha.hydrateme.utils.AppConstants.SELECTED_LANGUAGE
 import com.imasha.hydrateme.utils.AppConstants.SELECTED_THEME
 import com.imasha.hydrateme.utils.AppDialog.showSelectionDialog
@@ -21,6 +22,8 @@ import com.imasha.hydrateme.utils.ThemeUtils.getCurrentTheme
 class SettingsActivity : BaseActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
+
+    private var isLanguageChanged: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,9 @@ class SettingsActivity : BaseActivity() {
                 applyLanguage(selectedLanguage, this)
                 savePrefString(SELECTED_LANGUAGE, selectedLanguage.toString())
                 setLanguageName(selectedLanguage)
+
+                recreate()
+                isLanguageChanged = true
             }
         }
 
@@ -67,5 +73,10 @@ class SettingsActivity : BaseActivity() {
 
     private fun setNotificationSwitch() {
         binding.notificationSwitch.isChecked = getPrefBoolean(IS_NOTIFICATION_ON, true)
+    }
+
+    override fun onBackPressed() {
+        setResult(SETTING_CHANGE_REQUEST)
+        super.onBackPressed()
     }
 }
