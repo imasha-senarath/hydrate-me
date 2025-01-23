@@ -1,9 +1,11 @@
 package com.imasha.hydrateme.data.repository
 
+import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
+import com.imasha.hydrateme.utils.AppConstants.NOTIFICATIONS_DOC
 import com.imasha.hydrateme.utils.AppConstants.USERS_DOC
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
@@ -68,6 +70,24 @@ class AppRepository @Inject constructor (private val firebaseSource: FirebaseSou
 
     suspend fun deleteRecord(id: String): Boolean {
         return firebaseSource.deleteData(DRINKS_DOC, id)
+    }
+
+    suspend fun getNotifications(): List<Notification> {
+        return firebaseSource.getDataList(
+            NOTIFICATIONS_DOC, Notification::class.java, mapOf("user" to getCurrentUserId().toString())
+        )
+    }
+
+    suspend fun saveNotification(notification: Notification): Boolean {
+        val notificationMap = mapOf(
+            "title" to notification.title,
+            "message" to notification.message,
+            "time" to notification.time,
+            "date" to notification.date,
+            "user" to getCurrentUserId().toString(),
+        )
+
+        return firebaseSource.saveData(NOTIFICATIONS_DOC, "", notificationMap)
     }
 
     fun logout(): Boolean {

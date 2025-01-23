@@ -25,6 +25,7 @@ object AppConstants {
     // Firebase Keys
     const val DRINKS_DOC = "Drinks"
     const val USERS_DOC = "Users"
+    const val NOTIFICATIONS_DOC = "Notifications"
 
     // Dialog Types
     const val NAME_DIALOG = "Name"

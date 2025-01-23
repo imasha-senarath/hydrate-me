@@ -7,7 +7,7 @@
 <h2> ⚙️ Technologies </h2>
 <ul>
   <li>Kotlin with MVVM Architecture.</li>
-  <li>Jetpack libraries, including ViewModel, LiveData, Data Binding.</li>
+  <li>Jetpack libraries, including ViewModel, LiveData, Data Binding, WorkManager.</li>
   <li>Firebase Authentication, Firestore and Cloud Messaging.</li>
   <li>Dependency injection using Hilt.</li>
   <li>Material 3 design.</li>

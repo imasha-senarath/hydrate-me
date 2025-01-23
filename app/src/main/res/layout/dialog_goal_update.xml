@@ -23,13 +23,6 @@
         android:ems="10"
         android:inputType="number"
         android:hint="Enter your goal"
-        android:layout_marginBottom="@dimen/spacing_small"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Set goal to 0 to calculate intake based on your profile."
-        style="@style/TextAppearance.Material3.BodyMedium"
         android:layout_marginBottom="@dimen/spacing_large"/>
 
     <LinearLayout

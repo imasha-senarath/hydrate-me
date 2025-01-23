@@ -24,13 +24,13 @@ class HistoryActivity : BaseActivity() {
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setUpToolbar(binding.toolbar, R.string.history, true)
+
         initViewModels()
 
         showLoading()
 
         historyViewModel.getUserId();
-
-        setUpToolbar(binding.toolbar, R.string.history, true)
 
         binding.recordList.layoutManager = LinearLayoutManager(this)
     }

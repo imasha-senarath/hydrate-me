@@ -23,4 +23,5 @@
     <string name="cancel">Cancel</string>
     <string name="update">Update</string>
     <string name="update_title">Update %1$s</string>
+    <string name="date_time">%1$s • %2$s</string>
 </resources>
