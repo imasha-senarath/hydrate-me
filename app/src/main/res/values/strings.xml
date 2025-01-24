@@ -2,6 +2,7 @@
     <!-- App -->
     <string name="app_name">Hydrate Me</string>
     <string name="app_version">Version %1$s</string>
+    <string name="app_intro">Keep track of your daily water intake and stay motivated to drink more water every day.</string>
     <string name="owner">from Imasha Senarath</string>
 
     <!-- Titles -->
@@ -24,6 +25,7 @@
     <string name="goal_achieved_msg">You achieved the water goal!</string>
 
     <!-- Buttons -->
+    <string name="get_started_btn">Get Started</string>
     <string name="login_btn">Login</string>
     <string name="sign_up_btn">Sign Up</string>
     <string name="cancel_btn">Cancel</string>

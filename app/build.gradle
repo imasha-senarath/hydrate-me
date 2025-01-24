@@ -41,6 +41,22 @@ android {
     kapt {
         correctErrorTypes true
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def newName = "${variant.applicationId}-${variant.buildType.name}-${variant.versionName}.apk"
+            outputFileName = newName
+        }
+    }
+
+    /*signingConfigs {
+        release {
+            storeFile file("path/to/keystore.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias System.getenv("KEY_ALIAS")
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }*/
 }
 
 dependencies {

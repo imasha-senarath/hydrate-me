@@ -1,5 +1,7 @@
 package com.imasha.hydrateme.ui.settings
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.enums.Language
@@ -60,6 +62,12 @@ class SettingsActivity : BaseActivity() {
         binding.notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             savePrefBoolean(IS_NOTIFICATION_ON , isChecked)
             setNotificationSwitch()
+        }
+
+        binding.appOwner.setOnClickListener {
+            val url = "https://www.imashasenarath.com/"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(intent)
         }
     }
 
