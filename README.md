@@ -17,10 +17,13 @@
   <li>Reminds to drink water with notifications.</li>
   <li>Calculate daily water intake based on profile.</li>
   <li>Switch between multiple languages.</li>
-  <li>Select your preferred theme.</li>
+  <li>Switch between light and dark themes.</li>
+  <li>Receive random advice about the benefits of staying hydrated.</li>
 </ul>
   
 <h2> 📸 Screenshots </h2>
+
+<img src="ss/01.jpg" width="400"/> <img src="ss/02.jpg" width="400"/>
 
 <img src="ss/05.jpg" width="400"/> <img src="ss/06.jpg" width="400"/>
 
@@ -32,7 +35,11 @@
 
 <img src="ss/13.jpg" width="400"/> <img src="ss/14.jpg" width="400"/>
 
-<img src="ss/15.jpg" width="400"/> <img src="ss/16.jpg" width="400"/>
+<img src="ss/17.jpg" width="400"/> <img src="ss/18.jpg" width="400"/>
+
+<img src="ss/19.jpg" width="400"/> <img src="ss/20.jpg" width="400"/>
+
+<p>To see all screenshots, check the "ss" folder.</p>
 
 <h2> 👽 Author </h2>
 <a href="https://www.imashasenarath.com/" target="_blank"><strong>Imasha Senarath</strong></a>
