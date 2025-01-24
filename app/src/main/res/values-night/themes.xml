@@ -85,4 +85,15 @@
         <item name="android:background">@drawable/edittext_primary_bg</item>
     </style>
 
+    <!-- App Primary Card -->
+    <style name="AppPrimaryCard" parent="Widget.Material3.CardView.Filled">
+        <item name="android:background">@color/md_theme_onPrimary</item>
+        <item name="cornerRadius">@dimen/corner_radius</item>
+    </style>
+
+    <!-- App Outlined Card -->
+    <style name="AppOutlinedCard" parent="Widget.Material3.CardView.Outlined">
+        <item name="android:background">@drawable/edittext_primary_bg</item>
+    </style>
+
 </resources>

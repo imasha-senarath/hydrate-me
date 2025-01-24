@@ -23,7 +23,7 @@ class NotificationActivity : BaseActivity() {
         binding = ActivityNotificationBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpToolbar(binding.toolbar, R.string.notifications, true)
+        setUpToolbar(binding.toolbar, R.string.notifications_title, true)
 
         initViewModels()
 

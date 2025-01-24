@@ -68,11 +68,19 @@
                             android:layout_centerInParent="true"
                             android:gravity="center">
 
+                            <ImageView
+                                android:id="@+id/imageView3"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                app:srcCompat="@drawable/ic_water_drop"
+                                android:layout_marginBottom="@dimen/spacing_small"
+                                app:tint="@color/md_theme_primary" />
+
                             <TextView
                                 style="@style/TextAppearance.Material3.LabelMedium"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Drink Target"
+                                android:text="@string/drink_target_label"
                                 android:textAlignment="center"/>
 
                             <TextView
@@ -88,19 +96,10 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/advice"
-                        style="@style/TextAppearance.Material3.BodyLarge"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="&quot;Water keeps your body hydrated, which is necessary for all your body functions&quot;"
-                        android:textAlignment="center"
-                        android:layout_marginTop="@dimen/spacing_large"/>
-
-                    <TextView
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Drink Water"
+                        android:text="@string/quick_drink_label"
                         android:layout_marginTop="@dimen/spacing_large"/>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -108,13 +107,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:clipToPadding="false" />
+                        android:clipToPadding="false" >
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/spacing_medium">
+
+                        <TextView
+                            android:id="@+id/advice"
+                            style="@style/TextAppearance.Material3.BodyLarge"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="&quot;Water keeps your body hydrated, which is necessary for all your body functions&quot;"
+                            android:textAlignment="center"
+                            android:padding="@dimen/spacing_small"/>
+                    </RelativeLayout>
 
                     <TextView
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Today's Record"
+                        android:text="@string/today_records_label"
                         android:layout_marginTop="@dimen/spacing_large"/>
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -138,5 +153,20 @@
         android:layout_gravity="start"
         app:menu="@menu/drawer_menu"
         app:headerLayout="@layout/nav_header"/>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/spacing_xlarge"
+            app:srcCompat="@drawable/ic_add"
+            android:contentDescription="Add Action" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.drawerlayout.widget.DrawerLayout>

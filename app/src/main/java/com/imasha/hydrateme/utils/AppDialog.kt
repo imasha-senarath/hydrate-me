@@ -21,9 +21,9 @@ object AppDialog {
     // Error Dialog
     fun showErrorDialog(message: String, context: Context): AlertDialog {
         val builder = AlertDialog.Builder(context)
-            .setTitle("Error")
+            .setTitle(context.getString(R.string.error_title))
             .setMessage(message)
-            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(context.getString(R.string.ok_btn)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
 
         dialog = builder.create()
@@ -41,7 +41,7 @@ object AppDialog {
         val builder = AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("OK") { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(context.getString(R.string.ok_btn)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
 
         dialog = builder.create()
@@ -60,11 +60,11 @@ object AppDialog {
         val builder = AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
-            .setPositiveButton("Yes") { dialog, _ ->
+            .setPositiveButton(context.getString(R.string.yes_btn)) { dialog, _ ->
                 onConfirm()
                 dialog.dismiss()
             }
-            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(context.getString(R.string.no_btn)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
 
         dialog = builder.create()
@@ -113,7 +113,7 @@ object AppDialog {
             .create()
 
         binding.tvTitle.text = context.getString(R.string.update_title, title)
-        binding.editTextValue.hint = "Enter your $title"
+        binding.editTextValue.hint = context.getString(R.string.enter_value, title)
 
 
         if(currentValue.isAnyNotEmpty()) {
@@ -132,7 +132,7 @@ object AppDialog {
         binding.btnUpdate.setOnClickListener {
             val newValue =  binding.editTextValue.text.toString()
             if(newValue.isEmpty()) {
-                Toast.makeText(context, "Field can't be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.field_cant_empty_msg), Toast.LENGTH_SHORT).show()
             } else {
                 onUpdate(newValue)
                 dialog.dismiss()
@@ -163,7 +163,7 @@ object AppDialog {
         binding.btnUpdate.setOnClickListener {
             val newValue =  binding.editTextValue.text.toString()
             if(newValue.isEmpty()) {
-                Toast.makeText(context, "Field can't be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.field_cant_empty_msg), Toast.LENGTH_SHORT).show()
             } else {
                 onUpdate(newValue.toInt())
                 dialog.dismiss()

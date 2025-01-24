@@ -1,4 +1,4 @@
-package com.imasha.hydrateme.ui.splash
+package com.imasha.hydrateme.ui.init
 
 import android.content.Intent
 import android.os.Bundle
@@ -17,7 +17,7 @@ class InitActivity : BaseActivity() {
     private val className = this::class.java.simpleName
 
     private lateinit var binding: ActivityInitBinding
-    private val splashViewModel: SplashViewModel by viewModels()
+    private val initViewModel: InitViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +28,11 @@ class InitActivity : BaseActivity() {
 
         initViewModels();
 
-        splashViewModel.userAuthentication(500);
+        initViewModel.userAuthentication(500);
     }
 
     private fun initViewModels() {
-        splashViewModel.splashState.observe(this) { result ->
+        initViewModel.splashState.observe(this) { result ->
             result.onSuccess { isAuthenticated ->
                 if (isAuthenticated) {
                     navigateToMainActivity()

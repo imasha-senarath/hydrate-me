@@ -24,7 +24,7 @@ class HistoryActivity : BaseActivity() {
         binding = ActivityHistoryBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpToolbar(binding.toolbar, R.string.history, true)
+        setUpToolbar(binding.toolbar, R.string.history_title, true)
 
         initViewModels()
 

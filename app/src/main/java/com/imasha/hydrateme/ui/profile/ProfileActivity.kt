@@ -47,7 +47,7 @@ class ProfileActivity : BaseActivity() {
 
         profileViewModel.getUserId();
 
-        setUpToolbar(binding.toolbar, R.string.profile, true)
+        setUpToolbar(binding.toolbar, R.string.profile_title, true)
 
         binding.btnName.setOnClickListener {
             showUpdateDialog(NAME_DIALOG, currentUser.name, this) { newName ->

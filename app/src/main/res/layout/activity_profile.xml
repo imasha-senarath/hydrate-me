@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Personal"
+                android:text="@string/personal_label"
                 style="@style/TextAppearance.Material3.BodyMedium"
                 android:textStyle="bold"
                 android:layout_marginBottom="@dimen/spacing_medium"
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Name"
+                    android:text="@string/name_label"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:textStyle="bold"/>
 
@@ -83,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Gender"
+                    android:text="@string/gender_label"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:textStyle="bold"/>
 
@@ -117,7 +117,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Weight"
+                    android:text="@string/weight_label"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:textStyle="bold"/>
 
@@ -143,7 +143,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Goal"
+                android:text="@string/goal_label"
                 style="@style/TextAppearance.Material3.BodyMedium"
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/spacing_large"
@@ -174,7 +174,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Water Goal"
+                    android:text="@string/water_goal"
                     style="@style/TextAppearance.Material3.BodyLarge"
                     android:textStyle="bold"/>
 
@@ -193,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Set goal to 0 to calculate intake based on your profile."
+                android:text="@string/set_goal_des"
                 style="@style/TextAppearance.Material3.BodyMedium"/>
         </LinearLayout>
 
@@ -208,7 +208,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Sleep"
+                android:text="@string/sleep_label"
                 style="@style/TextAppearance.Material3.BodyMedium"
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/spacing_large"
@@ -239,7 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Wake Up Time"
+                        android:text="@string/wake_up_time_label"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:textStyle="bold"/>
 
@@ -259,7 +259,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Set a wake-up time to pause notifications until this time."
+                    android:text="@string/wake_up_time_des"
                     style="@style/TextAppearance.Material3.BodyMedium"/>
             </LinearLayout>
 
@@ -287,7 +287,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Bed Time"
+                        android:text="@string/bed_time_label"
                         style="@style/TextAppearance.Material3.BodyLarge"
                         android:textStyle="bold"/>
 
@@ -308,7 +308,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Set a bedtime to pause notifications after this time." />
+                    android:text="@string/bedtime_des" />
             </LinearLayout>
 
             <View

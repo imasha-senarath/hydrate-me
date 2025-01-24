@@ -1,4 +1,4 @@
-package com.imasha.hydrateme.ui.splash
+package com.imasha.hydrateme.ui.init
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
+class InitViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
 
     private val _splashState = MutableLiveData<Result<Boolean>>()
     val splashState: LiveData<Result<Boolean>> get() = _splashState

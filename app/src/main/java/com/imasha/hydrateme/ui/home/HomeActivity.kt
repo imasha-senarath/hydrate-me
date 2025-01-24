@@ -2,7 +2,6 @@ package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -103,7 +102,7 @@ class HomeActivity : BaseActivity() {
                     true
                 }
                 R.id.nav_logout -> {
-                    showConfirmationDialog("Logout", "Are you sure you want to log out?", this) {
+                    showConfirmationDialog(getString(R.string.logout_title), getString(R.string.logout_confirm_msg), this) {
                         homeViewModel.logout();
                     }
                     true
@@ -179,7 +178,7 @@ class HomeActivity : BaseActivity() {
 
                 if (isCompletedTarget(latestUsage)) {
                     homeViewModel.cancelNotification(this)
-                    showSuccessDialog(this, "You achieved the water goal.") {}
+                    showSuccessDialog(this, getString(R.string.goal_achieved_msg)) {}
                 }
 
                 waterUsage = latestUsage
@@ -189,8 +188,8 @@ class HomeActivity : BaseActivity() {
 
                 binding.recordList.adapter = RecordAdapter(sortedList, this) { record ->
                     showConfirmationDialog(
-                        "Delete",
-                        "Are you sure you want to delete this record?",
+                        getString(R.string.delete_title),
+                        getString(R.string.delete_confirm_msg),
                         this
                     ) {
                         homeViewModel.deleteRecord(record.id)
@@ -208,7 +207,7 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.addDrinkStatus.observe(this) { result ->
             result.onSuccess {
-                showToast("Drink Added.")
+                showToast(getString(R.string.drink_added_msg))
             }.onFailure { exception ->
                 showErrorDialog(exception.message.toString(), this);
             }
@@ -216,7 +215,7 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.deleteRecordStatus.observe(this) { result ->
             result.onSuccess {
-                showToast("Deleted")
+                showToast(getString(R.string.deleted_msg))
                 homeViewModel.getTodayRecords()
             }.onFailure { exception ->
                 showErrorDialog(exception.message.toString(), this);

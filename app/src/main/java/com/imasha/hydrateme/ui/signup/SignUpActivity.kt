@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
+import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.databinding.ActivitySignUpBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
@@ -61,7 +62,7 @@ class SignUpActivity : BaseActivity() {
         val password = binding.editTextPassword.text.toString()
 
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
-            Toast.makeText(this, "Fields cannot be empty.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.field_cant_empty_msg), Toast.LENGTH_SHORT).show()
         } else {
             showLoading()
             user = User(name = name, email = email, password = password)

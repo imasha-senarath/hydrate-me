@@ -10,7 +10,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Set Goal"
+        android:text="@string/set_goal_title"
         style="@style/TextAppearance.Material3.TitleLarge"
         android:layout_weight="1"
         android:layout_marginBottom="@dimen/spacing_medium"/>
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="number"
-        android:hint="Enter your goal"
+        android:hint="@string/enter_your_goal"
         android:layout_marginBottom="@dimen/spacing_large"/>
 
     <LinearLayout
@@ -35,7 +35,7 @@
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
+            android:text="@string/cancel_btn"
             style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_marginEnd="@dimen/spacing_small"/>
 
@@ -43,6 +43,6 @@
             android:id="@+id/btn_update"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/update" />
+            android:text="@string/update_btn" />
     </LinearLayout>
 </LinearLayout>

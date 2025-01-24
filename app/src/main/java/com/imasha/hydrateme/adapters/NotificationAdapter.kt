@@ -7,17 +7,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.databinding.RowNotificationBinding
+import com.imasha.hydrateme.utils.DateUtils
 
 class NotificationAdapter(
     private val items: List<Notification>,
     private val context: Context,
 ) : RecyclerView.Adapter<NotificationAdapter.RecordViewHolder>() {
 
-    inner class RecordViewHolder(private val binding: RowNotificationBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class RecordViewHolder(private val binding: RowNotificationBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Notification) {
             binding.title.text = item.title
             binding.message.text = item.message
-            binding.dateTime.text = context.getString(R.string.date_time, item.date, item.time)
+            binding.dateTime.text = context.getString(
+                R.string.date_time, item.date,
+                DateUtils.convertTo12(item.time)
+            )
         }
     }
 

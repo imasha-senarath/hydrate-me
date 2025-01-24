@@ -30,7 +30,7 @@ class SettingsActivity : BaseActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setUpToolbar(binding.toolbar, R.string.settings, true)
+        setUpToolbar(binding.toolbar, R.string.settings_title, true)
 
         setThemeName(getCurrentTheme());
         setLanguageName(getCurrentLanguage())

@@ -63,7 +63,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ui.splash.InitActivity"
+            android:name=".ui.init.InitActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

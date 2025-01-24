@@ -19,7 +19,7 @@
         android:id="@+id/tv_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You achieved the water goal."
+        android:text="@string/goal_achieved_msg"
         style="@style/TextAppearance.Material3.BodyLarge"
         android:layout_marginBottom="@dimen/spacing_large" />
 
@@ -27,6 +27,6 @@
         android:id="@+id/btn_ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="OK"
+        android:text="@string/ok_btn"
         style="@style/Widget.Material3.Button"/>
 </LinearLayout>

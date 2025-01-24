@@ -16,7 +16,7 @@
             style="@style/TextAppearance.Material3.HeadlineLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
+            android:text="@string/sign_up_label"
             android:layout_marginTop="@dimen/spacing_large"/>
 
         <com.google.android.material.textview.MaterialTextView
@@ -64,7 +64,7 @@
             android:id="@+id/btn_signup"
             style="@style/AppPrimaryButton"
             android:layout_width="match_parent"
-            android:text="@string/sign_up" />
+            android:text="@string/sign_up_btn" />
 
     </LinearLayout>
 
@@ -88,7 +88,7 @@
             style="@style/TextAppearance.Material3.BodyLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login"
+            android:text="@string/login_btn"
             android:textColor="@color/md_theme_primary"/>
     </LinearLayout>
 
