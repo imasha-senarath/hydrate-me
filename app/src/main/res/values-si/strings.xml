@@ -53,9 +53,10 @@
     <string name="drink_target">%1$d/%2$dml</string>
     <string name="drink_target_label">බීම ඉලක්කය</string>
     <string name="quick_drink_label">ඉක්මන් බීම</string>
+    <string name="no_records_yet">No records yet</string>
     <string name="today_records_label">අද දින වාර්තා</string>
     <string name="date_time">%1$s • %2$s</string>
-    <string name="weight">%1$.1fKG</string>
+    <string name="no_notifications_yet">තවම දැනුම්දීම් නැත</string>
 
     <string name="preferences_label">අභිරුචි</string>
     <string name="theme_label">තේමාව</string>
@@ -71,6 +72,7 @@
     <string name="name_label">නම</string>
     <string name="gender_label">ස්ත්‍රී පුරුෂ භාවය</string>
     <string name="weight_label">බර</string>
+    <string name="weight">%1$.1fKG</string>
     <string name="goal_label">ඉලක්කය</string>
     <string name="water_goal">ජල ඉලක්කය</string>
     <string name="set_goal_des">ඔබේ පැතිකඩ මත පදනම්ව පරිභෝජනය ගණනය කිරීම සඳහා ඉලක්කය 0 ලෙස සකසන්න.</string>

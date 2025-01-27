@@ -1,6 +1,7 @@
 package com.imasha.hydrateme.ui.notification
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imasha.hydrateme.R
@@ -46,8 +47,8 @@ class NotificationActivity : BaseActivity() {
         notificationViewModel.getNotificationStatus.observe(this) { result ->
             hideLoading()
             result.onSuccess { notifications ->
-                //val filteredList = Calculations.getTotalByDate(records)
-                //val sortedList = sortRecords(filteredList)
+
+                binding.listEmpty.visibility = if (notifications.isEmpty()) View.VISIBLE else View.GONE
 
                 binding.notificationList.adapter = NotificationAdapter(notifications, this)
 

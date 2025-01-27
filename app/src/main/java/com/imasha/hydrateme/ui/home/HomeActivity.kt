@@ -1,7 +1,9 @@
 package com.imasha.hydrateme.ui.home
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -170,9 +172,10 @@ class HomeActivity : BaseActivity() {
         }
 
         homeViewModel.getRecordStatus.observe(this) { result ->
-            result.onSuccess { records ->
+            hideLoading()
 
-                hideLoading()
+            result.onSuccess { records ->
+                binding.listEmpty.visibility = if (records.isEmpty()) View.VISIBLE else View.GONE
 
                 val latestUsage: Int = getTotalWaterUsage(records)
 

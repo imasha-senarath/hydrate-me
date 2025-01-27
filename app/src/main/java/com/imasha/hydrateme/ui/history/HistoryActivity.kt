@@ -1,6 +1,7 @@
 package com.imasha.hydrateme.ui.history
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.imasha.hydrateme.R
@@ -50,6 +51,8 @@ class HistoryActivity : BaseActivity() {
             result.onSuccess { records ->
                 val filteredList = getTotalByDate(records)
                 val sortedList = sortRecords(filteredList)
+
+                binding.listEmpty.visibility = if (records.isEmpty()) View.VISIBLE else View.GONE
 
                 binding.recordList.adapter = HistoryAdapter(sortedList, this)
 

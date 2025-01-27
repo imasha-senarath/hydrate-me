@@ -53,9 +53,10 @@
     <string name="drink_target">%1$d/%2$dml</string>
     <string name="drink_target_label">Drink Target</string>
     <string name="quick_drink_label">Quick Drink</string>
+    <string name="no_records_yet">No records yet</string>
     <string name="today_records_label">Today\'s Records</string>
     <string name="date_time">%1$s • %2$s</string>
-    <string name="weight">%1$.1fKG</string>
+    <string name="no_notifications_yet">No notifications yet</string>
 
     <string name="preferences_label">Preferences</string>
     <string name="theme_label">Theme</string>
@@ -71,6 +72,7 @@
     <string name="name_label">Name</string>
     <string name="gender_label">Gender</string>
     <string name="weight_label">Weight</string>
+    <string name="weight">%1$.1fKG</string>
     <string name="goal_label">Goal</string>
     <string name="water_goal">Water Goal</string>
     <string name="set_goal_des">Set goal to 0 to calculate intake based on your profile.</string>

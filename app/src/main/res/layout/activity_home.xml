@@ -132,12 +132,23 @@
                         android:text="@string/today_records_label"
                         android:layout_marginTop="@dimen/spacing_large"/>
 
+                    <TextView
+                        android:id="@+id/list_empty"
+                        style="@style/TextAppearance.Material3.BodyLarge"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/no_records_yet"
+                        android:layout_marginTop="@dimen/spacing_xlarge"
+                        android:layout_marginBottom="@dimen/spacing_xlarge"
+                        android:textAlignment="center"
+                        android:visibility="gone"/>
+
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recordList"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:layout_marginBottom="@dimen/spacing_large"
+                        android:paddingBottom="@dimen/spacing_xlarge"
                         android:clipToPadding="false" />
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>
