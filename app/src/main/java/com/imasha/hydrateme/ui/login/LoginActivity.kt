@@ -2,6 +2,7 @@ package com.imasha.hydrateme.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.imasha.hydrateme.R
@@ -41,6 +42,7 @@ class LoginActivity : BaseActivity() {
             result.onSuccess {
                 navigateToMainActivity()
             }.onFailure { exception ->
+                clearFields()
                 showErrorDialog(exception.message.toString(), this);
             }
         }
@@ -53,10 +55,16 @@ class LoginActivity : BaseActivity() {
         if (email.isBlank() || password.isBlank()) {
             Toast.makeText(this, getString(R.string.field_cant_empty_msg), Toast.LENGTH_SHORT).show()
         } else {
+            hideKeyboard(this, currentFocus ?: View(this))
             showLoading()
             val user = User(email = email, password = password)
             loginViewModel.login(user)
         }
+    }
+
+    private fun clearFields() {
+        binding.editTextEmail.text.clear()
+        binding.editTextPassword.text.clear()
     }
 
     private fun navigateToSignUpActivity() {

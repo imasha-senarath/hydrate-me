@@ -9,6 +9,7 @@
   <li>Firebase Authentication, Firestore and Cloud Messaging.</li>
   <li>Dependency injection using Hilt.</li>
   <li>Material 3 design.</li>
+  <li>CircularProgressBar by Lopez Mikhael.</li>
 </ul>
 
 <h2> 🔥 Features </h2>

@@ -2,6 +2,7 @@ package com.imasha.hydrateme.ui.signup
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.imasha.hydrateme.R
@@ -51,6 +52,7 @@ class SignUpActivity : BaseActivity() {
             result.onSuccess {
                 navigateToMainActivity()
             }.onFailure { exception ->
+                clearFields()
                 showErrorDialog(exception.message.toString(), this);
             }
         }
@@ -64,10 +66,17 @@ class SignUpActivity : BaseActivity() {
         if (name.isBlank() || email.isBlank() || password.isBlank()) {
             Toast.makeText(this, getString(R.string.field_cant_empty_msg), Toast.LENGTH_SHORT).show()
         } else {
+            hideKeyboard(this, currentFocus ?: View(this))
             showLoading()
             user = User(name = name, email = email, password = password)
             signUpViewModel.signUp(user)
         }
+    }
+
+    private fun clearFields() {
+        binding.editTextName.text.clear()
+        binding.editTextEmail.text.clear()
+        binding.editTextPassword.text.clear()
     }
 
     private fun navigateToMainActivity() {
