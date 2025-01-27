@@ -57,6 +57,7 @@
     <string name="today_records_label">Today\'s Records</string>
     <string name="date_time">%1$s • %2$s</string>
     <string name="no_notifications_yet">No notifications yet</string>
+    <string name="advice">\"%1$s\"</string>
 
     <string name="preferences_label">Preferences</string>
     <string name="theme_label">Theme</string>

@@ -57,6 +57,7 @@
     <string name="today_records_label">අද දින වාර්තා</string>
     <string name="date_time">%1$s • %2$s</string>
     <string name="no_notifications_yet">තවම දැනුම්දීම් නැත</string>
+    <string name="advice">\"%1$s\"</string>
 
     <string name="preferences_label">අභිරුචි</string>
     <string name="theme_label">තේමාව</string>

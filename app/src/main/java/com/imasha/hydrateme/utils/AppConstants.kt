@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatDelegate
 
 object AppConstants {
 
+    // API
+    const val ADVICES_URL = "https://mocki.io/v1/"
+
     // Shared Pref Keys
     const val SELECTED_THEME = "selected_theme"
     const val SELECTED_LANGUAGE = "selected_language"

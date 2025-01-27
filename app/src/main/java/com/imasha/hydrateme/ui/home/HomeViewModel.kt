@@ -49,6 +49,9 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
     private val _logoutStatus = MutableLiveData<Result<Boolean>>()
     val logoutStatus: LiveData<Result<Boolean>> get() = _logoutStatus
 
+    private val _getAdvicesStatus = MutableLiveData<Result<List<String>>>()
+    val getAdvicesStatus: LiveData<Result<List<String>>> = _getAdvicesStatus
+
     fun getUserId() {
         _userId.value = appRepository.getCurrentUserId()
     }
@@ -148,6 +151,17 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
                 }
             } catch (exception: Exception) {
                 _logoutStatus.value = Result.failure(exception)
+            }
+        }
+    }
+
+    fun getAdvices() {
+        viewModelScope.launch {
+            try {
+                val result = appRepository.getAdvices()
+                _getAdvicesStatus.value = Result.success(result)
+            } catch (exception: Exception) {
+                _getAdvicesStatus.value = Result.failure(exception)
             }
         }
     }

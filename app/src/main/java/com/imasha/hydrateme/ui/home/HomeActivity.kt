@@ -77,6 +77,7 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.getUserId();
         homeViewModel.getFcmToken()
+        homeViewModel.getAdvices()
 
         setUpToolbar(binding.toolbar, R.string.app_name, false)
 
@@ -167,6 +168,14 @@ class HomeActivity : BaseActivity() {
 
                 homeViewModel.addRecord(drinkMap)
                 homeViewModel.getTodayRecords()
+            }
+        }
+
+        homeViewModel.getAdvicesStatus.observe(this) { result ->
+            result.onSuccess { advices ->
+                binding.advice.text = getString(R.string.advice, advices.random())
+            }.onFailure { exception ->
+                showErrorDialog(exception.message.orEmpty(), this)
             }
         }
 

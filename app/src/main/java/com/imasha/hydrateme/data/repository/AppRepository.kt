@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.data.repository
 
+import com.imasha.hydrateme.api.ApiSource
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
@@ -11,7 +12,10 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import javax.inject.Inject
 
-class AppRepository @Inject constructor (private val firebaseSource: FirebaseSource) {
+class AppRepository @Inject constructor(
+    private val firebaseSource: FirebaseSource,
+    private val apiSource: ApiSource,
+) {
 
     suspend fun userAuthentication(): Boolean {
         return firebaseSource.userAuthentication()
@@ -74,7 +78,9 @@ class AppRepository @Inject constructor (private val firebaseSource: FirebaseSou
 
     suspend fun getNotifications(): List<Notification> {
         return firebaseSource.getDataList(
-            NOTIFICATIONS_DOC, Notification::class.java, mapOf("user" to getCurrentUserId().toString())
+            NOTIFICATIONS_DOC,
+            Notification::class.java,
+            mapOf("user" to getCurrentUserId().toString())
         )
     }
 
@@ -92,5 +98,9 @@ class AppRepository @Inject constructor (private val firebaseSource: FirebaseSou
 
     fun logout(): Boolean {
         return firebaseSource.logout()
+    }
+
+    suspend fun getAdvices(): List<String> {
+        return apiSource.fetchAdvices()
     }
 }
