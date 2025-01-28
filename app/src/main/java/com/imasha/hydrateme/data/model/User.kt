@@ -1,8 +1,12 @@
 package com.imasha.hydrateme.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.imasha.hydrateme.data.enums.Gender
 
+@Entity(tableName = "users")
 data class User(
+    @PrimaryKey
     var id: String = "",
     var name: String = "",
     var email: String = "",

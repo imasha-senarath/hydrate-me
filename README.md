@@ -11,6 +11,7 @@
   <li>Material 3 design.</li>
   <li>Retrofit to simplify RESTful API calls.</li>
   <li>CircularProgressBar by Lopez Mikhael.</li>
+  <li>Enhance performance with data caching using the Room database.</li>
 </ul>
 
 <h2> 🔥 Features </h2>
@@ -18,6 +19,7 @@
   <li>Track daily water consumption.</li>
   <li>Reminds to drink water with notifications.</li>
   <li>Calculate daily water intake based on profile.</li>
+  <li>Syncs data online, allowing access from any device.</li>
   <li>Switch between multiple languages.</li>
   <li>Switch between light and dark themes.</li>
   <li>Receive random advice about the benefits of staying hydrated.</li>

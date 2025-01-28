@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.firebase
 
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -78,6 +79,7 @@ class FirebaseSource @Inject constructor(private val firebaseAuth: FirebaseAuth)
         documentId: String,
         clazz: Class<T>
     ): T = suspendCoroutine { continuation ->
+        Log.i("test66", "Firebase getData")
         val documentRef = FirebaseFirestore.getInstance().collection(collection).document(documentId)
 
         documentRef.get()

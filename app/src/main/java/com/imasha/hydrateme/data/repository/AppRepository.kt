@@ -5,6 +5,7 @@ import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.firebase.FirebaseSource
+import com.imasha.hydrateme.room.UserDao
 import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
 import com.imasha.hydrateme.utils.AppConstants.NOTIFICATIONS_DOC
 import com.imasha.hydrateme.utils.AppConstants.USERS_DOC
@@ -15,6 +16,7 @@ import javax.inject.Inject
 class AppRepository @Inject constructor(
     private val firebaseSource: FirebaseSource,
     private val apiSource: ApiSource,
+    private val userDao: UserDao
 ) {
 
     suspend fun userAuthentication(): Boolean {
@@ -38,6 +40,12 @@ class AppRepository @Inject constructor(
     }
 
     suspend fun getProfile(): User {
+        val localUser = userDao.getUser(getCurrentUserId().toString())
+
+        if(localUser != null) {
+            return localUser;
+        }
+
         return firebaseSource.getData(USERS_DOC, getCurrentUserId().toString(), User::class.java)
     }
 

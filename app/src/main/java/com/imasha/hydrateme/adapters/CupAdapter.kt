@@ -30,7 +30,6 @@ class CupAdapter(
     }
 
     override fun onBindViewHolder(holder: CupViewHolder, position: Int) {
-        val item = items[position]
         holder.bind(items[position])
     }
 
