@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class, Record::class], version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
+    abstract fun recordDao(): RecordDao
 
     companion object {
         @Volatile

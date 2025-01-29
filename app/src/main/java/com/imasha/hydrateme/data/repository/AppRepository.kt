@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.data.repository
 
+import android.util.Log
 import com.imasha.hydrateme.api.ApiSource
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
@@ -40,16 +41,23 @@ class AppRepository @Inject constructor(
     }
 
     suspend fun getProfile(): User {
-        val localUser = userDao.getUser(getCurrentUserId().toString())
+        val userId = getCurrentUserId().toString()
+
+        val localUser = userDao.getUser(userId)
 
         if(localUser != null) {
-            return localUser;
+            return localUser
         }
 
-        return firebaseSource.getData(USERS_DOC, getCurrentUserId().toString(), User::class.java)
+        return firebaseSource.getData(USERS_DOC, userId, User::class.java)
     }
 
     suspend fun saveProfile(user: User): Boolean {
+        val userId = getCurrentUserId().toString()
+
+        user.id = userId
+        userDao.insertUser(user)
+
         val userMap = mapOf(
             "name" to user.name,
             "weight" to user.weight,
@@ -59,7 +67,7 @@ class AppRepository @Inject constructor(
             "goal" to user.goal,
         )
 
-        return firebaseSource.saveData(USERS_DOC, getCurrentUserId().toString(), userMap)
+        return firebaseSource.saveData(USERS_DOC, userId, userMap)
     }
 
     suspend fun saveDrink(dataMap: Map<String, Any>): Boolean {

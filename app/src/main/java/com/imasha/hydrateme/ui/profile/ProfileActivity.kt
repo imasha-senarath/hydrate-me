@@ -32,7 +32,6 @@ class ProfileActivity : BaseActivity() {
     private lateinit var binding: ActivityProfileBinding
     private val profileViewModel: ProfileViewModel by viewModels()
 
-    private lateinit var currentUserId: String
     private var currentUser: User = User()
     private var currentUserGoal: Int = 0
 
@@ -103,7 +102,7 @@ class ProfileActivity : BaseActivity() {
     private fun initViewModels() {
         profileViewModel.userId.observe(this) { userId ->
             if (userId != null) {
-                currentUserId = userId
+                currentUser.id = userId
             }
 
             profileViewModel.getProfile();

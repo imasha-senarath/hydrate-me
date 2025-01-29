@@ -8,6 +8,7 @@ import com.imasha.hydrateme.api.ApiSource
 import com.imasha.hydrateme.data.repository.AppRepository
 import com.imasha.hydrateme.firebase.FirebaseSource
 import com.imasha.hydrateme.room.AppDatabase
+import com.imasha.hydrateme.room.RecordDao
 import com.imasha.hydrateme.room.UserDao
 import dagger.Module
 import dagger.Provides
@@ -42,6 +43,11 @@ object AppModule {
     @Provides
     fun provideUserDao(appDatabase: AppDatabase): UserDao {
         return appDatabase.userDao()
+    }
+
+    @Provides
+    fun provideRecordDao(appDatabase: AppDatabase): RecordDao {
+        return appDatabase.recordDao()
     }
 
     @Provides
