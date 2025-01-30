@@ -16,4 +16,7 @@ interface RecordDao {
 
     @Query("SELECT * FROM record WHERE user = :user AND date = :date")
     suspend fun getTodayRecords(user: String, date: String): List<Record>?
+
+    @Query("DELETE FROM record")
+    suspend fun clear()
 }

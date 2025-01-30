@@ -54,6 +54,7 @@ object AppModule {
     fun provideAppRepository(
         firebaseSource: FirebaseSource,
         apiSource: ApiSource,
-        userDao: UserDao
-    ): AppRepository = AppRepository(firebaseSource, apiSource, userDao)
+        userDao: UserDao,
+        recordDao: RecordDao
+    ): AppRepository = AppRepository(firebaseSource, apiSource, userDao, recordDao)
 }

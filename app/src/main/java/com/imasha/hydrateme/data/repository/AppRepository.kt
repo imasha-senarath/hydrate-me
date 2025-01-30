@@ -1,11 +1,11 @@
 package com.imasha.hydrateme.data.repository
 
-import android.util.Log
 import com.imasha.hydrateme.api.ApiSource
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.firebase.FirebaseSource
+import com.imasha.hydrateme.room.RecordDao
 import com.imasha.hydrateme.room.UserDao
 import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
 import com.imasha.hydrateme.utils.AppConstants.NOTIFICATIONS_DOC
@@ -17,7 +17,8 @@ import javax.inject.Inject
 class AppRepository @Inject constructor(
     private val firebaseSource: FirebaseSource,
     private val apiSource: ApiSource,
-    private val userDao: UserDao
+    private val userDao: UserDao,
+    private val recordDao: RecordDao
 ) {
 
     suspend fun userAuthentication(): Boolean {
@@ -42,14 +43,17 @@ class AppRepository @Inject constructor(
 
     suspend fun getProfile(): User {
         val userId = getCurrentUserId().toString()
-
         val localUser = userDao.getUser(userId)
 
-        if(localUser != null) {
-            return localUser
-        }
+        return if(localUser != null) {
+            localUser
+        } else {
+            val onlineUser = firebaseSource.getData(USERS_DOC, userId, User::class.java)
+            onlineUser.id = userId
+            userDao.insertUser(onlineUser)
 
-        return firebaseSource.getData(USERS_DOC, userId, User::class.java)
+            onlineUser
+        }
     }
 
     suspend fun saveProfile(user: User): Boolean {
@@ -70,21 +74,45 @@ class AppRepository @Inject constructor(
         return firebaseSource.saveData(USERS_DOC, userId, userMap)
     }
 
-    suspend fun saveDrink(dataMap: Map<String, Any>): Boolean {
-        return firebaseSource.saveData(DRINKS_DOC, "", dataMap)
+    suspend fun saveDrink(record: Record): Boolean {
+        //recordDao.insertRecord(record)
+
+        val drinkMap = mapOf(
+            "user" to record.user,
+            "size" to record.size,
+            "time" to record.time,
+            "date" to record.date,
+        )
+
+        return firebaseSource.saveData(DRINKS_DOC, "", drinkMap)
     }
 
     suspend fun getRecords(): List<Record> {
+        val userId = getCurrentUserId().toString()
+        /*val localRecords = recordDao.getRecords(userId)
+
+        if(localRecords != null) {
+            return localRecords
+        }*/
+
         return firebaseSource.getDataList(
             DRINKS_DOC, Record::class.java, mapOf("user" to getCurrentUserId().toString())
         )
     }
 
     suspend fun getTodayRecords(): List<Record> {
+        val userId = getCurrentUserId().toString()
+        val date = getCurrentDate(DD_MM_YYYY)
+        /*val localRecords = recordDao.getTodayRecords(userId, date)
+
+        if(localRecords != null) {
+            return localRecords
+        }*/
+
         return firebaseSource.getDataList(
             DRINKS_DOC,
             Record::class.java,
-            mapOf("user" to getCurrentUserId().toString(), "date" to getCurrentDate(DD_MM_YYYY))
+            mapOf("user" to userId, "date" to date)
         )
     }
 
@@ -112,7 +140,11 @@ class AppRepository @Inject constructor(
         return firebaseSource.saveData(NOTIFICATIONS_DOC, "", notificationMap)
     }
 
-    fun logout(): Boolean {
+    suspend fun logout(): Boolean {
+        userDao.clear()
+        recordDao.clear()
+        //clearPref()
+
         return firebaseSource.logout()
     }
 

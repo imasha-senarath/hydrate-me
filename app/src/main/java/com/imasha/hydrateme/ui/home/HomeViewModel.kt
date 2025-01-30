@@ -89,10 +89,10 @@ class HomeViewModel @Inject constructor(private val appRepository: AppRepository
         )
     }
 
-    fun addRecord(dataMap: Map<String, Any>) {
+    fun addRecord(record: Record) {
         viewModelScope.launch {
             try {
-                val result = appRepository.saveDrink(dataMap)
+                val result = appRepository.saveDrink(record)
                 _addDrinkStatus.value = Result.success(result)
             } catch (exception: Exception) {
                 _addDrinkStatus.value = Result.failure(exception)

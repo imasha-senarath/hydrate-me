@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.adapters.CupAdapter
 import com.imasha.hydrateme.adapters.RecordAdapter
+import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.databinding.ActivityHomeBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
@@ -159,15 +160,9 @@ class HomeActivity : BaseActivity() {
 
         homeViewModel.cupSize.observe(this) { itemList ->
             binding.cupList.adapter = CupAdapter(itemList, this) { clickedCup ->
-                val drinkMap = mapOf(
-                    "user" to currentUserId,
-                    "size" to clickedCup.size,
-                    "time" to getCurrentTime(HH_MM),
-                    "date" to getCurrentDate(DD_MM_YYYY),
-                )
 
-                homeViewModel.addRecord(drinkMap)
-                homeViewModel.getTodayRecords()
+                val record = Record(user = currentUserId, size = clickedCup.size, time = getCurrentTime(HH_MM), date = getCurrentDate(DD_MM_YYYY))
+                homeViewModel.addRecord(record)
             }
         }
 
@@ -219,6 +214,7 @@ class HomeActivity : BaseActivity() {
         homeViewModel.addDrinkStatus.observe(this) { result ->
             result.onSuccess {
                 showToast(getString(R.string.drink_added_msg))
+                homeViewModel.getTodayRecords()
             }.onFailure { exception ->
                 showErrorDialog(exception.message.toString(), this);
             }
