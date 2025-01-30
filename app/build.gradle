@@ -15,7 +15,11 @@ android {
         minSdk 23
         targetSdk 32
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.1"
+
+        //versionName "2.0.0" // Significant updates
+        //versionName "1.1.0" // New feature
+        //versionName "1.0.1" // Bug fixes or small changes
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

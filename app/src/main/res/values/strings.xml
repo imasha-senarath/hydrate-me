@@ -2,6 +2,7 @@
     <!-- App -->
     <string name="app_name">Hydrate Me</string>
     <string name="app_version">Version %1$s</string>
+    <string name="app_header">Stay Hydrated, Stay Healthy</string>
     <string name="app_intro">Keep track of your daily water intake and stay motivated to drink more water every day.</string>
     <string name="owner">from Imasha Senarath</string>
 

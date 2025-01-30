@@ -2,6 +2,7 @@
     <!-- App -->
     <string name="app_name">Hydrate Me</string>
     <string name="app_version">Version %1$s</string>
+    <string name="app_header">Stay Hydrated, Stay Healthy</string>
     <string name="app_intro">ඔබේ දෛනික ජල පරිභෝජනය නිරීක්ෂණය කර දිනපතා වැඩිපුර ජලය පානය කිරීමට පෙළඹෙන්න.</string>
     <string name="owner">from Imasha Senarath</string>
 
