@@ -10,6 +10,7 @@ import com.imasha.hydrateme.databinding.ActivityHistoryBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppDialog
 import com.imasha.hydrateme.utils.Calculations.getTotalByDate
+import com.imasha.hydrateme.utils.ItemDivider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,6 +35,7 @@ class HistoryActivity : BaseActivity() {
         historyViewModel.getUserId();
 
         binding.recordList.layoutManager = LinearLayoutManager(this)
+        binding.recordList.addItemDecoration(ItemDivider(this, R.drawable.divider))
     }
 
     private fun initViewModels() {

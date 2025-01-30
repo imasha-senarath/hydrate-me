@@ -9,6 +9,7 @@ import com.imasha.hydrateme.adapters.NotificationAdapter
 import com.imasha.hydrateme.databinding.ActivityNotificationBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.utils.AppDialog
+import com.imasha.hydrateme.utils.ItemDivider
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +34,7 @@ class NotificationActivity : BaseActivity() {
         notificationViewModel.getUserId();
 
         binding.notificationList.layoutManager = LinearLayoutManager(this)
+        binding.notificationList.addItemDecoration(ItemDivider(this, R.drawable.divider))
     }
 
     private fun initViewModels() {

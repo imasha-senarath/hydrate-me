@@ -34,6 +34,7 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.HH_MM
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import com.imasha.hydrateme.utils.DateUtils.getCurrentTime
+import com.imasha.hydrateme.utils.ItemDivider
 import com.imasha.hydrateme.utils.SharedPrefManager.savePrefString
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -125,6 +126,7 @@ class HomeActivity : BaseActivity() {
             LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         binding.recordList.layoutManager = LinearLayoutManager(this)
+        binding.recordList.addItemDecoration(ItemDivider(this, R.drawable.divider))
     }
 
     private fun initViewModels() {
