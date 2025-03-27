@@ -5,11 +5,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.imasha.hydrateme.data.remote.api.ApiClient
 import com.imasha.hydrateme.data.remote.api.ApiService
 import com.imasha.hydrateme.data.remote.api.ApiSource
-import com.imasha.hydrateme.data.repository.AppRepository
+import com.imasha.hydrateme.data.repository.AppRepositoryImpl
 import com.imasha.hydrateme.data.remote.firebase.FirebaseSource
 import com.imasha.hydrateme.data.local.AppDatabase
 import com.imasha.hydrateme.data.local.RecordDao
 import com.imasha.hydrateme.data.local.UserDao
+import com.imasha.hydrateme.domain.repository.AppRepository
+import com.imasha.hydrateme.domain.usecase.AppUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,5 +58,10 @@ object AppModule {
         apiSource: ApiSource,
         userDao: UserDao,
         recordDao: RecordDao
-    ): AppRepository = AppRepository(firebaseSource, apiSource, userDao, recordDao)
+    ): AppRepository = AppRepositoryImpl(firebaseSource, apiSource, userDao, recordDao)
+
+    @Provides
+    fun provideLoginUseCase(repository: AppRepository): AppUseCase {
+        return AppUseCase(repository)
+    }
 }

@@ -5,13 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.data.repository.AppRepository
+import com.imasha.hydrateme.data.repository.AppRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
+class SignUpViewModel @Inject constructor(private val appRepository: AppRepositoryImpl) : ViewModel() {
 
     private val _signUpStatus = MutableLiveData<Result<Boolean>>()
     val signUpStatus: LiveData<Result<Boolean>> get() = _signUpStatus

@@ -3,7 +3,7 @@ package com.imasha.hydrateme.data.remote.firebase
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.imasha.hydrateme.data.model.Notification
-import com.imasha.hydrateme.data.repository.AppRepository
+import com.imasha.hydrateme.data.repository.AppRepositoryImpl
 import com.imasha.hydrateme.notify.NotificationUtils.showNotification
 import com.imasha.hydrateme.utils.AppConstants.FCM_TOKEN
 import com.imasha.hydrateme.utils.AppLogger
@@ -25,7 +25,7 @@ class MessagingService : FirebaseMessagingService() {
     private val className = this::class.java.simpleName
 
     @Inject
-    lateinit var appRepository: AppRepository
+    lateinit var appRepository: AppRepositoryImpl
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)

@@ -10,7 +10,7 @@ import androidx.work.WorkManager
 import com.imasha.hydrateme.data.model.Cup
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.data.repository.AppRepository
+import com.imasha.hydrateme.data.repository.AppRepositoryImpl
 import com.imasha.hydrateme.notify.NotificationWorker
 import com.imasha.hydrateme.utils.AppConstants.IS_INIT_REMINDER
 import com.imasha.hydrateme.utils.AppConstants.REMINDER_NOTIFY
@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
+class HomeViewModel @Inject constructor(private val appRepository: AppRepositoryImpl) : ViewModel() {
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId

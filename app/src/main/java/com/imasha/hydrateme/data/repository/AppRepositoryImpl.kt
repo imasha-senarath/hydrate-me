@@ -7,6 +7,7 @@ import com.imasha.hydrateme.data.model.User
 import com.imasha.hydrateme.data.remote.firebase.FirebaseSource
 import com.imasha.hydrateme.data.local.RecordDao
 import com.imasha.hydrateme.data.local.UserDao
+import com.imasha.hydrateme.domain.repository.AppRepository
 import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
 import com.imasha.hydrateme.utils.AppConstants.NOTIFICATIONS_DOC
 import com.imasha.hydrateme.utils.AppConstants.USERS_DOC
@@ -14,12 +15,12 @@ import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
 import javax.inject.Inject
 
-class AppRepository @Inject constructor(
+class AppRepositoryImpl @Inject constructor(
     private val firebaseSource: FirebaseSource,
     private val apiSource: ApiSource,
     private val userDao: UserDao,
     private val recordDao: RecordDao
-) {
+) : AppRepository {
 
     suspend fun userAuthentication(): Boolean {
         return firebaseSource.userAuthentication()
@@ -33,7 +34,7 @@ class AppRepository @Inject constructor(
         return firebaseSource.getFcmToken()
     }
 
-    suspend fun login(user: User): Boolean {
+    override suspend fun login(user: User): Boolean {
         return firebaseSource.login(user)
     }
 

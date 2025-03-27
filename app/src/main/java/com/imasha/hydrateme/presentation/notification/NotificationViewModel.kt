@@ -5,14 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.imasha.hydrateme.data.model.Notification
-import com.imasha.hydrateme.data.repository.AppRepository
+import com.imasha.hydrateme.data.repository.AppRepositoryImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 
 import javax.inject.Inject
 
 @HiltViewModel
-class NotificationViewModel @Inject constructor(private val appRepository: AppRepository) : ViewModel() {
+class NotificationViewModel @Inject constructor(private val appRepository: AppRepositoryImpl) : ViewModel() {
 
     private val _userId = MutableLiveData<String>()
     val userId: LiveData<String> get() = _userId
