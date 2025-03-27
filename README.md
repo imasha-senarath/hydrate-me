@@ -24,6 +24,9 @@
   <li>Switch between light and dark themes.</li>
   <li>Receive random advice about the benefits of staying hydrated.</li>
 </ul>
+
+<h2>🛢️ Set Up Database</h2>
+<p>This project uses Firebase, but the current Firebase account has been disabled due to spamming, so the app won’t work. To make it functional, create a new Firebase project, add the Android app, and generate the google-services.json file. Place it in the app/ directory. Then, enable Email Authentication, Realtime Database, and Cloud Storage in your Firebase project.</p>
   
 <h2> 📸 Screenshots </h2>
 
