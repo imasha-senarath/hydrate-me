@@ -1,12 +1,12 @@
 package com.imasha.hydrateme.data.repository
 
-import com.imasha.hydrateme.api.ApiSource
+import com.imasha.hydrateme.data.remote.api.ApiSource
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
-import com.imasha.hydrateme.firebase.FirebaseSource
-import com.imasha.hydrateme.room.RecordDao
-import com.imasha.hydrateme.room.UserDao
+import com.imasha.hydrateme.data.remote.firebase.FirebaseSource
+import com.imasha.hydrateme.data.local.RecordDao
+import com.imasha.hydrateme.data.local.UserDao
 import com.imasha.hydrateme.utils.AppConstants.DRINKS_DOC
 import com.imasha.hydrateme.utils.AppConstants.NOTIFICATIONS_DOC
 import com.imasha.hydrateme.utils.AppConstants.USERS_DOC

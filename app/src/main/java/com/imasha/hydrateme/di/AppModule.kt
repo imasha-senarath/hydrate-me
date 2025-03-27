@@ -2,14 +2,14 @@ package com.imasha.hydrateme.di
 
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
-import com.imasha.hydrateme.api.ApiClient
-import com.imasha.hydrateme.api.ApiService
-import com.imasha.hydrateme.api.ApiSource
+import com.imasha.hydrateme.data.remote.api.ApiClient
+import com.imasha.hydrateme.data.remote.api.ApiService
+import com.imasha.hydrateme.data.remote.api.ApiSource
 import com.imasha.hydrateme.data.repository.AppRepository
-import com.imasha.hydrateme.firebase.FirebaseSource
-import com.imasha.hydrateme.room.AppDatabase
-import com.imasha.hydrateme.room.RecordDao
-import com.imasha.hydrateme.room.UserDao
+import com.imasha.hydrateme.data.remote.firebase.FirebaseSource
+import com.imasha.hydrateme.data.local.AppDatabase
+import com.imasha.hydrateme.data.local.RecordDao
+import com.imasha.hydrateme.data.local.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
