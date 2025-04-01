@@ -4,6 +4,9 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.repository.AppRepositoryImpl
+import com.imasha.hydrateme.domain.repository.AppRepository
+import com.imasha.hydrateme.domain.usecase.SaveNotificationUseCase
+import com.imasha.hydrateme.domain.usecase.UserIdUseCase
 import com.imasha.hydrateme.notify.NotificationUtils.showNotification
 import com.imasha.hydrateme.utils.AppConstants.FCM_TOKEN
 import com.imasha.hydrateme.utils.AppLogger
@@ -24,8 +27,14 @@ class MessagingService : FirebaseMessagingService() {
 
     private val className = this::class.java.simpleName
 
+    /*@Inject
+    lateinit var appRepository: AppRepository*/
+
     @Inject
-    lateinit var appRepository: AppRepositoryImpl
+    lateinit var userIdUseCase: UserIdUseCase
+
+    @Inject
+    lateinit var saveNotificationUseCase: SaveNotificationUseCase
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
@@ -43,7 +52,7 @@ class MessagingService : FirebaseMessagingService() {
                 message = message,
                 time = getCurrentTime(HH_MM),
                 date = getCurrentDate(DD_MM_YYYY),
-                user = appRepository.getCurrentUserId().orEmpty()
+                user = userIdUseCase.getCurrentUserId().orEmpty()
             )
         )
     }
@@ -56,7 +65,7 @@ class MessagingService : FirebaseMessagingService() {
     private fun saveNotification(notification: Notification) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val isSaved = appRepository.saveNotification(notification)
+                val isSaved = saveNotificationUseCase.saveNotification(notification)
                 if (!isSaved) {
                     AppLogger.d(className, "Failed to save notification")
                 }

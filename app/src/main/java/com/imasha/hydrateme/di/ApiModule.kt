@@ -20,19 +20,4 @@ object ApiModule {
     @Provides
     @Singleton
     fun provideApiSource(apiService: ApiService): ApiSource = ApiSource(apiService)
-
-    /*@Provides
-    @Singleton
-    fun provideAppRepository(
-        firebaseSource: FirebaseSource,
-        apiSource: ApiSource,
-        userDao: UserDao,
-        recordDao: RecordDao
-    ): AppRepository = AppRepositoryImpl(firebaseSource, apiSource, userDao, recordDao)*/
-
-    /*@Provides
-    @Singleton
-    fun provideAppUseCase(repository: AppRepository): AppUseCase {
-        return AppUseCase(repository)
-    }*/
 }

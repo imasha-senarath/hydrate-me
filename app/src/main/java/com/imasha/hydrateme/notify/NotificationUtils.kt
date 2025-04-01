@@ -9,7 +9,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.imasha.hydrateme.R
-import com.imasha.hydrateme.presentation.init.InitActivity
+import com.imasha.hydrateme.ui.init.InitActivity
 
 object NotificationUtils {
 

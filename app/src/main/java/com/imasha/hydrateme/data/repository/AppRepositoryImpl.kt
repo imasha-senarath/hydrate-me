@@ -22,15 +22,15 @@ class AppRepositoryImpl @Inject constructor(
     private val recordDao: RecordDao
 ) : AppRepository {
 
-    suspend fun userAuthentication(): Boolean {
+    override suspend fun userAuthentication(): Boolean {
         return firebaseSource.userAuthentication()
     }
 
-    fun getCurrentUserId(): String? {
+    override fun getCurrentUserId(): String? {
         return firebaseSource.getCurrentUserId()
     }
 
-    suspend fun getFcmToken(): String {
+    override suspend fun getFcmToken(): String {
         return firebaseSource.getFcmToken()
     }
 
@@ -38,11 +38,11 @@ class AppRepositoryImpl @Inject constructor(
         return firebaseSource.login(user)
     }
 
-    suspend fun signUp(user: User): Boolean {
+    override suspend fun signUp(user: User): Boolean {
         return firebaseSource.signUp(user)
     }
 
-    suspend fun getProfile(): User {
+    override suspend fun getProfile(): User {
         val userId = getCurrentUserId().toString()
         val localUser = userDao.getUser(userId)
 
@@ -57,7 +57,7 @@ class AppRepositoryImpl @Inject constructor(
         }
     }
 
-    suspend fun saveProfile(user: User): Boolean {
+    override suspend fun saveProfile(user: User): Boolean {
         val userId = getCurrentUserId().toString()
 
         user.id = userId
@@ -75,7 +75,7 @@ class AppRepositoryImpl @Inject constructor(
         return firebaseSource.saveData(USERS_DOC, userId, userMap)
     }
 
-    suspend fun saveDrink(record: Record): Boolean {
+    override suspend fun saveDrink(record: Record): Boolean {
         //recordDao.insertRecord(record)
 
         val drinkMap = mapOf(
@@ -88,7 +88,7 @@ class AppRepositoryImpl @Inject constructor(
         return firebaseSource.saveData(DRINKS_DOC, "", drinkMap)
     }
 
-    suspend fun getRecords(): List<Record> {
+    override suspend fun getRecords(): List<Record> {
         val userId = getCurrentUserId().toString()
         /*val localRecords = recordDao.getRecords(userId)
 
@@ -101,7 +101,7 @@ class AppRepositoryImpl @Inject constructor(
         )
     }
 
-    suspend fun getTodayRecords(): List<Record> {
+    override suspend fun getTodayRecords(): List<Record> {
         val userId = getCurrentUserId().toString()
         val date = getCurrentDate(DD_MM_YYYY)
         /*val localRecords = recordDao.getTodayRecords(userId, date)
@@ -117,11 +117,11 @@ class AppRepositoryImpl @Inject constructor(
         )
     }
 
-    suspend fun deleteRecord(id: String): Boolean {
+    override suspend fun deleteRecord(id: String): Boolean {
         return firebaseSource.deleteData(DRINKS_DOC, id)
     }
 
-    suspend fun getNotifications(): List<Notification> {
+    override suspend fun getNotifications(): List<Notification> {
         return firebaseSource.getDataList(
             NOTIFICATIONS_DOC,
             Notification::class.java,
@@ -129,7 +129,7 @@ class AppRepositoryImpl @Inject constructor(
         )
     }
 
-    suspend fun saveNotification(notification: Notification): Boolean {
+    override suspend fun saveNotification(notification: Notification): Boolean {
         val notificationMap = mapOf(
             "title" to notification.title,
             "message" to notification.message,
@@ -141,7 +141,7 @@ class AppRepositoryImpl @Inject constructor(
         return firebaseSource.saveData(NOTIFICATIONS_DOC, "", notificationMap)
     }
 
-    suspend fun logout(): Boolean {
+    override suspend fun logout(): Boolean {
         userDao.clear()
         recordDao.clear()
         //clearPref()
@@ -149,7 +149,7 @@ class AppRepositoryImpl @Inject constructor(
         return firebaseSource.logout()
     }
 
-    suspend fun getAdvices(): List<String> {
+    override suspend fun getAdvices(): List<String> {
         return apiSource.fetchAdvices()
     }
 }

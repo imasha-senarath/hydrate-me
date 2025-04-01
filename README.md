@@ -1,10 +1,10 @@
 <h1> Hydrate Me </h1>
 
-<p>A <strong> Water Reminder </strong> app that helps you stay hydrated throughout the day. Built with Kotlin, MVVM architecture, and Firebase to track and meet your hydration goals.</p>
+<p>A water reminder app that helps you stay hydrated throughout the day. Built with Kotlin, MVVM Clean Architecture, and Firebase to track and meet your hydration goals.</p>
 
 <h2> ⚙️ Technologies </h2>
 <ul>
-  <li>Kotlin with MVVM Architecture.</li>
+  <li>Kotlin with MVVM and Clean Architectures.</li>
   <li>Jetpack libraries, including ViewModel, LiveData, Data Binding, WorkManager.</li>
   <li>Firebase Authentication, Firestore and Cloud Messaging.</li>
   <li>Dependency injection using Hilt.</li>
@@ -26,7 +26,7 @@
 </ul>
 
 <h2>🛢️ Set Up Database</h2>
-<p>This project uses Firebase, but the current Firebase account has been disabled due to spamming, so the app won’t work. To make it functional, create a new Firebase project, add the Android app, and generate the google-services.json file. Place it in the app/ directory. Then, enable Email Authentication, Realtime Database, and Cloud Storage in your Firebase project.</p>
+<p>This project uses Firebase, but the current Firebase account has been disabled due to spamming, so the app won’t work. To make it functional, create a new Firebase project, add the Android app, and generate the google-services.json file. Place it in the app/directory. Then, enable Email Authentication and Firestore Database in your Firebase project.</p>
   
 <h2> 📸 Screenshots </h2>
 
