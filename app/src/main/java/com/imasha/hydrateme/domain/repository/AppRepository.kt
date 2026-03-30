@@ -3,6 +3,7 @@ package com.imasha.hydrateme.domain.repository
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
 import com.imasha.hydrateme.data.model.User
+import kotlinx.coroutines.flow.Flow
 
 interface AppRepository {
 
@@ -35,4 +36,8 @@ interface AppRepository {
     suspend fun logout(): Boolean
 
     suspend fun getAdvices(): List<String>
+
+    suspend fun saveAppEntry()
+
+    fun readAppEntry(): Flow<Boolean>
 }

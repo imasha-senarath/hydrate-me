@@ -1,5 +1,6 @@
 package com.imasha.hydrateme.data.repository
 
+import com.imasha.hydrateme.data.local.DataStoreManager
 import com.imasha.hydrateme.data.remote.api.ApiSource
 import com.imasha.hydrateme.data.model.Notification
 import com.imasha.hydrateme.data.model.Record
@@ -13,13 +14,15 @@ import com.imasha.hydrateme.utils.AppConstants.NOTIFICATIONS_DOC
 import com.imasha.hydrateme.utils.AppConstants.USERS_DOC
 import com.imasha.hydrateme.utils.DateUtils.DD_MM_YYYY
 import com.imasha.hydrateme.utils.DateUtils.getCurrentDate
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AppRepositoryImpl @Inject constructor(
     private val firebaseSource: FirebaseSource,
     private val apiSource: ApiSource,
     private val userDao: UserDao,
-    private val recordDao: RecordDao
+    private val recordDao: RecordDao,
+    private val dataStoreManager: DataStoreManager
 ) : AppRepository {
 
     override suspend fun userAuthentication(): Boolean {
@@ -151,5 +154,13 @@ class AppRepositoryImpl @Inject constructor(
 
     override suspend fun getAdvices(): List<String> {
         return apiSource.fetchAdvices()
+    }
+
+    override suspend fun saveAppEntry() {
+        dataStoreManager.saveAppEntry()
+    }
+
+    override fun readAppEntry(): Flow<Boolean> {
+        return dataStoreManager.readAppEntry()
     }
 }
