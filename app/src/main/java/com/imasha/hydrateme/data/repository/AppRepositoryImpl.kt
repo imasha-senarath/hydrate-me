@@ -160,7 +160,7 @@ class AppRepositoryImpl @Inject constructor(
         dataStoreManager.saveAppEntry()
     }
 
-    override fun readAppEntry(): Flow<Boolean> {
+    override suspend fun readAppEntry(): Boolean {
         return dataStoreManager.readAppEntry()
     }
 }

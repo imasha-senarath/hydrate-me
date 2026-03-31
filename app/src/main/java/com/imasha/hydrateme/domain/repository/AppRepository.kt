@@ -39,5 +39,5 @@ interface AppRepository {
 
     suspend fun saveAppEntry()
 
-    fun readAppEntry(): Flow<Boolean>
+    suspend fun readAppEntry(): Boolean
 }

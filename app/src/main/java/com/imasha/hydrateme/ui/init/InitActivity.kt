@@ -5,13 +5,11 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.imasha.hydrateme.R
 import com.imasha.hydrateme.databinding.ActivityInitBinding
-import com.imasha.hydrateme.ui.home.HomeActivity
 import com.imasha.hydrateme.ui.base.BaseActivity
+import com.imasha.hydrateme.ui.home.HomeActivity
 import com.imasha.hydrateme.ui.intro.IntroActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
-import com.imasha.hydrateme.utils.AppConstants.IS_FIRST_TIME
 import com.imasha.hydrateme.utils.AppLogger
-import com.imasha.hydrateme.utils.SharedPrefManager.getPrefBoolean
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -40,8 +38,18 @@ class InitActivity : BaseActivity() {
                 if (isAuthenticated) {
                     navigateToMainActivity()
                 } else {
-                    navigateToIntroActivity().takeIf { getPrefBoolean(IS_FIRST_TIME, true) } ?: navigateToLoginActivity()
+                    initViewModel.appEntry()
+                    //navigateToIntroActivity().takeIf { getPrefBoolean(IS_FIRST_TIME, true) } ?: navigateToLoginActivity()
                 }
+            }.onFailure { exception ->
+                AppLogger.d(className, exception.message.toString())
+                navigateToLoginActivity()
+            }
+        }
+
+        initViewModel.appEntryState.observe(this) { result ->
+            result.onSuccess { appEntry ->
+                if (appEntry) navigateToLoginActivity() else navigateToIntroActivity()
             }.onFailure { exception ->
                 AppLogger.d(className, exception.message.toString())
                 navigateToLoginActivity()

@@ -15,7 +15,6 @@ object AppConstants {
     const val WAKE_UP_TIME = "wake_up_time"
     const val BED_TIME = "bed_time"
     const val IS_NOTIFICATION_ON = "is_notification_on"
-    const val IS_FIRST_TIME = "is_first_time"
     const val APP_ENTRY = "app_entry"
 
     // Theme Values

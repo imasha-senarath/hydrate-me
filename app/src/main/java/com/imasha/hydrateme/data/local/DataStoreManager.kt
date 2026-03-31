@@ -5,8 +5,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import com.imasha.hydrateme.utils.AppConstants
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 val Context.dataStore by preferencesDataStore(name = "hydrate_me_prefs")
@@ -23,14 +22,14 @@ class DataStoreManager @Inject constructor (private val context: Context) {
         }
     }
 
-    fun readAppEntry(): Flow<Boolean> {
+    suspend fun readAppEntry(): Boolean {
+        val preferences = context.dataStore.data.first()
+        return preferences[PrefKeys.APP_ENTRY] ?: false
+    }
+
+    /*fun readAppEntry(): Flow<Boolean> {
         return context.dataStore.data.map {
             it[PrefKeys.APP_ENTRY] ?: false
         }
-    }
-
-    /*suspend fun readAppEntry(): Boolean {
-        val preferences = context.dataStore.data.first()
-        return preferences[PrefKeys.APP_ENTRY] ?: false
     }*/
 }

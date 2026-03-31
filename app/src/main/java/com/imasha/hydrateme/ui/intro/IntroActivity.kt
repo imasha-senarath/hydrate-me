@@ -2,15 +2,17 @@ package com.imasha.hydrateme.ui.intro
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.imasha.hydrateme.databinding.ActivityIntroBinding
 import com.imasha.hydrateme.ui.base.BaseActivity
 import com.imasha.hydrateme.ui.login.LoginActivity
-import com.imasha.hydrateme.utils.AppConstants.IS_FIRST_TIME
-import com.imasha.hydrateme.utils.SharedPrefManager.savePrefBoolean
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class IntroActivity : BaseActivity() {
 
     private lateinit var binding: ActivityIntroBinding
+    private val introViewModel: IntroViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +20,7 @@ class IntroActivity : BaseActivity() {
         setContentView(binding.root)
 
         binding.getStartedBtn.setOnClickListener {
-            savePrefBoolean(IS_FIRST_TIME, false)
+            introViewModel.saveAppEntry()
             navigateToLoginActivity()
         }
     }
